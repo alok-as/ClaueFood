@@ -1,0 +1,11 @@
+.navigation {
+	&__item {
+		&:not(:last-child) {
+			margin-right: 3rem;
+		}
+	}
+
+	&__link {
+		color: var(--color-black-1);
+	}
+}
