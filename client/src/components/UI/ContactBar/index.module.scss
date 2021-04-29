@@ -1,0 +1,26 @@
+.contact {
+	background-color: var(--color-grey-2);
+
+	&__content {
+		padding-top: 1.2rem;
+		padding-bottom: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__left {
+		display: flex;
+		align-items: center;
+	}
+
+	&__item {
+		font-size: 1.2rem;
+		font-style: initial;
+		color: var(--color-grey-1);
+
+		&:not(:last-child) {
+			margin-right: 2rem;
+		}
+	}
+}

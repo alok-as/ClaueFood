@@ -1,0 +1,42 @@
+.search {
+	background-color: var(--color-green-2);
+
+	&__content {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: var(--color-white-1);
+	}
+
+	&__dropdown {
+		flex: 1;
+		text-transform: capitalize;
+	}
+
+	&__field {
+		flex-basis: 60%;
+		text-align: center;
+	}
+
+	&__input {
+		width: 80%;
+		padding: 1.2rem 3rem;
+		border-radius: 4px;
+		border: none;
+
+		&:focus {
+			outline: none;
+		}
+
+		&::placeholder {
+			letter-spacing: 1px;
+		}
+	}
+
+	&__offer {
+		flex: 1;
+		font-size: 1.5rem;
+	}
+}
