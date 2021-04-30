@@ -9,7 +9,7 @@ import {
 	NavigationItem,
 	SearchBar,
 } from "../../components/UI";
-import SignUpModal from "../SignUpModal";
+import AuthModal from "../AuthModal";
 import { nanoid } from "nanoid";
 
 const Header = () => {
@@ -37,8 +37,10 @@ const Header = () => {
 	]);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [modalType, setModalType] = useState("signUp");
 
-	const openModalHandler = () => {
+	const openModalHandler = (type) => {
+		setModalType(type);
 		setIsModalOpen(true);
 	};
 
@@ -60,7 +62,11 @@ const Header = () => {
 		<header className={classes.header}>
 			<ContactBar />
 			{ReactDOM.createPortal(
-				<SignUpModal isOpen={isModalOpen} onClose={closeModalHandler} />,
+				<AuthModal
+					isOpen={isModalOpen}
+					type={modalType}
+					onClose={closeModalHandler}
+				/>,
 				document.getElementById("popups")
 			)}
 			<Row className={classes.header__content}>
@@ -74,8 +80,8 @@ const Header = () => {
 				</nav>
 				<div className={classes.header__options}>
 					<span onClick={googleLogin}>Profile</span>
-					<span onClick={openModalHandler}>Wishlist</span>
-					<span>Cart</span>
+					<span onClick={() => openModalHandler("signUp")}>Wishlist</span>
+					<span onClick={() => openModalHandler("signIn")}>Cart</span>
 				</div>
 			</Row>
 			<SearchBar />

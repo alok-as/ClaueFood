@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import classes from "./index.module.scss";
 import { Animate, Backdrop } from "../../components/UI";
+import { SignInModal, SignUpModal } from "../../components/Authentication";
 
-const SignUpModal = ({ isOpen, onClose }) => {
+const AuthModal = ({ isOpen, type, onClose }) => {
 	const modalAnimationConfig = {
 		isVisible: isOpen,
 		mountOnEnter: true,
@@ -20,8 +21,11 @@ const SignUpModal = ({ isOpen, onClose }) => {
 			<Animate {...modalAnimationConfig}>
 				<div className={classes.modal}>
 					<div className={classes.modal__header}>
-						<p>Sign In</p>
+						<p>{type.includes("signUp") ? "Create New Account" : "Sign In"}</p>
 						<p onClick={onClose}>X</p>
+					</div>
+					<div className={classes.modal__area}>
+						{type.includes("signUp") ? <SignUpModal /> : <SignInModal />}
 					</div>
 				</div>
 			</Animate>
@@ -29,4 +33,4 @@ const SignUpModal = ({ isOpen, onClose }) => {
 	);
 };
 
-export default SignUpModal;
+export default AuthModal;

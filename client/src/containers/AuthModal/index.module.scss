@@ -1,10 +1,9 @@
 .modal {
 	position: fixed;
 	top: 20%;
-	left: 38%;
-	background-color: orange;
-	width: 400px;
-	height: 400px;
+	left: 30%;
+	background-color: var(--color-white-1);
+	width: 40%;
 	z-index: 200;
 
 	&__header {
@@ -12,6 +11,11 @@
 		justify-content: space-between;
 		align-items: center;
 		background-color: var(--color-blue-1);
+		padding: 1.2rem;
+	}
+
+	&__area {
+		padding: 2rem;
 	}
 
 	&__enter {

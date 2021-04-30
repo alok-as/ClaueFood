@@ -1,0 +1,33 @@
+.signup {
+	width: 100%;
+	height: 100%;
+
+	&__name {
+		display: flex;
+		gap: 2rem;
+
+		& > * {
+			flex-basis: 50%;
+		}
+	}
+
+	&__field {
+		margin-top: 1rem;
+	}
+
+	&__button {
+		width: 100%;
+		padding: 0.8rem;
+		color: var(--color-white-1);
+		background-color: var(--color-black-1);
+		border: none;
+		margin-top: 2rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: var(--color-blue-1);
+		}
+	}
+}
