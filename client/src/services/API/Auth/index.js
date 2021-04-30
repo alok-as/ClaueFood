@@ -1,16 +1,18 @@
 import axios from "../../axios";
 
 const Auth = {
-	register() {
+	register(data) {
 		return axios.request({
 			method: "POST",
 			url: "/user/register",
+			data,
 		});
 	},
-	login() {
+	login(data) {
 		return axios.request({
 			method: "POST",
 			url: "/user/login",
+			data,
 		});
 	},
 };
