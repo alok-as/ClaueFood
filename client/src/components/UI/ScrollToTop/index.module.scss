@@ -1,0 +1,18 @@
+.scroll {
+	position: fixed;
+	bottom: 3.5rem;
+	right: 3.5rem;
+
+	background-color: var(--color-white);
+	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 20%);
+	background-color: orange;
+	width: 4.5rem;
+	height: 4.5rem;
+	transform: translateY(8rem);
+	transition: 0.3s transform ease;
+	cursor: pointer;
+
+	&__visible {
+		transform: translateY(0);
+	}
+}

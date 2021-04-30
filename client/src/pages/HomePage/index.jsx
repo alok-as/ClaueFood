@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
+import { Hero } from "../../containers/Home";
 
 const HomePage = () => {
-	return <Fragment></Fragment>;
+	return (
+		<Fragment>
+			<Hero />
+		</Fragment>
+	);
 };
 
 export default HomePage;
