@@ -6,7 +6,12 @@ const { isEmail, isMobilePhone } = require("validator");
 const { privateKey } = require("../../config/keys");
 
 const userSchema = new mongoose.Schema({
-	name: {
+	firstName: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+	lastName: {
 		type: String,
 		required: true,
 		trim: true,
@@ -22,7 +27,7 @@ const userSchema = new mongoose.Schema({
 	},
 	mobileNumber: {
 		type: String,
-		required: true,
+		required: false,
 		validate: {
 			validator: (value) => isMobilePhone(value, "en-IN"),
 			message: ({ value }) => `${value} is not a valid mobile number`,
@@ -40,8 +45,8 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
-userSchema.statics.checkIfExistingUser = async (email) => {
-	const user = await User.findOne({ email });
+userSchema.statics.checkIfExistingUser = async function (email) {
+	const user = await this.findOne({ email });
 	if (user) {
 		return true;
 	}

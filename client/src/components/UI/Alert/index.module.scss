@@ -1,0 +1,19 @@
+.alert {
+	padding: 1.2rem;
+	margin-bottom: 1.2rem;
+
+	&__success {
+		color: var(--color-green-1);
+		background-color: rgb(159, 255, 159);
+	}
+
+	&__failure {
+		color: red;
+		background-color: rgb(255, 159, 159);
+	}
+
+	&__warning {
+		color: yellow;
+		background-color: rgb(238, 255, 142);
+	}
+}

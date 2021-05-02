@@ -15,7 +15,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	res.send({
 		success: true,
-		data: null,
+		data: user,
 		message: "User successfully created",
 	});
 });

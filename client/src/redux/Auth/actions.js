@@ -7,16 +7,25 @@ export const registerUser = (reqData) => async (dispatch) => {
 			type: actionTypes.REGISTER_USER_REQUEST,
 		});
 
-		const { data } = await Auth.registerUser(reqData);
+		const { data } = await Auth.register(reqData);
+
 		dispatch({
 			type: actionTypes.REGISTER_USER_SUCCESS,
+			payload: data.message,
 		});
 	} catch (error) {
-		console.error("Error registering user:", error);
+		console.log("Error");
+		const { data } = error.response;
+
 		dispatch({
 			type: actionTypes.REGISTER_USER_FAILED,
+			payload: data.message,
 		});
 	}
+};
+
+export const clearRegisterMetaData = () => {
+	return { type: actionTypes.CLEAR_REGISTER_METADATA };
 };
 
 export const loginUser = (reqData) => async (dispatch) => {
@@ -25,7 +34,7 @@ export const loginUser = (reqData) => async (dispatch) => {
 			type: actionTypes.LOGIN_USER_REQUEST,
 		});
 
-		const { data } = await Auth.loginUser(reqData);
+		const { data } = await Auth.login(reqData);
 		dispatch({
 			type: actionTypes.LOGIN_USER_SUCCESS,
 		});
