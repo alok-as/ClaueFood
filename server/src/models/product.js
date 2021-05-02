@@ -27,6 +27,15 @@ const productSchema = mongoose.Schema({
 	},
 });
 
+productSchema.statics.checkIfExistingProduct = async function (title) {
+	const product = await this.findOne({ title });
+	if (product) {
+		return true;
+	}
+
+	return false;
+};
+
 productSchema.pre("save", function (next) {
 	const product = this;
 	const slug = slugify(product.title, {
