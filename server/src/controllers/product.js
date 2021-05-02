@@ -33,18 +33,24 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
 const fetchProductById = asyncHandler(async (req, res) => {
 	const { id } = req.params;
 	const product = await Product.findById(id);
+	await product
+		.populate({
+			path: "reviews",
+			populate: { path: "user", select: "firstName lastName" },
+		})
+		.execPopulate();
 
 	if (!product) {
 		return res.send({
 			success: false,
-			data: null,
+			data: product,
 			message: "Product not found",
 		});
 	}
 
 	return res.send({
 		success: true,
-		data: product,
+		data: { product, reviews: product.reviews },
 		message: "Product successfully fetched",
 	});
 });

@@ -41,6 +41,12 @@ productSchema.statics.checkIfExistingProduct = async function (title) {
 	return false;
 };
 
+productSchema.virtual("reviews", {
+	ref: "Review",
+	foreignField: "productId",
+	localField: "_id",
+});
+
 productSchema.pre("save", function (next) {
 	const product = this;
 	const slug = slugify(product.title, {
