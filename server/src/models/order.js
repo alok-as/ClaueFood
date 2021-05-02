@@ -7,15 +7,19 @@ const orderSchema = mongoose.Schema(
 			ref: "User",
 			required: true,
 		},
-		product: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Product",
-			required: true,
-		},
-		quantity: {
-			type: Number,
-			required: true,
-		},
+		products: [
+			{
+				quantity: {
+					type: Number,
+					required: true,
+				},
+				product: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: "Product",
+					required: true,
+				},
+			},
+		],
 		paymentMethod: {
 			type: String,
 			enum: ["Cash on Delivery", "UPI", "Netbanking"],
@@ -23,6 +27,21 @@ const orderSchema = mongoose.Schema(
 		isPaid: {
 			type: Boolean,
 			default: false,
+		},
+		status: {
+			type: String,
+			enum: [
+				"Placed",
+				"Dispatched",
+				"Shipped",
+				"Out for delivery",
+				"Delivered",
+				"Cancelled",
+			],
+			default: "Placed",
+		},
+		deliveredAt: {
+			type: Date,
 		},
 	},
 	{

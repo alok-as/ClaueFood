@@ -7,6 +7,16 @@ const cookieExtractor = (req) => {
 	return token;
 };
 
+const checkIfValidUpdate = (reqBody, allowedUpdates) => {
+	const updates = Object.keys(reqBody);
+	const isValidUpdate = updates.every((update) =>
+		allowedUpdates.includes(update)
+	);
+
+	return isValidUpdate;
+};
+
 module.exports = {
 	cookieExtractor,
+	checkIfValidUpdate,
 };
