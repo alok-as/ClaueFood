@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	wishlist: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Product",
+		},
+	],
 });
 
 userSchema.statics.checkIfExistingUser = async function (email) {

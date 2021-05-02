@@ -5,12 +5,17 @@ const {
 	registerUser,
 	loginUser,
 	fetchUserDetails,
+	addProductToUserWishlist,
+	fetchUserWishlist,
 } = require("../controllers/user");
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+
+router.post("/wishlist", addProductToUserWishlist);
+router.get("/wishlist", fetchUserWishlist);
 
 router.get(
 	"/",

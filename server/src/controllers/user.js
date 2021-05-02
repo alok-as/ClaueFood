@@ -45,6 +45,30 @@ const loginUser = asyncHandler(async (req, res) => {
 	});
 });
 
+const addProductToUserWishlist = asyncHandler(async (req, res) => {
+	const { userId, productId } = req.body;
+	const user = await User.findById(userId);
+	user.wishlist = user.wishlist.concat(productId);
+	await user.save();
+
+	res.send({
+		success: true,
+		data: null,
+		message: "Product successfully added to your Wishlist",
+	});
+});
+
+const fetchUserWishlist = asyncHandler(async (req, res) => {
+	const { userId } = req.body;
+	const user = await User.findById(userId).populate("wishlist");
+
+	res.send({
+		success: true,
+		data: user.wishlist,
+		message: "User Wishlist fetched successfully",
+	});
+});
+
 const fetchUserDetails = asyncHandler(async (req, res) => {
 	console.log("Successfully authenticated", req.user);
 	res.send({});
@@ -54,4 +78,6 @@ module.exports = {
 	registerUser,
 	loginUser,
 	fetchUserDetails,
+	addProductToUserWishlist,
+	fetchUserWishlist,
 };
