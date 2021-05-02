@@ -5,51 +5,56 @@ const mongoose = require("mongoose");
 const { isEmail, isMobilePhone } = require("validator");
 const { privateKey } = require("../../config/keys");
 
-const userSchema = new mongoose.Schema({
-	firstName: {
-		type: String,
-		required: true,
-		trim: true,
-	},
-	lastName: {
-		type: String,
-		required: true,
-		trim: true,
-	},
-	email: {
-		type: String,
-		required: true,
-		validate: {
-			validator: (value) => isEmail(value),
-			message: ({ value }) => `${value} is not a valid email address`,
+const userSchema = new mongoose.Schema(
+	{
+		firstName: {
+			type: String,
+			required: true,
+			trim: true,
 		},
-		trim: true,
-	},
-	mobileNumber: {
-		type: String,
-		required: false,
-		validate: {
-			validator: (value) => isMobilePhone(value, "en-IN"),
-			message: ({ value }) => `${value} is not a valid mobile number`,
+		lastName: {
+			type: String,
+			required: true,
+			trim: true,
 		},
-		trim: true,
-	},
-	password: {
-		type: String,
-		required: true,
-		trim: true,
-	},
-	authToken: {
-		type: String,
-		required: false,
-	},
-	wishlist: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Product",
+		email: {
+			type: String,
+			required: true,
+			validate: {
+				validator: (value) => isEmail(value),
+				message: ({ value }) => `${value} is not a valid email address`,
+			},
+			trim: true,
 		},
-	],
-});
+		mobileNumber: {
+			type: String,
+			required: false,
+			validate: {
+				validator: (value) => isMobilePhone(value, "en-IN"),
+				message: ({ value }) => `${value} is not a valid mobile number`,
+			},
+			trim: true,
+		},
+		password: {
+			type: String,
+			required: true,
+			trim: true,
+		},
+		authToken: {
+			type: String,
+			required: false,
+		},
+		wishlist: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Product",
+			},
+		],
+	},
+	{
+		timestamps: true,
+	}
+);
 
 userSchema.statics.checkIfExistingUser = async function (email) {
 	const user = await this.findOne({ email });

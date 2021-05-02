@@ -1,31 +1,36 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 
-const productSchema = mongoose.Schema({
-	title: {
-		type: String,
-		required: true,
+const productSchema = mongoose.Schema(
+	{
+		title: {
+			type: String,
+			required: true,
+		},
+		slug: {
+			type: String,
+		},
+		price: {
+			type: Number,
+			required: true,
+		},
+		description: {
+			type: String,
+			required: true,
+		},
+		characterstics: {
+			type: Array,
+			required: true,
+		},
+		stock: {
+			type: Number,
+			required: true,
+		},
 	},
-	slug: {
-		type: String,
-	},
-	price: {
-		type: Number,
-		required: true,
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-	characterstics: {
-		type: Array,
-		required: true,
-	},
-	stock: {
-		type: Number,
-		required: true,
-	},
-});
+	{
+		timestamps: true,
+	}
+);
 
 productSchema.statics.checkIfExistingProduct = async function (title) {
 	const product = await this.findOne({ title });
