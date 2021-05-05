@@ -1,0 +1,28 @@
+.heading {
+	&__primary {
+		font-size: 6rem;
+		letter-spacing: 1px;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	&__secondary {
+		font-weight: 400;
+		text-transform: capitalize;
+		font-size: 3rem;
+	}
+
+	&__tertiary {
+		color: var(--color-grey-1);
+		text-transform: capitalize;
+	}
+
+	&__quaternary {
+	}
+
+	&__pentanary {
+	}
+
+	&__hexanary {
+	}
+}

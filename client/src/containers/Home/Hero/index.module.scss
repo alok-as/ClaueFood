@@ -1,7 +1,21 @@
 .hero {
-	background-image: url("../../../assets/images/Home/hero.jpg");
 	background-position: center center;
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 75vh;
+	position: relative;
+
+	&__slider {
+		position: relative;
+		height: 100%;
+		display: flex;
+		overflow-x: scroll;
+	}
+
+	&__button {
+		position: absolute;
+		bottom: 2rem;
+		right: 5rem;
+		z-index: 50;
+	}
 }
