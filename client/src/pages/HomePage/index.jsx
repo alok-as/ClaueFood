@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
-import { Hero } from "../../containers/Home";
+import { Hero, Featured } from "../../containers/Home";
 
 const HomePage = () => {
 	return (
 		<Fragment>
 			<Hero />
+			<Featured />
 		</Fragment>
 	);
 };

@@ -30,4 +30,12 @@ input,
 textarea,
 button {
 	font-family: inherit;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+button {
+	cursor: pointer;
 }

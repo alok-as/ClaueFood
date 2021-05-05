@@ -9,13 +9,12 @@
 		position: relative;
 		height: 100%;
 		display: flex;
-		overflow-x: scroll;
 	}
 
 	&__button {
 		position: absolute;
 		bottom: 2rem;
 		right: 5rem;
-		z-index: 50;
+		z-index: 30;
 	}
 }

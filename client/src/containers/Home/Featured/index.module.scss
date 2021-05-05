@@ -1,0 +1,14 @@
+.featured {
+	&__cards {
+		display: flex;
+		margin-bottom: 20rem;
+
+		& > * {
+			flex-basis: 50%;
+
+			&:nth-child(1) {
+				margin-right: 3rem;
+			}
+		}
+	}
+}
