@@ -1,7 +1,7 @@
 .featured {
 	&__cards {
 		display: flex;
-		margin-bottom: 20rem;
+		margin-bottom: 5rem;
 
 		& > * {
 			flex-basis: 50%;
@@ -10,5 +10,22 @@
 				margin-right: 3rem;
 			}
 		}
+	}
+
+	&__list {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		max-width: 60%;
+		color: var(--color-grey-1);
+		margin: 0 auto;
+
+		margin-bottom: 5rem;
+	}
+
+	&__products {
+		display: flex;
+		overflow: hidden;
+		margin-bottom: 5rem;
 	}
 }
