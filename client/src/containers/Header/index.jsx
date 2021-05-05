@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import axios from "axios";
 import classes from "./index.module.scss";
-import Row from "../../hoc/Row";
+import { Row, Portal } from "../../hoc";
 import {
 	ContactBar,
 	Logo,
 	NavigationItem,
 	SearchBar,
 } from "../../components/UI";
-import AuthModal from "../AuthModal";
+import { AuthModal, Sidebar } from "../index";
 import { nanoid } from "nanoid";
 
 const Header = () => {
@@ -36,16 +35,40 @@ const Header = () => {
 		},
 	]);
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+	const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
 	const [modalType, setModalType] = useState("signUp");
 
 	const openModalHandler = (type) => {
-		setModalType(type);
-		setIsModalOpen(true);
+		switch (type) {
+			case "signUp":
+				setIsAuthModalOpen(true);
+				setModalType(type);
+				break;
+			case "signIn":
+				setIsAuthModalOpen(true);
+				setModalType(type);
+				break;
+			case "sidebar":
+				setIsSidebarVisible(true);
+				break;
+			default:
+				break;
+		}
 	};
 
-	const closeModalHandler = () => {
-		setIsModalOpen(false);
+	const closeModalHandler = (type) => {
+		switch (type) {
+			case "signUp":
+				setIsAuthModalOpen(false);
+				break;
+			case "sidebar":
+				setIsSidebarVisible(false);
+				break;
+			default:
+				break;
+		}
 	};
 
 	const googleLogin = async () => {
@@ -61,14 +84,19 @@ const Header = () => {
 	return (
 		<header className={classes.header}>
 			<ContactBar />
-			{ReactDOM.createPortal(
+			<Portal>
 				<AuthModal
-					isOpen={isModalOpen}
+					isOpen={isAuthModalOpen}
 					type={modalType}
-					onClose={closeModalHandler}
-				/>,
-				document.getElementById("popups")
-			)}
+					onClose={() => closeModalHandler("signUp")}
+				/>
+			</Portal>
+			<Portal>
+				<Sidebar
+					isVisible={isSidebarVisible}
+					onClose={() => closeModalHandler("sidebar")}
+				/>
+			</Portal>
 			<Row className={classes.header__content}>
 				<Logo />
 				<nav className={classes.navigation}>
@@ -79,7 +107,7 @@ const Header = () => {
 					</ul>
 				</nav>
 				<div className={classes.header__options}>
-					<span onClick={googleLogin}>Profile</span>
+					<span onClick={() => openModalHandler("sidebar")}>Profile</span>
 					<span onClick={() => openModalHandler("signUp")}>Wishlist</span>
 					<span onClick={() => openModalHandler("signIn")}>Cart</span>
 				</div>

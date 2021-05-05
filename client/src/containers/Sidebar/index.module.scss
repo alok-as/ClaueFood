@@ -1,0 +1,53 @@
+.sidebar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 21%;
+	height: 100vh;
+	background-color: var(--color-white-1);
+	z-index: 200;
+
+	&__header {
+		position: relative;
+		text-align: center;
+		padding: 1.2rem;
+		background-color: var(--color-black-1);
+	}
+
+	&__title {
+		display: inline-block;
+		color: var(--color-white-1);
+	}
+
+	&__close {
+		position: absolute;
+		top: 50%;
+		left: 1rem;
+		transform: translateY(-50%);
+		display: inline-block;
+		background: none;
+		border: none;
+		color: var(--color-white-1);
+	}
+
+	&__content {
+	}
+
+	&__enter {
+		right: -100%;
+	}
+
+	&__enterActive {
+		right: 0%;
+		transition: 0.3s right ease;
+	}
+
+	&__exit {
+		right: 0%;
+	}
+
+	&__exitActive {
+		right: -100%;
+		transition: 0.3s right ease;
+	}
+}
