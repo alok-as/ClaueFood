@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
@@ -8,8 +9,6 @@ import { FeaturedItem } from "../../../components/Home";
 import featureImage1 from "../../../assets/images/Home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/Home/featured-2.jpg";
 
-import productImage1 from "../../../assets/images/Home/product-1.jpg";
-import productImage2 from "../../../assets/images/Home/product-2.jpg";
 import ProductCard from "../../../components/UI/ProductCard";
 
 const Featured = () => {
@@ -51,56 +50,7 @@ const Featured = () => {
 		},
 	]);
 
-	const [products, setProducts] = useState([
-		{
-			key: nanoid(),
-			title: "Fresh organic peaches",
-			image1: productImage1,
-			image2: productImage2,
-			actualPrice: "$150.00",
-			discountedPrice: "$120.00",
-		},
-		{
-			key: nanoid(),
-			title: "Fresh organic peaches",
-			image1: productImage1,
-			image2: productImage2,
-			actualPrice: "$150.00",
-			discountedPrice: "$120.00",
-		},
-		{
-			key: nanoid(),
-			title: "Fresh organic peaches",
-			image1: productImage1,
-			image2: productImage2,
-			actualPrice: "$150.00",
-			discountedPrice: "$120.00",
-		},
-		{
-			key: nanoid(),
-			title: "Fresh organic peaches",
-			image1: productImage1,
-			image2: productImage2,
-			actualPrice: "$150.00",
-			discountedPrice: "$120.00",
-		},
-		{
-			key: nanoid(),
-			title: "Fresh organic peaches",
-			image1: productImage1,
-			image2: productImage2,
-			actualPrice: "$150.00",
-			discountedPrice: "$120.00",
-		},
-		{
-			key: nanoid(),
-			title: "Fresh organic peaches",
-			image1: productImage1,
-			image2: productImage2,
-			actualPrice: "$150.00",
-			discountedPrice: "$120.00",
-		},
-	]);
+	const { products } = useSelector((state) => state.products.productsDetails);
 
 	const [selectedCategory, setSelectedCategory] = useState(0);
 
@@ -136,7 +86,7 @@ const Featured = () => {
 			</div>
 			<div className={classes.featured__products}>
 				{products.map((product) => (
-					<ProductCard {...product} />
+					<ProductCard key={product._id} {...product} />
 				))}
 			</div>
 		</Section>

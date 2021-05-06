@@ -1,7 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Hero, Featured } from "../../containers/Home";
 
+import { fetchAllProducts } from "../../redux/Products/actions";
+
 const HomePage = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchAllProducts());
+	}, []);
+
 	return (
 		<Fragment>
 			<Hero />
