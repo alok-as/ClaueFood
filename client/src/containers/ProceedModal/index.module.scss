@@ -88,6 +88,13 @@
 		background-color: var(--color-white-1);
 		font-size: 1.2rem;
 		padding: 0.8rem 2rem;
+		transition: all 0.3s ease;
+
+		&:hover {
+			color: var(--color-white-1);
+			background-color: var(--color-green-1);
+			border: 2px solid var(--color-green-1);
+		}
 	}
 
 	&__checkout {
@@ -96,5 +103,11 @@
 		font-weight: 600;
 		background-color: var(--color-black-1);
 		text-transform: uppercase;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background-color: var(--color-green-1);
+			color: var(--color-white-1);
+		}
 	}
 }

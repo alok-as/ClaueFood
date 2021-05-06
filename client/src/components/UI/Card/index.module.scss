@@ -1,5 +1,41 @@
 .card {
 	position: relative;
+	cursor: pointer;
+	overflow: hidden;
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		opacity: 0;
+		z-index: -1;
+		background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+		transition: all 0.5s ease-in-out 0s;
+	}
+
+	&::before {
+		left: 50%;
+		right: 51%;
+	}
+
+	&::after {
+		top: 50%;
+		bottom: 51%;
+		right: 0;
+		left: 0;
+	}
+
+	&:hover {
+		&::before,
+		&::after {
+			opacity: 1;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
 
 	&__image {
 		width: 100%;
