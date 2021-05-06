@@ -14,6 +14,14 @@ const productSchema = mongoose.Schema(
 			type: Number,
 			required: true,
 		},
+		discount: {
+			type: Number,
+			required: false,
+		},
+		dicountedPrice: {
+			type: Number,
+			required: false,
+		},
 		description: {
 			type: String,
 			required: true,
@@ -29,6 +37,7 @@ const productSchema = mongoose.Schema(
 		seller: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
+			required: true,
 		},
 	},
 	{
@@ -51,11 +60,23 @@ productSchema.virtual("reviews", {
 	localField: "_id",
 });
 
+productSchema.virtual("images", {
+	ref: "Image",
+	foreignField: "productId",
+	localField: "_id",
+});
+
 productSchema.pre("save", function (next) {
 	const product = this;
 	const slug = slugify(product.title, {
 		lower: true,
 	});
+
+	if (product.discount) {
+		const discountedPrice =
+			product.price - (product.price * product.discount) / 100;
+		product.dicountedPrice = discountedPrice;
+	}
 
 	product.slug = slug;
 	next();

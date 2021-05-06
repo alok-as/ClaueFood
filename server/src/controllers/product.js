@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Product = require("../models/product");
 
 const createProduct = asyncHandler(async (req, res) => {
-	const { title } = req.body;
+	const { title, userId } = req.body;
 	const isExisiting = await Product.checkIfExistingProduct(title);
 
 	if (isExisiting) {
@@ -10,7 +10,7 @@ const createProduct = asyncHandler(async (req, res) => {
 		throw new Error(`Product with title ${title} already exists`);
 	}
 
-	const product = new Product({ ...req.body });
+	const product = new Product({ ...req.body, seller: userId });
 	await product.save();
 
 	res.status(201).send({
@@ -21,11 +21,16 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 const fetchAllProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find({});
+	const products = await Product.find({}).populate("images").lean();
+
+	const transformedProducts = products.map((product) => ({
+		...product,
+		images: product.images,
+	}));
 
 	res.send({
 		success: true,
-		data: products,
+		data: transformedProducts,
 		message: "Products successfully fetched",
 	});
 });
@@ -33,10 +38,14 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
 const fetchProductById = asyncHandler(async (req, res) => {
 	const { id } = req.params;
 	const product = await Product.findById(id);
+
 	await product
 		.populate({
 			path: "reviews",
 			populate: { path: "user", select: "firstName lastName" },
+		})
+		.populate({
+			path: "images",
 		})
 		.execPopulate();
 
@@ -50,7 +59,7 @@ const fetchProductById = asyncHandler(async (req, res) => {
 
 	return res.send({
 		success: true,
-		data: { product, reviews: product.reviews },
+		data: { product, reviews: product.reviews, images: product.images },
 		message: "Product successfully fetched",
 	});
 });

@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import Auth from "../../services/API/Auth/";
+import User from "../../services/API/User/";
 
 export const registerUser = (reqData) => async (dispatch) => {
 	try {
@@ -7,7 +7,7 @@ export const registerUser = (reqData) => async (dispatch) => {
 			type: actionTypes.REGISTER_USER_REQUEST,
 		});
 
-		const { data } = await Auth.register(reqData);
+		const { data } = await User.register(reqData);
 
 		dispatch({
 			type: actionTypes.REGISTER_USER_SUCCESS,
@@ -34,7 +34,7 @@ export const loginUser = (reqData) => async (dispatch) => {
 			type: actionTypes.LOGIN_USER_REQUEST,
 		});
 
-		const { data } = await Auth.login(reqData);
+		const { data } = await User.login(reqData);
 		dispatch({
 			type: actionTypes.LOGIN_USER_SUCCESS,
 		});

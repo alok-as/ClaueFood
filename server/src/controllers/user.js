@@ -46,8 +46,18 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const addProductToUserWishlist = asyncHandler(async (req, res) => {
-	const { userId, productId } = req.body;
+	const { userId } = req.body;
+	const { productId } = req.params;
+
 	const user = await User.findById(userId);
+	if (user.wishlist.includes(productId)) {
+		return res.send({
+			success: true,
+			data: null,
+			message: "Product already present in your Wishlist",
+		});
+	}
+
 	user.wishlist = user.wishlist.concat(productId);
 	await user.save();
 
@@ -69,6 +79,45 @@ const fetchUserWishlist = asyncHandler(async (req, res) => {
 	});
 });
 
+const addProductToUserCart = asyncHandler(async (req, res) => {
+	const { userId } = req.body;
+	const { productId } = req.params;
+
+	const user = await User.findById(userId);
+	let isAlreadyPresent = false;
+
+	for (let item of user.cart) {
+		if (item.product == productId) {
+			item.quantity++;
+			isAlreadyPresent = true;
+			break;
+		}
+	}
+
+	if (!isAlreadyPresent) {
+		user.cart.push({ quantity: 1, product: productId });
+	}
+
+	await user.save();
+
+	res.send({
+		success: true,
+		data: null,
+		message: "Product successfully added to your cart",
+	});
+});
+
+const fetchUserCart = asyncHandler(async (req, res) => {
+	const { userId } = req.body;
+	const user = await User.findById(userId).populate("cart");
+
+	res.send({
+		success: true,
+		data: user.cart,
+		message: "User cart fetched successfully",
+	});
+});
+
 const fetchUserDetails = asyncHandler(async (req, res) => {
 	console.log("Successfully authenticated", req.user);
 	res.send({});
@@ -80,4 +129,6 @@ module.exports = {
 	fetchUserDetails,
 	addProductToUserWishlist,
 	fetchUserWishlist,
+	addProductToUserCart,
+	fetchUserCart,
 };
