@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+
 import classes from "./index.module.scss";
+import { Portal } from "../../../hoc";
+import { ProceedModal } from "../../../containers";
 import { Button } from "../index";
 
 import imagePrimary from "../../../assets/images/Home/product-1.jpg";
@@ -8,6 +11,8 @@ import imageSecondary from "../../../assets/images/Home/product-2.jpg";
 const ProductCard = ({ title, images, price, discountedPrice }) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
 	// const imageSecondary = images.find((image) => !Boolean(image.isPrimary)).url;
+
+	const [isProceedModalVisible, setIsProceedModalVisible] = useState(false);
 	const [imageSrc, setImageSrc] = useState(imagePrimary);
 
 	const onMouseEnterHandler = () => {
@@ -18,8 +23,25 @@ const ProductCard = ({ title, images, price, discountedPrice }) => {
 		setImageSrc(imagePrimary);
 	};
 
+	const addToCartHandler = () => {
+		setIsProceedModalVisible(true);
+	};
+
+	const closeProceedModalHandler = () => {
+		setIsProceedModalVisible(false);
+	};
+
 	return (
 		<div className={classes.product}>
+			<Portal>
+				<ProceedModal
+					isVisible={isProceedModalVisible}
+					imageSrc={imagePrimary}
+					price={price}
+					title={title}
+					onClose={closeProceedModalHandler}
+				/>
+			</Portal>
 			<div
 				className={classes.product__image}
 				onMouseEnter={onMouseEnterHandler}
@@ -35,7 +57,9 @@ const ProductCard = ({ title, images, price, discountedPrice }) => {
 					{discountedPrice && `$${discountedPrice.toFixed(2)}`}
 				</span>
 				<br />
-				<Button className={classes.product__button}>Add to Cart</Button>
+				<Button className={classes.product__button} onClick={addToCartHandler}>
+					Add to Cart
+				</Button>
 			</div>
 		</div>
 	);

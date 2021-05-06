@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Animate } from "../index";
 import classes from "./index.module.scss";
 
@@ -13,6 +13,15 @@ const Backdrop = ({ isVisible, onClose }) => {
 		exitActive: classes.backdrop__exitActive,
 		timeout: 300,
 	};
+
+	useEffect(() => {
+		if (isVisible) {
+			document.body.style.overflow = "hidden";
+		}
+		return () => {
+			document.body.style.overflow = "visible";
+		};
+	}, [isVisible]);
 
 	return (
 		<Animate {...modalAnimationConfig}>
