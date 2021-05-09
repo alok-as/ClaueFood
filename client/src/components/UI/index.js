@@ -13,5 +13,6 @@ export { default as NavigationItem } from "./NavigationItem";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as SearchBar } from "./SearchBar";
 export { default as Section } from "./Section";
+export { default as SectionTitle } from "./SectionTitle";
 export { default as Slide } from "./Slide";
 export { default as Tab } from "./Tab";

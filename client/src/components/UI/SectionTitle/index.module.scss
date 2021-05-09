@@ -1,0 +1,26 @@
+.section {
+	&__heading {
+		position: relative;
+		display: inline-block;
+		font-weight: 600;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 5rem;
+			height: 3px;
+			background-color: var(--color-black-1);
+		}
+
+		&::before {
+			left: -7rem;
+		}
+
+		&::after {
+			right: -7rem;
+		}
+	}
+}

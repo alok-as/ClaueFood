@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
-import { Card, Section } from "../../../components/UI";
+import { Card, Section, SectionTitle } from "../../../components/UI";
 import { FeaturedItem } from "../../../components/Home";
 
 import featureImage1 from "../../../assets/images/Home/featured-1.jpg";
@@ -73,6 +73,9 @@ const Featured = () => {
 				{cards.map((card) => (
 					<Card {...card} />
 				))}
+			</div>
+			<div className={classes.featured__title}>
+				<SectionTitle>Fresh Food</SectionTitle>
 			</div>
 			<div className={classes.featured__menu}>
 				<ul className={classes.featured__list}>
