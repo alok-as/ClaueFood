@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Image = require("./image");
 const slugify = require("slugify");
 
 const productSchema = mongoose.Schema(
@@ -79,6 +80,12 @@ productSchema.pre("save", function (next) {
 	}
 
 	product.slug = slug;
+	next();
+});
+
+productSchema.pre("remove", async function (next) {
+	const product = this;
+	await Image.deleteMany({ productId: product._id });
 	next();
 });
 

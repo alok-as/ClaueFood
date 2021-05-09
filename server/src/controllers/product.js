@@ -62,8 +62,29 @@ const fetchProductBySlug = asyncHandler(async (req, res) => {
 	});
 });
 
+const deleteProductById = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const product = await Product.findById(id);
+
+	if (!product) {
+		return res.status(404).send({
+			success: false,
+			data: null,
+			message: "Product doesn't exists",
+		});
+	}
+
+	await product.remove();
+	res.status(204).send({
+		success: true,
+		data: product,
+		message: "Product deleted successfully",
+	});
+});
+
 module.exports = {
 	createProduct,
 	fetchAllProducts,
 	fetchProductBySlug,
+	deleteProductById,
 };
