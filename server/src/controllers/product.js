@@ -23,14 +23,9 @@ const createProduct = asyncHandler(async (req, res) => {
 const fetchAllProducts = asyncHandler(async (req, res) => {
 	const products = await Product.find({}).populate("images").lean();
 
-	const transformedProducts = products.map((product) => ({
-		...product,
-		images: product.images,
-	}));
-
 	res.send({
 		success: true,
-		data: transformedProducts,
+		data: products,
 		message: "Products successfully fetched",
 	});
 });
@@ -45,19 +40,20 @@ const fetchProductBySlug = asyncHandler(async (req, res) => {
 		})
 		.populate({
 			path: "images",
+			select: "-_id -__v",
 		});
 
 	if (!product) {
 		return res.send({
 			success: false,
-			data: product,
+			data: null,
 			message: "Product not found",
 		});
 	}
 
 	return res.send({
 		success: true,
-		data: { ...product, reviews: product.reviews, images: product.images },
+		data: product,
 		message: "Product successfully fetched",
 	});
 });

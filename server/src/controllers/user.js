@@ -104,19 +104,18 @@ const addProductToUserCart = asyncHandler(async (req, res) => {
 			path: "cart",
 			populate: {
 				path: "product",
-				populate: { path: "images" },
+				populate: { path: "images", select: "url isPrimary -_id" },
 			},
 		})
 		.execPopulate();
 
 	const transformedCart = [];
+	const cartObj = await user.cart.toObject();
 
-	for (let item of user.cart) {
-		const productObj = await item.product.toObject();
+	for (let item of cartObj) {
 		transformedCart.push({
-			...productObj,
+			...item.product,
 			quantity: item.quantity,
-			images: item.product.images,
 		});
 	}
 
