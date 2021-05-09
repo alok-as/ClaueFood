@@ -16,6 +16,9 @@
 
 	&__title {
 		display: inline-block;
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: 1px;
 		color: var(--color-white-1);
 	}
 

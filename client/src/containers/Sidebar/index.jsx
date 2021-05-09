@@ -1,8 +1,13 @@
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+
 import classes from "./index.module.scss";
-import { Animate, Backdrop } from "../../components/UI";
+import { Animate, Backdrop, MiniCartItem } from "../../components/UI";
+import { calculateTotalCartPrice } from "../../utils";
 
 const Sidebar = ({ isVisible, onClose }) => {
+	const { cartItems } = useSelector((state) => state.cart);
+
 	const sidebarAnimationConfig = {
 		isVisible: isVisible,
 		mountOnEnter: true,
@@ -26,7 +31,12 @@ const Sidebar = ({ isVisible, onClose }) => {
 						<p className={classes.sidebar__title}>Mini Cart</p>
 					</div>
 					<div className={classes.sidebar__content}>
-						<h2>Sidebar</h2>
+						<ul className={classes.sidebar__list}>
+							{cartItems.map((item) => (
+								<MiniCartItem {...item} />
+							))}
+						</ul>
+						<p>{calculateTotalCartPrice(cartItems)}</p>
 					</div>
 				</aside>
 			</Animate>

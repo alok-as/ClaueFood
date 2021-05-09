@@ -102,13 +102,27 @@ const addProductToUserCart = asyncHandler(async (req, res) => {
 	await user
 		.populate({
 			path: "cart",
-			populate: { path: "product", lean: true },
+			populate: {
+				path: "product",
+				populate: { path: "images" },
+			},
 		})
 		.execPopulate();
 
+	const transformedCart = [];
+
+	for (let item of user.cart) {
+		const productObj = await item.product.toObject();
+		transformedCart.push({
+			...productObj,
+			quantity: item.quantity,
+			images: item.product.images,
+		});
+	}
+
 	res.send({
 		success: true,
-		data: user.cart,
+		data: transformedCart,
 		message: "Product successfully added to your cart",
 	});
 });

@@ -32,7 +32,7 @@ const Auth = {
 			method: "POST",
 			url: `/user/cart/${productId}`,
 			data: {
-				userId: "6093c3f33d2f7d52104ae7b1",
+				userId: "6097ad5818c7083facd87443",
 			},
 		});
 	},
