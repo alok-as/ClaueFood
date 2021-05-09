@@ -7,10 +7,10 @@ const Product = {
 			url: "/product",
 		});
 	},
-	fetchById({ id }) {
+	fetchBySlug(slug) {
 		return axios.request({
 			method: "GET",
-			url: `/product/${id}`,
+			url: `/product/${slug}`,
 		});
 	},
 };

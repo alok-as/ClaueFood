@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import classes from "./index.module.scss";
 import { Portal } from "../../../hoc";
 import { ProceedModal } from "../../../containers";
@@ -8,12 +8,13 @@ import { Button } from "../index";
 import imagePrimary from "../../../assets/images/Home/product-1.jpg";
 import imageSecondary from "../../../assets/images/Home/product-2.jpg";
 
-const ProductCard = ({ title, images, price, discountedPrice }) => {
+const ProductCard = ({ slug, title, images, price, discountedPrice }) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
 	// const imageSecondary = images.find((image) => !Boolean(image.isPrimary)).url;
 
 	const [isProceedModalVisible, setIsProceedModalVisible] = useState(false);
 	const [imageSrc, setImageSrc] = useState(imagePrimary);
+	const history = useHistory();
 
 	const onMouseEnterHandler = () => {
 		setImageSrc(imageSecondary);
@@ -31,6 +32,10 @@ const ProductCard = ({ title, images, price, discountedPrice }) => {
 		setIsProceedModalVisible(false);
 	};
 
+	const switchToProductDetailsHandler = () => {
+		history.push(`/product/${slug}`);
+	};
+
 	return (
 		<div className={classes.product}>
 			<Portal>
@@ -46,6 +51,7 @@ const ProductCard = ({ title, images, price, discountedPrice }) => {
 				className={classes.product__image}
 				onMouseEnter={onMouseEnterHandler}
 				onMouseLeave={onMouseLeaveHandler}
+				onClick={switchToProductDetailsHandler}
 			>
 				<img src={imageSrc} alt={title} />
 				<p className={classes.product__sale}>Sale</p>

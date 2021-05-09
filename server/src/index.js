@@ -1,5 +1,6 @@
 const cors = require("cors");
 const express = require("express");
+const morgan = require("morgan");
 const passport = require("passport");
 
 const connectToDatabase = require("./database");
@@ -16,6 +17,9 @@ app.use(
 	})
 );
 app.use(express.json());
+app.use(
+	morgan(":method :url :status :res[content-length] - :response-time ms")
+);
 
 connectToDatabase();
 

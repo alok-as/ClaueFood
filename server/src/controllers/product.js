@@ -1,3 +1,4 @@
+const e = require("express");
 const asyncHandler = require("express-async-handler");
 const Product = require("../models/product");
 
@@ -35,19 +36,17 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
 	});
 });
 
-const fetchProductById = asyncHandler(async (req, res) => {
-	const { id } = req.params;
-	const product = await Product.findById(id);
-
-	await product
+const fetchProductBySlug = asyncHandler(async (req, res) => {
+	const { slug } = req.params;
+	const product = await Product.findOne({ slug })
+		.lean()
 		.populate({
 			path: "reviews",
 			populate: { path: "user", select: "firstName lastName" },
 		})
 		.populate({
 			path: "images",
-		})
-		.execPopulate();
+		});
 
 	if (!product) {
 		return res.send({
@@ -59,7 +58,7 @@ const fetchProductById = asyncHandler(async (req, res) => {
 
 	return res.send({
 		success: true,
-		data: { product, reviews: product.reviews, images: product.images },
+		data: { ...product, reviews: product.reviews, images: product.images },
 		message: "Product successfully fetched",
 	});
 });
@@ -67,5 +66,5 @@ const fetchProductById = asyncHandler(async (req, res) => {
 module.exports = {
 	createProduct,
 	fetchAllProducts,
-	fetchProductById,
+	fetchProductBySlug,
 };

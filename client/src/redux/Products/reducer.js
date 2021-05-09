@@ -19,14 +19,19 @@ const productsDetails = (state = { products: [] }, action) => {
 	}
 };
 
-const productDetails = (state = {}, action) => {
+const productDetails = (state = { details: null }, action) => {
 	switch (action.type) {
-		case actionTypes.FETCH_ALL_PRODUCTS_REQUEST:
-			return { ...state };
-		case actionTypes.FETCH_ALL_PRODUCTS_SUCCESS:
-			return { ...state };
-		case actionTypes.FETCH_ALL_PRODUCTS_FAILED:
-			return { ...state };
+		case actionTypes.FETCH_PRODUCT_BY_SLUG_REQUEST:
+			return { ...state, isLoading: true };
+		case actionTypes.FETCH_PRODUCT_BY_SLUG_SUCCESS:
+			return {
+				...state,
+				success: true,
+				isLoading: false,
+				details: action.payload,
+			};
+		case actionTypes.FETCH_PRODUCT_BY_SLUG_FAILED:
+			return { ...state, success: false, isLoading: false, details: null };
 		default:
 			return state;
 	}

@@ -1,6 +1,7 @@
 const errorHandler = (error, req, res, next) => {
 	let message = error.message;
 	res.statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+	console.log("Error:", message);
 
 	res.send({
 		success: false,

@@ -21,22 +21,23 @@ export const fetchAllProducts = (reqBody) => async (dispatch) => {
 	}
 };
 
-export const fetchProductById = (reqBody) => async (dispatch) => {
+export const fetchProductBySlug = (slug) => async (dispatch) => {
 	try {
 		dispatch({
-			type: actionTypes.FETCH_PRODUCT_BY_ID_REQUEST,
+			type: actionTypes.FETCH_PRODUCT_BY_SLUG_REQUEST,
 		});
 
-		const { data } = await Product.fetchById(reqBody);
-		console.log("Checking response from fetching product by id:", data);
+		const { data } = await Product.fetchBySlug(slug);
+		console.log("Checking response from fetching product by slug:", data);
 
 		await dispatch({
-			type: actionTypes.FETCH_ALL_PRODUCTS_SUCCESS,
+			type: actionTypes.FETCH_PRODUCT_BY_SLUG_SUCCESS,
+			payload: data.data,
 		});
 	} catch (error) {
-		console.error("Error fetching product by id:", error);
+		console.error("Error fetching product by slug:", error);
 		dispatch({
-			type: actionTypes.FETCH_PRODUCT_BY_ID_FAILED,
+			type: actionTypes.FETCH_PRODUCT_BY_SLUG_FAILED,
 		});
 	}
 };

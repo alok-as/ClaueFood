@@ -14,3 +14,4 @@ export { default as ScrollToTop } from "./ScrollToTop";
 export { default as SearchBar } from "./SearchBar";
 export { default as Section } from "./Section";
 export { default as Slide } from "./Slide";
+export { default as Tab } from "./Tab";
