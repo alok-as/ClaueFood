@@ -1,10 +1,15 @@
 import React, { Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Animate, Backdrop, Button } from "../../components/UI";
 import classes from "./index.module.scss";
+import { closeCheckoutModal } from "../../redux/Cart/actions";
 
-const ProceedModal = ({ isVisible, title, imageSrc, price, onClose }) => {
+const ProceedModal = ({ title, imageSrc, price, onClose }) => {
+	const { showCheckoutModal } = useSelector((state) => state.cart);
+	const dispatch = useDispatch();
+
 	const animationConfig = {
-		isVisible,
+		isVisible: showCheckoutModal,
 		mountOnEnter: true,
 		unmountOnExit: true,
 		enter: classes.proceed__enter,
@@ -14,12 +19,22 @@ const ProceedModal = ({ isVisible, title, imageSrc, price, onClose }) => {
 		timeout: 300,
 	};
 
+	const closeCheckoutModalHandler = () => {
+		dispatch(closeCheckoutModal());
+	};
+
 	return (
 		<Fragment>
-			<Backdrop isVisible={isVisible} onClose={onClose} />
+			<Backdrop
+				isVisible={showCheckoutModal}
+				onClose={closeCheckoutModalHandler}
+			/>
 			<Animate {...animationConfig}>
 				<div className={classes.proceed}>
-					<button className={classes.proceed__close} onClick={onClose}>
+					<button
+						className={classes.proceed__close}
+						onClick={closeCheckoutModalHandler}
+					>
 						close
 					</button>
 					<div className={classes.proceed__header}>

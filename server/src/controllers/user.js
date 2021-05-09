@@ -99,10 +99,16 @@ const addProductToUserCart = asyncHandler(async (req, res) => {
 	}
 
 	await user.save();
+	await user
+		.populate({
+			path: "cart",
+			populate: { path: "product", lean: true },
+		})
+		.execPopulate();
 
 	res.send({
 		success: true,
-		data: null,
+		data: user.cart,
 		message: "Product successfully added to your cart",
 	});
 });

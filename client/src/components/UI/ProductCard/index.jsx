@@ -8,11 +8,18 @@ import { Button } from "../index";
 import imagePrimary from "../../../assets/images/Home/product-1.jpg";
 import imageSecondary from "../../../assets/images/Home/product-2.jpg";
 
-const ProductCard = ({ slug, title, images, price, discountedPrice }) => {
+const ProductCard = ({
+	_id,
+	slug,
+	title,
+	images,
+	price,
+	discountedPrice,
+	addProductToCart,
+}) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
 	// const imageSecondary = images.find((image) => !Boolean(image.isPrimary)).url;
 
-	const [isProceedModalVisible, setIsProceedModalVisible] = useState(false);
 	const [imageSrc, setImageSrc] = useState(imagePrimary);
 	const history = useHistory();
 
@@ -24,14 +31,6 @@ const ProductCard = ({ slug, title, images, price, discountedPrice }) => {
 		setImageSrc(imagePrimary);
 	};
 
-	const addToCartHandler = () => {
-		setIsProceedModalVisible(true);
-	};
-
-	const closeProceedModalHandler = () => {
-		setIsProceedModalVisible(false);
-	};
-
 	const switchToProductDetailsHandler = () => {
 		history.push(`/product/${slug}`);
 	};
@@ -39,13 +38,7 @@ const ProductCard = ({ slug, title, images, price, discountedPrice }) => {
 	return (
 		<div className={classes.product}>
 			<Portal>
-				<ProceedModal
-					isVisible={isProceedModalVisible}
-					imageSrc={imagePrimary}
-					price={price}
-					title={title}
-					onClose={closeProceedModalHandler}
-				/>
+				<ProceedModal imageSrc={imagePrimary} price={price} title={title} />
 			</Portal>
 			<div
 				className={classes.product__image}
@@ -63,7 +56,10 @@ const ProductCard = ({ slug, title, images, price, discountedPrice }) => {
 					{discountedPrice && `$${discountedPrice.toFixed(2)}`}
 				</span>
 				<br />
-				<Button className={classes.product__button} onClick={addToCartHandler}>
+				<Button
+					className={classes.product__button}
+					onClick={() => addProductToCart(_id)}
+				>
 					Add to Cart
 				</Button>
 			</div>

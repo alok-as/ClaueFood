@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import classes from "./index.module.scss";
 import { Row, Portal } from "../../hoc";
 import {
@@ -12,26 +13,28 @@ import { AuthModal, Sidebar } from "../index";
 import { nanoid } from "nanoid";
 
 const Header = () => {
+	const { cartItemsCount } = useSelector((state) => state.cart);
+
 	const [links, setLinks] = useState([
 		{
 			key: nanoid(),
 			children: "Home",
-			href: "/0",
+			to: "/",
 		},
 		{
 			key: nanoid(),
 			children: "Vegetable",
-			href: "/0",
+			to: "/0",
 		},
 		{
 			key: nanoid(),
 			children: "Dried Fruits",
-			href: "/0",
+			to: "/0",
 		},
 		{
 			key: nanoid(),
 			children: "Sale",
-			href: "/0",
+			to: "/0",
 		},
 	]);
 
@@ -110,6 +113,7 @@ const Header = () => {
 					<span onClick={() => openModalHandler("sidebar")}>Profile</span>
 					<span onClick={() => openModalHandler("signUp")}>Wishlist</span>
 					<span onClick={() => openModalHandler("signIn")}>Cart</span>
+					{cartItemsCount !== 0 && <span>{cartItemsCount}</span>}
 				</div>
 			</Row>
 			<SearchBar />

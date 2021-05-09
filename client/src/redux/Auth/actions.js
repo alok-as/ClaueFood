@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import User from "../../services/API/User/";
+import { setCartItems } from "../Cart/actions";
 
 export const registerUser = (reqData) => async (dispatch) => {
 	try {

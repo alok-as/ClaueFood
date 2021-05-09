@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
@@ -10,8 +10,11 @@ import featureImage1 from "../../../assets/images/Home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/Home/featured-2.jpg";
 
 import ProductCard from "../../../components/UI/ProductCard";
+import { addProductToCart } from "../../../redux/Cart/actions";
 
 const Featured = () => {
+	const dispatch = useDispatch();
+
 	const [cards, setCards] = useState([
 		{
 			key: nanoid(),
@@ -67,6 +70,10 @@ const Featured = () => {
 		setCategories(newCategories);
 	};
 
+	const addProductToCartHandler = (productId) => {
+		dispatch(addProductToCart(productId));
+	};
+
 	return (
 		<Section>
 			<div className={classes.featured__cards}>
@@ -89,7 +96,11 @@ const Featured = () => {
 			</div>
 			<div className={classes.featured__products}>
 				{products.map((product) => (
-					<ProductCard key={product._id} {...product} />
+					<ProductCard
+						key={product._id}
+						{...product}
+						addProductToCart={addProductToCartHandler}
+					/>
 				))}
 			</div>
 		</Section>
