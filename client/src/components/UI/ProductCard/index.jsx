@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./index.module.scss";
 import { Portal } from "../../../hoc";
-import { ProceedModal } from "../../../containers";
+import { ProceedModal } from "../../../containers/Layout";
 import { Button } from "../index";
 
 import imagePrimary from "../../../assets/images/Home/product-1.jpg";

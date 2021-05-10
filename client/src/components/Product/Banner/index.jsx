@@ -23,7 +23,7 @@ const Banner = ({ path }) => {
 			</div>
 			<div className={classes.router}>
 				<Row className={classes.router__content}>
-					<Link to="/" exact className={classes.router__link}>
+					<Link to="/" className={classes.router__link}>
 						Home
 					</Link>
 					<Link to={path} className={classes.router__link}>

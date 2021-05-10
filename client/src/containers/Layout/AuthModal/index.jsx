@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./index.module.scss";
-import { Animate, Backdrop } from "../../components/UI";
-import { SignInModal, SignUpModal } from "../../components/Authentication";
+import { Animate, Backdrop } from "../../../components/UI";
+import { SignInModal, SignUpModal } from "../../../components/Authentication";
 import {
 	registerUser,
 	loginUser,
 	clearRegisterMetaData,
-} from "../../redux/Auth/actions";
+} from "../../../redux/Auth/actions";
 
 const AuthModal = ({ isOpen, type, onClose }) => {
 	const dispatch = useDispatch();

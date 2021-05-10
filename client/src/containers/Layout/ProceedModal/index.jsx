@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Animate, Backdrop, Button } from "../../components/UI";
+import { Animate, Backdrop, Button } from "../../../components/UI";
 import classes from "./index.module.scss";
-import { closeCheckoutModal } from "../../redux/Cart/actions";
+import { closeCheckoutModal } from "../../../redux/Cart/actions";
 
 const ProceedModal = ({ title, imageSrc, price, onClose }) => {
 	const { showCheckoutModal } = useSelector((state) => state.cart);

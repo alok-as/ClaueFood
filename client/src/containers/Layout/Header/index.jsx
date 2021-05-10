@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import classes from "./index.module.scss";
-import { Row, Portal } from "../../hoc";
+import { Row, Portal } from "../../../hoc";
 import {
 	ContactBar,
 	Logo,
 	NavigationItem,
 	SearchBar,
-} from "../../components/UI";
+} from "../../../components/UI";
 import { AuthModal, Sidebar } from "../index";
 import { nanoid } from "nanoid";
 

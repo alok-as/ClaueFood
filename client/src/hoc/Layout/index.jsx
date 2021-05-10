@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import Header from "../../containers/Header";
 import { ScrollToTop } from "../../components/UI";
+import { Header } from "../../containers/Layout";
 
 import HomePage from "../../pages/HomePage";
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
