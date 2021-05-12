@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./index.module.scss";
 import { Portal } from "../../../hoc";
 import { ProceedModal } from "../../../containers/Layout";
 import { Button } from "../index";
 
-import imagePrimary from "../../../assets/images/Home/product-1.jpg";
-import imageSecondary from "../../../assets/images/Home/product-2.jpg";
+import imagePrimary from "../../../assets/images/home/product-1.jpg";
+import imageSecondary from "../../../assets/images/home/product-2.jpg";
 
 const ProductCard = ({
 	_id,
@@ -19,6 +19,8 @@ const ProductCard = ({
 }) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
 	// const imageSecondary = images.find((image) => !Boolean(image.isPrimary)).url;
+
+	console.log("Product card is rendered");
 
 	const [imageSrc, setImageSrc] = useState(imagePrimary);
 	const history = useHistory();
@@ -67,4 +69,4 @@ const ProductCard = ({
 	);
 };
 
-export default ProductCard;
+export default memo(ProductCard);

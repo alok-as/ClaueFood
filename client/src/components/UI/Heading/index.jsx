@@ -1,8 +1,15 @@
-import React, { createElement } from "react";
+import { createElement } from "react";
 import classes from "./index.module.scss";
+import PropTypes from "prop-types";
 
-const Heading = ({ type, children, className }) => {
+const Heading = ({ type, children, textTransform, color, className }) => {
 	let element;
+
+	const style = {
+		textTransform,
+		color,
+	};
+
 	let finalClass = [classes[`heading__${type}`]];
 
 	switch (type) {
@@ -25,14 +32,35 @@ const Heading = ({ type, children, className }) => {
 			element = "h6";
 			break;
 		default:
-			element = "h7";
+			element = "h4";
 	}
 
 	if (className) {
 		finalClass.push(className);
 	}
 
-	return createElement(element, { className: finalClass.join(" ") }, children);
+	return createElement(
+		element,
+		{ className: finalClass.join(" "), style },
+		children
+	);
+};
+
+Heading.defaultProps = {
+	children: `Heading Required`,
+};
+
+Heading.propTypes = {
+	color: PropTypes.string,
+	textTransform: PropTypes.string,
+	type: PropTypes.oneOf([
+		"primary",
+		"secondary",
+		"tertiary",
+		"quaternary",
+		"pentanary",
+		"hexanary",
+	]).isRequired,
 };
 
 export default Heading;

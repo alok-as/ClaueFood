@@ -1,0 +1,22 @@
+.dropdown {
+	flex: 1;
+	position: relative;
+	align-self: stretch;
+
+	&__title {
+		background-color: var(--color-green-4);
+		text-transform: capitalize;
+		height: 100%;
+	}
+
+	&__options {
+		position: absolute;
+		display: none;
+	}
+
+	&__list {
+	}
+
+	&__item {
+	}
+}

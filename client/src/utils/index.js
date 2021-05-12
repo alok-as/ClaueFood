@@ -14,3 +14,66 @@ export const calculateTotalCartPrice = (items) => {
 	}, 0);
 	return count;
 };
+
+export const setValueInsessionStorage = (key, value) => {
+	const valueType = typeof value;
+
+	if (valueType === "string") {
+		sessionStorage.setItem(key, value);
+	} else {
+		sessionStorage.setItem(key, JSON.stringify(value));
+	}
+};
+
+export const removeValueFromsessionStorage = (key) => {
+	sessionStorage.removeItem(key);
+};
+
+export const extractValueFromsessionStorage = (key) => {
+	return JSON.parse(sessionStorage.getItem(key));
+};
+
+export const extractAllValuesFromsessionStorage = () => {
+	const keys = Object.keys(sessionStorage);
+	const length = keys.length;
+
+	const cache = keys.reduce((obj, key) => {
+		obj[key] = extractValueFromsessionStorage(key);
+		return obj;
+	}, {});
+
+	return [cache, length];
+};
+
+export const resetAllValuesInsessionStorage = () => {
+	Object.keys(sessionStorage).forEach((key) =>
+		removeValueFromsessionStorage(key)
+	);
+};
+
+export const setupBrowserBackFunctionality = () => {
+	window.history.pushState(
+		{ page: "browserBack" },
+		"on browser back click",
+		window.location.href
+	);
+	window.history.pushState(
+		{ page: "browserBack" },
+		"on browser back click",
+		window.location.href
+	);
+
+	console.log("Checking State Value", window.history.state);
+};
+
+export const onBrowserBackClick = (fn) => {
+	window.addEventListener(
+		"popstate",
+		(event) => {
+			if (event.state) {
+				fn();
+			}
+		},
+		false
+	);
+};

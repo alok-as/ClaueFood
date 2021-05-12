@@ -3,8 +3,8 @@ import classes from "./index.module.scss";
 import { nanoid } from "nanoid";
 import { Slide } from "../../../components/UI";
 
-import slideImage1 from "../../../assets/images/Home/hero-slide-1.jpg";
-import slideImage2 from "../../../assets/images/Home/hero-slide-2.jpg";
+import slideImage1 from "../../../assets/images/home/hero-slide-1.jpg";
+import slideImage2 from "../../../assets/images/home/hero-slide-2.jpg";
 
 const Hero = () => {
 	const [slides, setSlides] = useState([
@@ -84,9 +84,6 @@ const Hero = () => {
 				{slides.map((slide) => (
 					<Slide {...slide} />
 				))}
-				<button className={classes.hero__button} onClick={nextSlideHandler}>
-					CHANGED
-				</button>
 			</div>
 		</section>
 	);

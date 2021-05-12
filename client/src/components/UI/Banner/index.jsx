@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Row } from "../../../hoc";
 import { Link } from "react-router-dom";
 import classes from "./index.module.scss";
+import PropTypes from "prop-types";
 
 const Banner = ({ path }) => {
 	const [title, setTitle] = useState("");
@@ -33,6 +34,14 @@ const Banner = ({ path }) => {
 			</div>
 		</Fragment>
 	);
+};
+
+Banner.defaultProps = {
+	path: "",
+};
+
+Banner.propTypes = {
+	path: PropTypes.string,
 };
 
 export default Banner;

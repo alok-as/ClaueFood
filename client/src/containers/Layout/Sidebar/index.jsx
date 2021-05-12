@@ -1,11 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { useSelector } from "react-redux";
 
 import classes from "./index.module.scss";
-import { Animate, Backdrop, MiniCartItem } from "../../../components/UI";
+import {
+	Animate,
+	Backdrop,
+	Button,
+	MiniCartItem,
+} from "../../../components/UI";
 import { calculateTotalCartPrice } from "../../../utils";
 
 const Sidebar = ({ isVisible, onClose }) => {
+	console.log("Sidebar is rendered");
 	const { cartItems } = useSelector((state) => state.cart);
 
 	const sidebarAnimationConfig = {
@@ -36,7 +42,11 @@ const Sidebar = ({ isVisible, onClose }) => {
 								<MiniCartItem key={item._id} {...item} />
 							))}
 						</ul>
-						<p>{calculateTotalCartPrice(cartItems)}</p>
+						<p className={classes.sidebar__total}>
+							Total: ${calculateTotalCartPrice(cartItems).toFixed(2)}
+						</p>
+						<Button className={classes.sidebar__cart}>Go to Cart</Button>
+						<Button className={classes.sidebar__checkout}>Check out</Button>
 					</div>
 				</aside>
 			</Animate>
@@ -44,4 +54,4 @@ const Sidebar = ({ isVisible, onClose }) => {
 	);
 };
 
-export default Sidebar;
+export default memo(Sidebar);

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 import classes from "./index.module.scss";
+import PropTypes from "prop-types";
 
 const Button = ({ onClick, children, className }) => {
 	const finalClass = [classes.button];
@@ -14,4 +15,14 @@ const Button = ({ onClick, children, className }) => {
 	);
 };
 
-export default Button;
+Button.defaultProps = {
+	children: "Button",
+};
+
+Button.propTypes = {
+	onClick: PropTypes.func,
+	children: PropTypes.string,
+	className: PropTypes.string,
+};
+
+export default memo(Button);

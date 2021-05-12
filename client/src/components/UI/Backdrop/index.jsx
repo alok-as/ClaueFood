@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Animate } from "../index";
 import classes from "./index.module.scss";
+import PropTypes from "prop-types";
 
 const Backdrop = ({ isVisible, onClose }) => {
 	const modalAnimationConfig = {
@@ -28,6 +29,15 @@ const Backdrop = ({ isVisible, onClose }) => {
 			<div className={classes.backdrop} onClick={onClose}></div>
 		</Animate>
 	);
+};
+
+Backdrop.defaultProps = {
+	onClose: () => console.log("onClose handler not provided for Backdrop"),
+};
+
+Backdrop.propTypes = {
+	isVisible: PropTypes.bool.isRequired,
+	onClose: PropTypes.func,
 };
 
 export default Backdrop;

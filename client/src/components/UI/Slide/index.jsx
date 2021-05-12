@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import classes from "./index.module.scss";
 import { Button, Heading } from "../index";
 
@@ -22,7 +22,11 @@ const Slide = ({ imageURL, isVisible, heading, subheading, text }) => {
 			<div className={finalContentClass.join(" ")}>
 				<Heading type="secondary">{subheading}</Heading>
 				<Heading type="primary">{heading}</Heading>
-				<Heading type="secondary" className={classes.slide__subheading}>
+				<Heading
+					type="secondary"
+					color="var(--color-grey-1)"
+					className={classes.slide__text}
+				>
 					{text}
 				</Heading>
 				<Button>Buy Now</Button>
@@ -31,4 +35,4 @@ const Slide = ({ imageURL, isVisible, heading, subheading, text }) => {
 	);
 };
 
-export default Slide;
+export default memo(Slide);

@@ -1,8 +1,10 @@
 export { default as Alert } from "./Alert";
 export { default as Animate } from "./Animate";
 export { default as Backdrop } from "./Backdrop";
+export { default as Banner } from "./Banner";
 export { default as Button } from "./Button";
 export { default as Card } from "./Card";
+export { default as CategoryDropdown } from "./CategoryDropdown";
 export { default as ContactBar } from "./ContactBar";
 export { default as Feature } from "./Feature";
 export { default as Heading } from "./Heading";

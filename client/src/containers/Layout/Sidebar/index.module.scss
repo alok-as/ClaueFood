@@ -34,6 +34,44 @@
 	}
 
 	&__content {
+		padding: 2rem;
+	}
+
+	&__total {
+		font-weight: 600;
+		font-size: 1.8rem;
+		text-transform: uppercase;
+		text-align: center;
+		margin-top: 2rem;
+	}
+
+	&__cart,
+	&__checkout {
+		width: 100%;
+		font-weight: 600;
+		padding: 0.7rem;
+		text-transform: capitalize;
+		transition: 0.3s all ease;
+
+		&:hover {
+			background-color: var(--color-green-1);
+			color: var(--color-white-1);
+		}
+	}
+
+	&__cart {
+		margin: 1.6rem 0;
+		color: var(--color-black-1);
+		border: 2px solid var(--color-black-1);
+		background-color: var(--color-white-1);
+
+		&:hover {
+			border: 2px solid var(--color-green-1);
+		}
+	}
+
+	&__checkout {
+		background-color: var(--color-black-1);
 	}
 
 	&__enter {

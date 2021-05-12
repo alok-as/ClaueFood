@@ -1,0 +1,44 @@
+.item {
+	display: flex;
+	gap: 1rem;
+
+	&__image {
+		position: relative;
+		width: 10rem;
+		height: 10rem;
+		cursor: pointer;
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&__image:hover &__overlay {
+		opacity: 1;
+	}
+
+	&__overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		background-color: rgba(0, 0, 0, 0.3);
+		z-index: 10;
+		transition: 0.3s opacity ease;
+	}
+
+	&__content {
+	}
+
+	&__title {
+		font-weight: 600;
+		font-size: 1.4rem;
+	}
+
+	&__price {
+		font-size: 1.4rem;
+	}
+}

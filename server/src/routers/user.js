@@ -24,7 +24,7 @@ router.get("/cart", fetchUserCart);
 
 router.get(
 	"/",
-	passport.authenticate("jwt", { session: false }),
+	passport.authenticate("jwt", { local: false }),
 	fetchUserDetails
 );
 

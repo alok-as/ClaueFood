@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./index.module.scss";
+import PropTypes from "prop-types";
 
 const Alert = ({ type, children }) => {
 	const finalClass = [classes.alert];
@@ -19,6 +20,16 @@ const Alert = ({ type, children }) => {
 	}
 
 	return <div className={finalClass.join(" ")}>{children}</div>;
+};
+
+Alert.defaultProps = {
+	type: "failure",
+	children: "Alert message missing",
+};
+
+Alert.propTypes = {
+	type: PropTypes.string,
+	children: PropTypes.string.isRequired,
 };
 
 export default Alert;

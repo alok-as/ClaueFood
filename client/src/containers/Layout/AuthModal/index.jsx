@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./index.module.scss";
 import { Animate, Backdrop } from "../../../components/UI";
@@ -10,6 +10,7 @@ import {
 } from "../../../redux/Auth/actions";
 
 const AuthModal = ({ isOpen, type, onClose }) => {
+	console.log("Auth Modal is rendered");
 	const dispatch = useDispatch();
 	const { registerDetails, loginDetails } = useSelector((state) => state.auth);
 
@@ -69,4 +70,4 @@ const AuthModal = ({ isOpen, type, onClose }) => {
 	);
 };
 
-export default AuthModal;
+export default memo(AuthModal);

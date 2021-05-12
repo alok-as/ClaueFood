@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Animate, Backdrop, Button } from "../../../components/UI";
 import classes from "./index.module.scss";
 import { closeCheckoutModal } from "../../../redux/Cart/actions";
 
-const ProceedModal = ({ title, imageSrc, price, onClose }) => {
+const ProceedModal = ({ title, imageSrc, price }) => {
 	const { showCheckoutModal } = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 
@@ -61,4 +61,4 @@ const ProceedModal = ({ title, imageSrc, price, onClose }) => {
 	);
 };
 
-export default ProceedModal;
+export default memo(ProceedModal);

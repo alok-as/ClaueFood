@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import classes from "./index.module.scss";
@@ -43,36 +43,22 @@ const Header = () => {
 
 	const [modalType, setModalType] = useState("signUp");
 
-	const openModalHandler = (type) => {
-		switch (type) {
-			case "signUp":
-				setIsAuthModalOpen(true);
-				setModalType(type);
-				break;
-			case "signIn":
-				setIsAuthModalOpen(true);
-				setModalType(type);
-				break;
-			case "sidebar":
-				setIsSidebarVisible(true);
-				break;
-			default:
-				break;
-		}
+	const openAuthModalHandler = (type) => {
+		setIsAuthModalOpen(true);
+		setModalType(type);
 	};
 
-	const closeModalHandler = (type) => {
-		switch (type) {
-			case "signUp":
-				setIsAuthModalOpen(false);
-				break;
-			case "sidebar":
-				setIsSidebarVisible(false);
-				break;
-			default:
-				break;
-		}
+	const closeAuthModalHandler = useCallback(() => {
+		setIsAuthModalOpen(false);
+	}, []);
+
+	const openSidebarHandler = () => {
+		setIsSidebarVisible(true);
 	};
+
+	const closeSidebarHandler = useCallback(() => {
+		setIsSidebarVisible(false);
+	}, []);
 
 	const googleLogin = async () => {
 		const response = await axios.get(
@@ -91,14 +77,11 @@ const Header = () => {
 				<AuthModal
 					isOpen={isAuthModalOpen}
 					type={modalType}
-					onClose={() => closeModalHandler("signUp")}
+					onClose={closeAuthModalHandler}
 				/>
 			</Portal>
 			<Portal>
-				<Sidebar
-					isVisible={isSidebarVisible}
-					onClose={() => closeModalHandler("sidebar")}
-				/>
+				<Sidebar isVisible={isSidebarVisible} onClose={closeSidebarHandler} />
 			</Portal>
 			<Row className={classes.header__content}>
 				<Logo />
@@ -110,9 +93,9 @@ const Header = () => {
 					</ul>
 				</nav>
 				<div className={classes.header__options}>
-					<span onClick={() => openModalHandler("sidebar")}>Profile</span>
-					<span onClick={() => openModalHandler("signUp")}>Wishlist</span>
-					<span onClick={() => openModalHandler("signIn")}>Cart</span>
+					<span onClick={() => openAuthModalHandler("signUp")}>Profile</span>
+					<span onClick={() => openAuthModalHandler("signIn")}>Wishlist</span>
+					<span onClick={openSidebarHandler}>Cart</span>
 					{cartItemsCount !== 0 && <span>{cartItemsCount}</span>}
 				</div>
 			</Row>
@@ -121,4 +104,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default memo(Header);

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { Heading } from "../index";
 import classes from "./index.module.scss";
 
@@ -15,4 +15,4 @@ const SectionTitle = ({ children, subheading }) => {
 	);
 };
 
-export default SectionTitle;
+export default memo(SectionTitle);

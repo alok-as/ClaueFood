@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 
@@ -6,8 +6,8 @@ import classes from "./index.module.scss";
 import { Card, Section, SectionTitle } from "../../../components/UI";
 import { FeaturedItem } from "../../../components/Home";
 
-import featureImage1 from "../../../assets/images/Home/featured-1.jpg";
-import featureImage2 from "../../../assets/images/Home/featured-2.jpg";
+import featureImage1 from "../../../assets/images/home/featured-1.jpg";
+import featureImage2 from "../../../assets/images/home/featured-2.jpg";
 
 import ProductCard from "../../../components/UI/ProductCard";
 import { addProductToCart } from "../../../redux/Cart/actions";
@@ -70,9 +70,12 @@ const Featured = () => {
 		setCategories(newCategories);
 	};
 
-	const addProductToCartHandler = (productId) => {
-		dispatch(addProductToCart(productId));
-	};
+	const addProductToCartHandler = useCallback(
+		(productId) => {
+			dispatch(addProductToCart(productId));
+		},
+		[dispatch]
+	);
 
 	return (
 		<Section>
@@ -107,4 +110,4 @@ const Featured = () => {
 	);
 };
 
-export default Featured;
+export default memo(Featured);

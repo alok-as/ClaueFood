@@ -5,6 +5,7 @@ import { Header } from "../../containers/Layout";
 
 import HomePage from "../../pages/HomePage";
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
+const CheckoutPage = lazy(() => import("../../pages/CheckoutPage"));
 
 const Layout = () => {
 	const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
@@ -31,6 +32,7 @@ const Layout = () => {
 			<Switch>
 				<Route path="/" exact component={HomePage} />
 				<Route path="/product/:slug" component={ProductPage} />
+				<Route path="/checkout" component={CheckoutPage} />
 			</Switch>
 		</Suspense>
 	);

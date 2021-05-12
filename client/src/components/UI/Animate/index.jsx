@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
 const Animate = ({
 	isVisible,
@@ -35,6 +36,17 @@ Animate.defaultProps = {
 	timeout: 300,
 	mountOnEnter: false,
 	unmountOnExit: false,
+};
+
+Animate.propTypes = {
+	isVisible: PropTypes.bool.isRequired,
+	timeout: PropTypes.number,
+	mountOnEnter: PropTypes.bool,
+	unmountOnExit: PropTypes.bool,
+	enter: PropTypes.string,
+	enterActive: PropTypes.string,
+	exit: PropTypes.string,
+	exitActive: PropTypes.string,
 };
 
 export default Animate;
