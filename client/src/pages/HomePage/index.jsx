@@ -8,7 +8,6 @@ const HomePage = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log("Home Page is rendered");
 		dispatch(fetchAllProducts());
 	}, [dispatch]);
 

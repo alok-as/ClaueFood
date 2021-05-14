@@ -8,7 +8,9 @@ const CategoryDropdown = ({ title, categories }) => {
 			<div className={classes.dropdown__options}>
 				<ul className={classes.dropdown__list}>
 					{categories.map((category) => (
-						<li className={classes.dropdown__item}>{category.title}</li>
+						<li key={category.key} className={classes.dropdown__item}>
+							{category.title}
+						</li>
 					))}
 				</ul>
 			</div>

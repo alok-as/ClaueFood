@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./index.module.scss";
 
-const ShippingForm = ({ switchToStep }) => {
+const ShippingForm = ({ switchToPayment }) => {
 	return (
 		<form className={classes.shipping__form}>
 			<p>Shipping Form</p>
-			<button onClick={switchToStep}>Next</button>
+			<button onClick={switchToPayment}>Next</button>
 		</form>
 	);
 };

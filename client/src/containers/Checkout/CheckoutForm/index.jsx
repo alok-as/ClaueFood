@@ -1,68 +1,39 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PaymentsForm, ShippingForm } from "../../../components/Checkout";
+import React from "react";
+import { useHistory, Switch, Route, Redirect } from "react-router";
 
 import classes from "./index.module.scss";
-import {
-	setValueInsessionStorage,
-	extractAllValuesFromsessionStorage,
-	resetAllValuesInsessionStorage,
-	setupBrowserBackFunctionality,
-	onBrowserBackClick,
-	removeValueFromsessionStorage,
-} from "../../../utils";
 import { Row } from "../../../hoc";
+import {
+	OrderSummary,
+	PaymentsForm,
+	ShippingForm,
+} from "../../../components/Checkout";
 
 const CheckoutForm = () => {
-	const [activeStep, setActiveStep] = useState(0);
+	const history = useHistory();
 
-	const setInitialValuesHandler = (cache, length) => {
-		if (!length) {
-			return;
-		}
-
-		if (cache.hasOwnProperty("step")) {
-			setActiveStep(cache.step);
-		}
+	const switchToPaymentsHandler = () => {
+		history.push("/checkout/payment");
 	};
-
-	const switchToStepHandler = (event, step) => {
-		event.preventDefault();
-		setActiveStep(step);
-		setValueInsessionStorage("step", step);
-	};
-
-	useEffect(() => {
-		setupBrowserBackFunctionality();
-		onBrowserBackClick(removeValueFromsessionStorage);
-	}, []);
-
-	useEffect(() => {
-		const [cache, length] = extractAllValuesFromsessionStorage();
-		setInitialValuesHandler(cache, length);
-
-		return () => {
-			resetAllValuesInsessionStorage();
-		};
-	}, []);
-
-	let activeForm;
-	if (activeStep === 0) {
-		activeForm = (
-			<ShippingForm switchToStep={(e) => switchToStepHandler(e, 1)} />
-		);
-	} else {
-		activeForm = <PaymentsForm />;
-	}
 
 	return (
 		<div className={classes.checkout}>
 			<Row className={classes.checkout__content}>
 				<h1>Stepper Step</h1>
 				<div className={classes.checkout__wrapper}>
-					<div className={classes.checkout__left}>{activeForm}</div>
-					<div className={classes.checkout__right}>
-						<h1>Order Summary</h1>
-					</div>
+					<Switch>
+						<Route
+							path="/checkout/shipping"
+							render={() => (
+								<ShippingForm switchToPayment={switchToPaymentsHandler} />
+							)}
+						/>
+						<Route path="/checkout/payment" component={PaymentsForm} />
+						<Route path="/checkout">
+							<Redirect to="/checkout/shipping" />
+						</Route>
+					</Switch>
+					<OrderSummary />
 				</div>
 			</Row>
 		</div>

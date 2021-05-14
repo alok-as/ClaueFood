@@ -9,16 +9,4 @@
 		display: flex;
 		gap: 2rem;
 	}
-
-	&__left {
-		flex-basis: 65%;
-		background-color: orangered;
-		height: 100%;
-	}
-
-	&__right {
-		flex: 1;
-		background-color: yellowgreen;
-		height: 100%;
-	}
 }

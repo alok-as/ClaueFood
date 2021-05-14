@@ -8,6 +8,10 @@ import classes from "./index.module.scss";
 const ProdcutInfo = () => {
 	const { details } = useSelector((state) => state.products.productDetails);
 
+	// {details.title}
+
+	console.log("Checking details", details);
+
 	const [tabs, setTabs] = useState([
 		{
 			key: nanoid(),
