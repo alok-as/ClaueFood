@@ -77,3 +77,16 @@ export const onBrowserBackClick = (fn) => {
 		false
 	);
 };
+
+export const deepClone = (obj) => {
+	if (obj === null || typeof obj !== "object") {
+		return obj;
+	}
+
+	const clone = {};
+	for (let key in obj) {
+		clone[key] = deepClone(obj);
+	}
+
+	return clone;
+};

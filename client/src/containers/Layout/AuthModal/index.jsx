@@ -10,7 +10,6 @@ import {
 } from "../../../redux/Auth/actions";
 
 const AuthModal = ({ isOpen, type, onClose }) => {
-	console.log("Auth Modal is rendered");
 	const dispatch = useDispatch();
 	const { registerDetails, loginDetails } = useSelector((state) => state.auth);
 

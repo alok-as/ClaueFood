@@ -19,4 +19,10 @@
 			font-weight: 500;
 		}
 	}
+
+	&__error {
+		margin-top: 0.4rem;
+		font-size: 1.2rem;
+		color: var(--color-red-1);
+	}
 }

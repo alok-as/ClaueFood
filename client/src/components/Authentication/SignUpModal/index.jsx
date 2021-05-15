@@ -1,6 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
+import { nanoid } from "nanoid";
+
 import classes from "./index.module.scss";
 import { Alert, Input, Loader } from "../../UI";
+import { checkInputValidation } from "../../../utils/validation";
 
 const SignUpModal = ({
 	registerDetails,
@@ -8,57 +11,129 @@ const SignUpModal = ({
 	clearRegisterMetaData,
 	closeModal,
 }) => {
+	const checkboxRef = useRef();
 	const { isLoading, isSuccess, message } = registerDetails;
 
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
+	const onInputChangeHandler = (e) => {
+		const newFields = { ...fields };
 
-	const onInputChangeHandler = (e, field) => {
-		const value = e.target.value;
+		newFields[e.target.name].value = e.target.value;
+		setFields(newFields);
+	};
 
-		switch (field) {
-			case "firstName":
-				setFirstName(value);
-				break;
-			case "lastName":
-				setLastName(value);
-				break;
-			case "email":
-				setEmail(value);
-				break;
-			case "password":
-				setPassword(value);
-				break;
-			case "confirmPassword":
-				setConfirmPassword(value);
-				break;
-			default:
-				return;
+	const [fields, setFields] = useState({
+		firstName: {
+			key: nanoid(),
+			name: "firstName",
+			type: "text",
+			placeholder: "first name",
+			validate: "name",
+			value: "",
+			error: "",
+			onChange: onInputChangeHandler,
+		},
+		lastName: {
+			key: nanoid(),
+			name: "lastName",
+			type: "text",
+			placeholder: "last name",
+			value: "",
+			validate: "name",
+			error: "",
+			onChange: onInputChangeHandler,
+		},
+		email: {
+			key: nanoid(),
+			name: "email",
+			type: "email",
+			label: "Email",
+			validate: "email",
+			value: "",
+			error: "",
+			onChange: onInputChangeHandler,
+		},
+		password: {
+			key: nanoid(),
+			name: "password",
+			type: "password",
+			label: "Password",
+			validate: "password",
+			placeholder: "",
+			value: "",
+			error: "",
+			onChange: onInputChangeHandler,
+		},
+		confirmPassword: {
+			key: nanoid(),
+			name: "confirmPassword",
+			type: "password",
+			label: "Confirm Password",
+			validate: "password",
+			placeholder: "",
+			value: "",
+			error: "",
+			onChange: onInputChangeHandler,
+		},
+	});
+
+	const checkInputValidationHandler = () => {
+		const newFields = { ...fields };
+
+		for (let key in newFields) {
+			newFields[key].error = checkInputValidation(
+				newFields[key].validate,
+				newFields[key].value
+			);
 		}
+
+		if (newFields.password.value !== newFields.confirmPassword.value) {
+			newFields.password.error = "Passwords doesn't match";
+			newFields.confirmPassword.error = "Passwords doesn't match";
+			setFields(newFields);
+			return false;
+		}
+
+		setFields(newFields);
+
+		for (let key in newFields) {
+			if (newFields[key].error) {
+				return false;
+			}
+		}
+
+		if (!checkboxRef.current.checked) {
+			return false;
+		}
+
+		return true;
 	};
 
 	const registerUserHandler = (e) => {
 		e.preventDefault();
 
+		if (!checkInputValidationHandler()) {
+			return;
+		}
+
+		const { firstName, lastName, email, password } = fields;
 		const userData = {
-			firstName,
-			lastName,
-			email,
-			password,
+			firstName: firstName.value,
+			lastName: lastName.value,
+			email: email.value,
+			password: password.value,
 		};
 
 		registerUser(userData);
 	};
 
 	const resetFormDataHandler = () => {
-		setFirstName("");
-		setLastName("");
-		setEmail("");
-		setPassword("");
-		setConfirmPassword("");
+		const newFields = { ...fields };
+		fields.forEach((field) => {
+			field.value = "";
+			field.error = "";
+		});
+
+		setFields(newFields);
 	};
 
 	useEffect(() => {
@@ -84,49 +159,34 @@ const SignUpModal = ({
 		);
 	}
 
+	const fieldsArr = Object.values(fields);
+
 	return (
 		<Fragment>
 			{alertMessage}
-			<form className={classes.signup} onSubmit={registerUserHandler}>
+			<form
+				className={classes.signup}
+				onSubmit={registerUserHandler}
+				noValidate
+			>
 				{isLoading && <Loader />}
 				<div className={classes.signup__name}>
-					<Input
-						type="text"
-						placeholder="first name"
-						value={firstName}
-						onChange={(e) => onInputChangeHandler(e, "firstName")}
-					/>
-					<Input
-						type="text"
-						placeholder="Last name"
-						value={lastName}
-						onChange={(e) => onInputChangeHandler(e, "lastName")}
-					/>
+					{fieldsArr.slice(0, 2).map((field) => (
+						<Input {...field} />
+					))}
 				</div>
 
-				<Input
-					type="email"
-					value={email}
-					label="Email"
-					className={classes.signup__field}
-					onChange={(e) => onInputChangeHandler(e, "email")}
-				/>
+				{fieldsArr.slice(2, 5).map((field) => (
+					<Input {...field} className={classes.signup__field} />
+				))}
 
-				<Input
-					type="password"
-					value={password}
-					label="Password"
-					className={classes.signup__field}
-					onChange={(e) => onInputChangeHandler(e, "password")}
-				/>
-
-				<Input
-					type="password"
-					value={confirmPassword}
-					label="Confirm Password"
-					className={classes.signup__field}
-					onChange={(e) => onInputChangeHandler(e, "confirmPassword")}
-				/>
+				<div className={classes.signup__terms}>
+					<input type="checkbox" ref={checkboxRef} />
+					<span className={classes.signup__text}>
+						By using this form you agree with the storage and handling of your
+						data by this website.
+					</span>
+				</div>
 
 				<button className={classes.signup__button}>Create an Account</button>
 			</form>

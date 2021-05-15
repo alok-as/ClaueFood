@@ -31,4 +31,23 @@
 			background-color: var(--color-blue-1);
 		}
 	}
+
+	&__terms {
+		margin-top: 2rem;
+		display: flex;
+
+		input {
+			margin-top: 0.4rem;
+		}
+
+		span {
+			margin-left: 0.6rem;
+		}
+	}
+
+	&__text {
+		font-size: 1.3rem;
+		font-weight: 500;
+		color: var(--color-grey-1);
+	}
 }
