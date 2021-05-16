@@ -2,9 +2,9 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 const passport = require("passport");
+const setPassportConfiguration = require("../config/auth");
 
 const connectToDatabase = require("./database");
-const passportConfiguration = require("../config/auth/passport");
 const { errorHandler, notFound } = require("./middlewares/error");
 const router = require("./routers");
 
@@ -23,7 +23,7 @@ app.use(
 
 connectToDatabase();
 
-passportConfiguration(passport, "google");
+setPassportConfiguration(passport);
 app.use(passport.initialize());
 
 app.use("/api", router);

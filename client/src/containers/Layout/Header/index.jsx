@@ -1,5 +1,6 @@
 import React, { useState, useCallback, memo } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import classes from "./index.module.scss";
 import { Row, Portal } from "../../../hoc";
@@ -14,6 +15,7 @@ import { nanoid } from "nanoid";
 
 const Header = () => {
 	const { cartItemsCount } = useSelector((state) => state.cart);
+	const history = useHistory();
 
 	const [links, setLinks] = useState([
 		{
@@ -61,13 +63,14 @@ const Header = () => {
 	}, []);
 
 	const googleLogin = async () => {
-		const response = await axios.get(
-			"http://localhost:3001/api/user/google-login",
-			{
-				withCredentials: true,
-			}
-		);
-		console.log("Checking Response", response);
+		// const response = await axios.get(
+		// 	"http://localhost:3001/api/user/google-login",
+		// 	{
+		// 		withCredentials: true,
+		// 	}
+		// );
+		window.location.href = "http://localhost:3001/api/user/facebook-login";
+		// console.log("Checking Response", response);
 	};
 
 	return (
@@ -97,6 +100,7 @@ const Header = () => {
 					<span onClick={() => openAuthModalHandler("signIn")}>Wishlist</span>
 					<span onClick={openSidebarHandler}>Cart</span>
 					{cartItemsCount !== 0 && <span>{cartItemsCount}</span>}
+					<span onClick={googleLogin}>Oauth</span>
 				</div>
 			</Row>
 			<SearchBar />

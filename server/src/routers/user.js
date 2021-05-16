@@ -24,13 +24,31 @@ router.get("/cart", fetchUserCart);
 
 router.get(
 	"/",
-	passport.authenticate("jwt", { local: false }),
+	passport.authenticate("jwt-strategy", { local: false }),
 	fetchUserDetails
 );
 
 router.get(
 	"/google-login",
-	passport.authenticate("google", { scope: ["profile"] })
+	passport.authenticate("google-strategy", { scope: ["profile", "email"] })
+);
+
+router.get(
+	"/google/callback",
+	passport.authenticate("google-strategy", {
+		failureRedirect: "/",
+		successRedirect: "http://localhost:3000",
+	})
+);
+
+router.get("/facebook-login", passport.authenticate("facebook-strategy"));
+
+router.get(
+	"/facebook/callback",
+	passport.authenticate("facebook-strategy", {
+		failureRedirect: "/",
+		successRedirect: "http://localhost:3000",
+	})
 );
 
 module.exports = router;

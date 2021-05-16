@@ -128,9 +128,10 @@ const SignUpModal = ({
 
 	const resetFormDataHandler = () => {
 		const newFields = { ...fields };
-		fields.forEach((field) => {
-			field.value = "";
-			field.error = "";
+
+		Object.values(newFields).forEach((value) => {
+			value.value = "";
+			value.error = "";
 		});
 
 		setFields(newFields);

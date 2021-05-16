@@ -1,5 +1,6 @@
 import React, { Fragment, memo } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 import classes from "./index.module.scss";
 import {
@@ -11,8 +12,8 @@ import {
 import { calculateTotalCartPrice } from "../../../utils";
 
 const Sidebar = ({ isVisible, onClose }) => {
-	console.log("Sidebar is rendered");
 	const { cartItems } = useSelector((state) => state.cart);
+	const history = useHistory();
 
 	const sidebarAnimationConfig = {
 		isVisible: isVisible,
@@ -23,6 +24,11 @@ const Sidebar = ({ isVisible, onClose }) => {
 		exit: classes.sidebar__exit,
 		exitActive: classes.sidebar__exitActive,
 		timeout: 300,
+	};
+
+	const onRouteChangeHandler = (route) => {
+		history.push(route);
+		onClose();
 	};
 
 	return (
@@ -45,8 +51,18 @@ const Sidebar = ({ isVisible, onClose }) => {
 						<p className={classes.sidebar__total}>
 							Total: ${calculateTotalCartPrice(cartItems).toFixed(2)}
 						</p>
-						<Button className={classes.sidebar__cart}>Go to Cart</Button>
-						<Button className={classes.sidebar__checkout}>Check out</Button>
+						<Button
+							className={classes.sidebar__cart}
+							onClick={() => onRouteChangeHandler("/cart")}
+						>
+							Go to Cart
+						</Button>
+						<Button
+							className={classes.sidebar__checkout}
+							onClick={() => onRouteChangeHandler("/checkout")}
+						>
+							Check out
+						</Button>
 					</div>
 				</aside>
 			</Animate>

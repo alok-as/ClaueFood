@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
 		},
 		password: {
 			type: String,
-			required: true,
+			required: false,
 			trim: true,
 		},
 		authToken: {

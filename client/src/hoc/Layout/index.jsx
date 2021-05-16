@@ -29,11 +29,13 @@ const Layout = () => {
 		<Suspense fallback={<h1>Loading...</h1>}>
 			<Header />
 			<ScrollToTop isVisible={isScrollToTopVisible} />
-			<Switch>
-				<Route path="/" exact component={HomePage} />
-				<Route path="/product/:slug" component={ProductPage} />
-				<Route path="/checkout" component={CheckoutPage} />
-			</Switch>
+			<main>
+				<Switch>
+					<Route path="/" exact component={HomePage} />
+					<Route path="/product/:slug" component={ProductPage} />
+					<Route path="/checkout" component={CheckoutPage} />
+				</Switch>
+			</main>
 		</Suspense>
 	);
 };
