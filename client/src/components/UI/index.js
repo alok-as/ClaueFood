@@ -6,6 +6,7 @@ export { default as Button } from "./Button";
 export { default as Card } from "./Card";
 export { default as CategoryDropdown } from "./CategoryDropdown";
 export { default as ContactBar } from "./ContactBar";
+export { default as EditableItem } from "./EditableItem";
 export { default as Feature } from "./Feature";
 export { default as Heading } from "./Heading";
 export { default as Input } from "./Input";

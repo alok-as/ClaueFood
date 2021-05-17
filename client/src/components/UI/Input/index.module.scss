@@ -1,7 +1,22 @@
 .input {
+	position: relative;
+
 	&__label {
+		position: relative;
 		color: var(--color-grey-3);
 		font-size: 1.4rem;
+		text-transform: capitalize;
+		user-select: none;
+	}
+
+	&__required {
+		&::after {
+			content: "*";
+			position: absolute;
+			top: -0.2rem;
+			right: -1.2rem;
+			color: red;
+		}
 	}
 
 	&__field {
@@ -17,6 +32,39 @@
 		&::placeholder {
 			text-transform: capitalize;
 			font-weight: 500;
+		}
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			appearance: none;
+		}
+	}
+
+	&__field[data-type="dropdown"]:focus + &__list {
+		opacity: 1;
+		max-height: 20rem;
+	}
+
+	&__list {
+		width: 100%;
+		position: absolute;
+		top: 110%;
+		opacity: 0;
+		max-height: 0;
+		transition: all 0.3s ease;
+		background-color: var(--color-white-1);
+		z-index: 10;
+		border: 1px solid #ccc;
+		overflow-y: auto;
+	}
+
+	&__item {
+		padding: 0.5rem 2.4rem;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #ccc;
 		}
 	}
 

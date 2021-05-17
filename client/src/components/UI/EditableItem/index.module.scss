@@ -1,0 +1,27 @@
+.edit {
+	&__item {
+		&:not(:last-child) {
+			margin-bottom: 2.4rem;
+		}
+	}
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid #ddd;
+		padding-bottom: 0.4rem;
+		margin-bottom: 1.4rem;
+	}
+
+	&__title {
+		font-size: 2rem;
+		text-transform: capitalize;
+		color: var(--color-black-3);
+	}
+
+	&__content {
+		color: var(--color-grey-1);
+		font-size: 1.4rem;
+	}
+}

@@ -15,7 +15,7 @@ export const calculateTotalCartPrice = (items) => {
 	return count;
 };
 
-export const setValueInsessionStorage = (key, value) => {
+export const setValueInSessionStorage = (key, value) => {
 	const valueType = typeof value;
 
 	if (valueType === "string") {
@@ -29,7 +29,7 @@ export const removeValueFromsessionStorage = (key) => {
 	sessionStorage.removeItem(key);
 };
 
-export const extractValueFromsessionStorage = (key) => {
+export const extractValueFromSessionStorage = (key) => {
 	return JSON.parse(sessionStorage.getItem(key));
 };
 
@@ -38,7 +38,7 @@ export const extractAllValuesFromsessionStorage = () => {
 	const length = keys.length;
 
 	const cache = keys.reduce((obj, key) => {
-		obj[key] = extractValueFromsessionStorage(key);
+		obj[key] = extractValueFromSessionStorage(key);
 		return obj;
 	}, {});
 
