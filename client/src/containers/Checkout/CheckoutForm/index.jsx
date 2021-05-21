@@ -9,12 +9,12 @@ import {
 	PaymentsForm,
 	ShippingForm,
 } from "../../../components/Checkout";
+import { Stepper } from "../../../components/UI";
 
 import {
 	fetchZipCodeDetails,
 	saveShippingDetails,
 } from "../../../redux/Checkout/actions";
-import { setValueInSessionStorage } from "../../../utils";
 
 const CheckoutForm = () => {
 	const history = useHistory();
@@ -32,7 +32,7 @@ const CheckoutForm = () => {
 	return (
 		<div className={classes.checkout}>
 			<Row className={classes.checkout__content}>
-				<h1>Stepper Step</h1>
+				<Stepper />
 				<div className={classes.checkout__wrapper}>
 					<Switch>
 						<Route

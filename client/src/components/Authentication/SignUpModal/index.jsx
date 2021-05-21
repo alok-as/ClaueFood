@@ -15,10 +15,7 @@ const SignUpModal = ({
 	const { isLoading, isSuccess, message } = registerDetails;
 
 	const onInputChangeHandler = (e) => {
-		const newFields = { ...fields };
-
-		newFields[e.target.name].value = e.target.value;
-		setFields(newFields);
+		setFields((fields) => ({ ...fields, [e.target.name]: e.target.value }));
 	};
 
 	const [fields, setFields] = useState({

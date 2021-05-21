@@ -19,4 +19,6 @@ export { default as SearchBar } from "./SearchBar";
 export { default as Section } from "./Section";
 export { default as SectionTitle } from "./SectionTitle";
 export { default as Slide } from "./Slide";
+export { default as Step } from "./Step";
+export { default as Stepper } from "./Stepper";
 export { default as Tab } from "./Tab";

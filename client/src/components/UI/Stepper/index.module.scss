@@ -1,0 +1,9 @@
+.stepper {
+	margin-top: 2rem;
+	margin-bottom: 5rem;
+	display: flex;
+
+	& > * {
+		flex-basis: 50%;
+	}
+}

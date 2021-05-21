@@ -1,0 +1,59 @@
+.step {
+	text-align: center;
+
+	&__top {
+		position: relative;
+	}
+
+	&__number {
+		display: inline-block;
+		padding: 0.8rem 1.6rem;
+		border-radius: 50%;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 0;
+			z-index: -1;
+			transform: translateY(-50%);
+			width: 100%;
+			height: 0.6rem;
+			position: absolute;
+		}
+	}
+
+	&__active {
+		border: 0.6rem solid #eb5202;
+		color: #eb5202;
+		background-color: var(--color-white-1);
+
+		&::after {
+			background-color: #eb5202;
+		}
+	}
+
+	&__completed {
+		border: 0.6rem solid #14ab00;
+		color: #14ab00;
+		background-color: var(--color-white-1);
+
+		&::after {
+			background-color: #14ab00;
+		}
+	}
+
+	&__disabled {
+		border: 0.6rem solid #c2c2c2;
+		color: #c2c2c2;
+		background-color: var(--color-white-1);
+
+		&::after {
+			background-color: #c2c2c2;
+		}
+	}
+
+	&__title {
+		margin-top: 0.5rem;
+	}
+}
