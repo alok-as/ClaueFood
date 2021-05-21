@@ -90,3 +90,20 @@ export const deepClone = (obj) => {
 
 	return clone;
 };
+
+export const injectAndLoadScript = (src) => {
+	return new Promise((resolve, reject) => {
+		const script = document.createElement("script");
+		script.src = src;
+
+		script.onload = () => {
+			resolve(true);
+		};
+
+		script.onerror = () => {
+			reject(false);
+		};
+
+		document.body.appendChild(script);
+	});
+};
