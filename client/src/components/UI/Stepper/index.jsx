@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import { useLocation } from "react-router-dom";
 
 import classes from "./index.module.scss";
 import { Step } from "../index";
 
-const Stepper = () => {
-	const { pathname } = useLocation();
-
+const Stepper = ({ pathname }) => {
 	const [steps, setSteps] = useState([
 		{
 			key: nanoid(),

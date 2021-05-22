@@ -38,4 +38,10 @@
 	&__detailslist {
 		margin-top: 4rem;
 	}
+
+	&__text {
+		&:not(:last-child) {
+			margin-bottom: 2px;
+		}
+	}
 }

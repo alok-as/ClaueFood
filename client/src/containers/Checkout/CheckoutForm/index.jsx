@@ -1,9 +1,9 @@
 import React from "react";
-import { useHistory, Switch, Route, Redirect } from "react-router";
-import { useDispatch } from "react-redux";
+import { useHistory, useLocation, Switch, Route, Redirect } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 import classes from "./index.module.scss";
-import { Row } from "../../../hoc";
+import { ErrorBoundary, Row } from "../../../hoc";
 import {
 	OrderSummary,
 	PaymentsForm,
@@ -18,7 +18,10 @@ import {
 
 const CheckoutForm = () => {
 	const history = useHistory();
+	const { pathname } = useLocation();
 	const dispatch = useDispatch();
+
+	const { shippingDetails } = useSelector((state) => state.checkout);
 
 	const fetchZipCodeDetailsHandler = (zipCode) => {
 		dispatch(fetchZipCodeDetails(zipCode));
@@ -32,7 +35,7 @@ const CheckoutForm = () => {
 	return (
 		<div className={classes.checkout}>
 			<Row className={classes.checkout__content}>
-				<Stepper />
+				<Stepper pathname={pathname} />
 				<div className={classes.checkout__wrapper}>
 					<Switch>
 						<Route
@@ -49,7 +52,12 @@ const CheckoutForm = () => {
 							<Redirect to="/checkout/shipping" />
 						</Route>
 					</Switch>
-					<OrderSummary />
+					<ErrorBoundary errorMessage="Something went wrong">
+						<OrderSummary
+							pathname={pathname}
+							shippingDetails={shippingDetails.details}
+						/>
+					</ErrorBoundary>
 				</div>
 			</Row>
 		</div>

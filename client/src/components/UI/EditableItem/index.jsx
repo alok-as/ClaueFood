@@ -10,7 +10,7 @@ const EditableItem = ({ title, onClick, children }) => {
 					Icon
 				</span>
 			</p>
-			<p className={classes.edit__content}>{children}</p>
+			<div className={classes.edit__content}>{children}</div>
 		</li>
 	);
 };

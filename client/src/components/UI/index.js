@@ -9,6 +9,7 @@ export { default as ContactBar } from "./ContactBar";
 export { default as EditableItem } from "./EditableItem";
 export { default as Feature } from "./Feature";
 export { default as Heading } from "./Heading";
+export { default as Icon } from "./Icon";
 export { default as Input } from "./Input";
 export { default as Loader } from "./Loader";
 export { default as Logo } from "./Logo";
