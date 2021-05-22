@@ -2,18 +2,18 @@ import React from "react";
 import classes from "./index.module.scss";
 
 const Step = ({ children, active, disabled, completed, index }) => {
-	const finalNumberClass = [classes.step__number];
+	let finalNumberClass = [classes.step__number];
 
 	if (active) {
-		finalNumberClass.push(classes.step__active);
+		finalNumberClass = [classes.step__number, classes.step__active];
 	}
 
 	if (completed) {
-		finalNumberClass.push(classes.step__completed);
+		finalNumberClass = [classes.step__number, classes.step__completed];
 	}
 
 	if (disabled) {
-		finalNumberClass.push(classes.step__disabled);
+		finalNumberClass = [classes.step__number, classes.step__disabled];
 	}
 
 	return (

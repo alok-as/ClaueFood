@@ -14,6 +14,7 @@ export { default as Loader } from "./Loader";
 export { default as Logo } from "./Logo";
 export { default as MiniCartItem } from "./MiniCartItem";
 export { default as NavigationItem } from "./NavigationItem";
+export { default as RadioButton } from "./RadioButton";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as SearchBar } from "./SearchBar";
 export { default as Section } from "./Section";

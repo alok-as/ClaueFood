@@ -29,7 +29,7 @@ const Slide = ({ imageURL, isVisible, heading, subheading, text }) => {
 				>
 					{text}
 				</Heading>
-				<Button>Buy Now</Button>
+				<Button color="green">Buy Now</Button>
 			</div>
 		</div>
 	);

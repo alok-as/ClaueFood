@@ -34,8 +34,6 @@ export const initiateRazorPayPayment = async ({
 			},
 		};
 
-		console.log("Checking options", options);
-
 		const rzp1 = new window.Razorpay(options);
 		rzp1.on("payment.failed", (response) => {
 			alert(response.error.code);

@@ -60,6 +60,7 @@ const ProductCard = ({
 				<br />
 				<Button
 					className={classes.product__button}
+					color="white"
 					onClick={() => addProductToCart(_id)}
 				>
 					Add to Cart
