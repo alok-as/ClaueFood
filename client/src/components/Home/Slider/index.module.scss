@@ -1,0 +1,42 @@
+.slider {
+	position: relative;
+	overflow-x: hidden;
+
+	&:hover &__previous,
+	&:hover &__next {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	&__cards {
+		display: flex;
+		transition: 0.3s transform ease;
+
+		& > * {
+			flex-basis: 50%;
+
+			&:nth-child(1) {
+				margin-right: 3rem;
+			}
+		}
+	}
+
+	&__previous,
+	&__next {
+		position: absolute;
+		top: 30%;
+		transform: translateY(-50%);
+		z-index: 100;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease;
+	}
+
+	&__previous {
+		left: 0;
+	}
+
+	&__next {
+		right: 0;
+	}
+}

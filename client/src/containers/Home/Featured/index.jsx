@@ -9,12 +9,13 @@ import {
 	Section,
 	SectionTitle,
 } from "../../../components/UI";
-import { FeaturedItem } from "../../../components/Home";
+import { FeaturedItem, Slider } from "../../../components/Home";
 
 import featureImage1 from "../../../assets/images/home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/home/featured-2.jpg";
 
 import { addProductToCart } from "../../../redux/Cart/actions";
+import sampleData from "../../../data/data";
 
 const Featured = () => {
 	const dispatch = useDispatch();
@@ -101,15 +102,7 @@ const Featured = () => {
 					))}
 				</ul>
 			</div>
-			<div className={classes.featured__products}>
-				{products.map((product) => (
-					<ProductCard
-						key={product._id}
-						{...product}
-						addProductToCart={addProductToCartHandler}
-					/>
-				))}
-			</div>
+			<Slider data={sampleData} addProductToCart={addProductToCartHandler} />
 		</Section>
 	);
 };
