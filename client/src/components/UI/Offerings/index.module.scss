@@ -1,0 +1,35 @@
+.offerings {
+	$this: &;
+
+	&__version1 {
+		background-color: var(--color-green-5);
+
+		#{$this}__text {
+			color: var(--color-white-1);
+			font-size: 1.4rem;
+		}
+	}
+
+	&__version2 {
+		background-color: var(--color-white-1);
+
+		#{$this}__text {
+			color: var(--color-grey-1);
+			font-size: 1.4rem;
+		}
+	}
+
+	&__grid {
+		display: grid;
+		grid-gap: 4rem;
+		grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+
+	&__heading {
+		font-weight: 600;
+		letter-spacing: 1px;
+		margin-bottom: 0.4em;
+	}
+}

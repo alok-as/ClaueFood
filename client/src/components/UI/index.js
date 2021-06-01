@@ -15,6 +15,8 @@ export { default as Input } from "./Input";
 export { default as Loader } from "./Loader";
 export { default as Logo } from "./Logo";
 export { default as MiniCartItem } from "./MiniCartItem";
+export { default as Offerings } from "./Offerings";
+export { default as ProductCard } from "./ProductCard";
 export { default as RadioButton } from "./RadioButton";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as Section } from "./Section";

@@ -3,13 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
-import { Card, Section, SectionTitle } from "../../../components/UI";
+import {
+	Card,
+	ProductCard,
+	Section,
+	SectionTitle,
+} from "../../../components/UI";
 import { FeaturedItem } from "../../../components/Home";
 
 import featureImage1 from "../../../assets/images/home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/home/featured-2.jpg";
 
-import ProductCard from "../../../components/UI/ProductCard";
 import { addProductToCart } from "../../../redux/Cart/actions";
 
 const Featured = () => {

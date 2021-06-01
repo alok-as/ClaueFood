@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Hero, Featured } from "../../containers/Home";
-
+import { Offerings } from "../../components/UI";
 import { fetchAllProducts } from "../../redux/Products/actions";
 
 const HomePage = () => {
@@ -15,6 +15,7 @@ const HomePage = () => {
 		<Fragment>
 			<Hero />
 			<Featured />
+			<Offerings version={1} />
 		</Fragment>
 	);
 };
