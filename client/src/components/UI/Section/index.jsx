@@ -1,15 +1,16 @@
 import React from "react";
 import classes from "./index.module.scss";
 import Row from "../../../hoc/Row";
+import { combineClasses } from "../../../utils";
 
 const Section = ({ className, children }) => {
-	const finalClass = [classes.section];
+	const finalClasses = [classes.section];
 	if (className) {
-		finalClass.push(className);
+		finalClasses.push(className);
 	}
 
 	return (
-		<section className={finalClass.join(" ")}>
+		<section className={combineClasses(finalClasses)}>
 			<Row>{children}</Row>
 		</section>
 	);

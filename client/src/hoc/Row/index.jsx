@@ -1,14 +1,15 @@
 import React from "react";
 import classes from "./index.module.scss";
+import { combineClasses } from "../../utils";
 
 const Row = ({ children, className }) => {
-	const finalClass = [classes.row];
+	const finalClasses = [classes.row];
 
 	if (className) {
-		finalClass.push(className);
+		finalClasses.push(className);
 	}
 
-	return <div className={finalClass.join(" ")}>{children}</div>;
+	return <div className={combineClasses(finalClasses)}>{children}</div>;
 };
 
 export default Row;

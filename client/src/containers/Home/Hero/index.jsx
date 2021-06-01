@@ -72,7 +72,7 @@ const Hero = () => {
 	};
 
 	useEffect(() => {
-		// autoSlideChangeHandler();
+		autoSlideChangeHandler();
 		return () => {
 			clearIntervalHandler();
 		};

@@ -1,0 +1,10 @@
+.footer {
+	position: relative;
+	padding: 8rem 0;
+	background-color: var(--color-black-4);
+
+	&__content {
+		display: flex;
+		margin-bottom: 6rem;
+	}
+}

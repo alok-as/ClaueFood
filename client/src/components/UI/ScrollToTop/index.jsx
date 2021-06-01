@@ -1,11 +1,12 @@
 import React from "react";
 import classes from "./index.module.scss";
+import { combineClasses } from "../../../utils";
 
 const ScrollToTop = ({ isVisible }) => {
-	let finalClass = [classes.scroll];
+	let finalClasses = [classes.scroll];
 
 	if (isVisible) {
-		finalClass.push(classes.scroll__visible);
+		finalClasses.push(classes.scroll__visible);
 	}
 
 	const scrollToTopHandler = () => {
@@ -13,7 +14,10 @@ const ScrollToTop = ({ isVisible }) => {
 	};
 
 	return (
-		<div className={finalClass.join(" ")} onClick={scrollToTopHandler}></div>
+		<div
+			className={combineClasses(finalClasses)}
+			onClick={scrollToTopHandler}
+		></div>
 	);
 };
 

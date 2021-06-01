@@ -2,6 +2,7 @@ import React from "react";
 import { nanoid } from "nanoid";
 import classes from "./index.module.scss";
 import { Fragment } from "react";
+import { combineClasses } from "../../../utils";
 
 const Input = ({
 	type,
@@ -16,15 +17,15 @@ const Input = ({
 	className,
 	error,
 }) => {
-	const finalClass = [classes.input];
-	const finalLabelClass = [classes.input__label];
+	const finalClasses = [classes.input];
+	const finalLabelClasses = [classes.input__label];
 
 	if (className) {
-		finalClass.push(className);
+		finalClasses.push(className);
 	}
 
 	if (required) {
-		finalLabelClass.push(classes.input__required);
+		finalLabelClasses.push(classes.input__required);
 	}
 
 	let element;
@@ -78,9 +79,9 @@ const Input = ({
 	}
 
 	return (
-		<div className={finalClass.join(" ")}>
+		<div className={combineClasses(finalClasses)}>
 			{label && (
-				<label className={finalLabelClass.join(" ")} htmlFor={label}>
+				<label className={combineClasses(finalLabelClasses)} htmlFor={label}>
 					{label}
 				</label>
 			)}

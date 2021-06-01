@@ -91,6 +91,10 @@ export const deepClone = (obj) => {
 	return clone;
 };
 
+export const combineClasses = (classes) => {
+	return classes.join(" ");
+};
+
 export const injectAndLoadScript = (src) => {
 	return new Promise((resolve, reject) => {
 		const script = document.createElement("script");

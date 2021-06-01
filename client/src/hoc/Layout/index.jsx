@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ScrollToTop } from "../../components/UI";
-import { Header } from "../../containers/Layout";
+import { Header, Footer } from "../../containers/Layout";
 
 import HomePage from "../../pages/HomePage";
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
@@ -38,6 +38,7 @@ const Layout = () => {
 					<Route path="/testing" component={TestingPage} />
 				</Switch>
 			</main>
+			<Footer />
 		</Suspense>
 	);
 };

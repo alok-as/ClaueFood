@@ -1,25 +1,26 @@
 import React from "react";
 import classes from "./index.module.scss";
+import { combineClasses } from "../../../utils";
 
 const Step = ({ children, active, disabled, completed, index }) => {
-	let finalNumberClass = [classes.step__number];
+	let finalNumberClasses = [classes.step__number];
 
 	if (active) {
-		finalNumberClass = [classes.step__number, classes.step__active];
+		finalNumberClasses = [classes.step__number, classes.step__active];
 	}
 
 	if (completed) {
-		finalNumberClass = [classes.step__number, classes.step__completed];
+		finalNumberClasses = [classes.step__number, classes.step__completed];
 	}
 
 	if (disabled) {
-		finalNumberClass = [classes.step__number, classes.step__disabled];
+		finalNumberClasses = [classes.step__number, classes.step__disabled];
 	}
 
 	return (
 		<div className={classes.step}>
 			<div className={classes.step__top}>
-				<span className={finalNumberClass.join(" ")}>{index + 1}</span>
+				<span className={combineClasses(finalNumberClasses)}>{index + 1}</span>
 			</div>
 			<p className={classes.step__title}>{children}</p>
 		</div>

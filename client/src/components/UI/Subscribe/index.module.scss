@@ -1,0 +1,40 @@
+.subscribe {
+	flex: 1;
+	color: white;
+
+	&__text {
+		font-size: 1.4rem;
+		margin-bottom: 2rem;
+	}
+
+	&__form {
+		border: 1px solid var(--color-grey-1);
+		padding: 0.5rem 0.5rem 0.5rem 1.6rem;
+		border-radius: 10rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__input {
+		width: 100%;
+		color: var(--color-grey-1);
+		background: none;
+		border: none;
+		outline: none;
+	}
+
+	&__button {
+		color: var(--color-white);
+		background-color: var(--color-black-1);
+		padding: 0.8rem 1.6rem;
+		border-radius: 10rem;
+		border: none;
+		outline: none;
+		transition: 0.3s background-color ease;
+
+		&:hover {
+			background-color: var(--color-green-1);
+		}
+	}
+}

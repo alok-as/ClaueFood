@@ -1,15 +1,16 @@
 import React from "react";
+import { combineClasses } from "../../../utils";
 import classes from "./index.module.scss";
 
 const Tab = ({ children, isActive, onClick }) => {
-	const finalClass = [classes.tab];
+	const finalClasses = [classes.tab];
 
 	if (isActive) {
-		finalClass.push(classes.tab__active);
+		finalClasses.push(classes.tab__active);
 	}
 
 	return (
-		<button className={finalClass.join(" ")} onClick={onClick}>
+		<button className={combineClasses(finalClasses)} onClick={onClick}>
 			{children}
 		</button>
 	);

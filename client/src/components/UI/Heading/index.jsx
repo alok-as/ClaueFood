@@ -1,6 +1,7 @@
 import { createElement } from "react";
 import classes from "./index.module.scss";
 import PropTypes from "prop-types";
+import { combineClasses } from "../../../utils";
 
 const Heading = ({ type, children, textTransform, color, className }) => {
 	let element;
@@ -10,7 +11,7 @@ const Heading = ({ type, children, textTransform, color, className }) => {
 		color,
 	};
 
-	let finalClass = [classes[`heading__${type}`]];
+	let finalClasses = [classes[`heading__${type}`]];
 
 	switch (type) {
 		case "primary":
@@ -36,12 +37,12 @@ const Heading = ({ type, children, textTransform, color, className }) => {
 	}
 
 	if (className) {
-		finalClass.push(className);
+		finalClasses.push(className);
 	}
 
 	return createElement(
 		element,
-		{ className: finalClass.join(" "), style },
+		{ className: combineClasses(finalClasses), style },
 		children
 	);
 };

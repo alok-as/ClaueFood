@@ -1,17 +1,22 @@
 import React from "react";
 import classes from "./index.module.scss";
 import Icons from "../../../utils/icons";
+import { combineClasses } from "../../../utils";
 
 const Icon = ({ iconName, iconClass, onClick }) => {
-	const finalClass = [classes.icon];
+	const finalClasses = [classes.icon];
 	const { viewBox, path } = Icons[iconName];
 
 	if (iconClass) {
-		finalClass.push(iconClass);
+		finalClasses.push(iconClass);
 	}
 
 	return (
-		<svg className={finalClass.join(" ")} viewBox={viewBox} onClick={onClick}>
+		<svg
+			className={combineClasses(finalClasses)}
+			viewBox={viewBox}
+			onClick={onClick}
+		>
 			{path}
 		</svg>
 	);

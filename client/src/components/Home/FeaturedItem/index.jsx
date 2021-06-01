@@ -1,17 +1,18 @@
 import React from "react";
 import classes from "./index.module.scss";
+import { combineClasses } from "../../../utils";
 
 const FeaturedItem = ({ isActive, children, onClick }) => {
-	let finalClass;
+	let finalClasses;
 
 	if (isActive) {
-		finalClass = [classes.item, classes.item__active];
+		finalClasses = [classes.item, classes.item__active];
 	} else {
-		finalClass = [classes.item];
+		finalClasses = [classes.item];
 	}
 
 	return (
-		<li className={finalClass.join(" ")} onClick={onClick}>
+		<li className={combineClasses(finalClasses)} onClick={onClick}>
 			{children}
 		</li>
 	);

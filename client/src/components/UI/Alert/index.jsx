@@ -1,25 +1,27 @@
 import React from "react";
-import classes from "./index.module.scss";
 import PropTypes from "prop-types";
 
+import classes from "./index.module.scss";
+import { combineClasses } from "../../../utils";
+
 const Alert = ({ type, children }) => {
-	const finalClass = [classes.alert];
+	const finalClasses = [classes.alert];
 
 	switch (type) {
 		case "success":
-			finalClass.push(classes.alert__success);
+			finalClasses.push(classes.alert__success);
 			break;
 		case "failure":
-			finalClass.push(classes.alert__failure);
+			finalClasses.push(classes.alert__failure);
 			break;
 		case "warning":
-			finalClass.push(classes.alert__warning);
+			finalClasses.push(classes.alert__warning);
 			break;
 		default:
-			finalClass.push(classes.alert__success);
+			finalClasses.push(classes.alert__success);
 	}
 
-	return <div className={finalClass.join(" ")}>{children}</div>;
+	return <div className={combineClasses(finalClasses)}>{children}</div>;
 };
 
 Alert.defaultProps = {

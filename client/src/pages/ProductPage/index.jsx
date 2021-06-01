@@ -10,8 +10,6 @@ const ProductPage = () => {
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 
-	// Online at Low Prices in India - Amazon.in
-
 	useEffect(() => {
 		dispatch(fetchProductBySlug(slug));
 	}, [slug, dispatch]);
