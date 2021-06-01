@@ -1,16 +1,16 @@
 import React, { useState, useCallback, memo } from "react";
 import { useSelector } from "react-redux";
+import { nanoid } from "nanoid";
+
 import classes from "./index.module.scss";
 import { Row, Portal } from "../../../hoc";
 import {
 	ContactBar,
-	Icon,
-	Logo,
 	NavigationItem,
 	SearchBar,
-} from "../../../components/UI";
+} from "../../../components/Layout/Header";
+import { Icon, Logo } from "../../../components/UI";
 import { AuthModal, Sidebar } from "../index";
-import { nanoid } from "nanoid";
 
 const Header = () => {
 	const { cartItemsCount } = useSelector((state) => state.cart);

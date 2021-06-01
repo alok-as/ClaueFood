@@ -1,5 +1,5 @@
 import React from "react";
-import Row from "../../../hoc/Row";
+import { Row } from "../../../../hoc";
 import classes from "./index.module.scss";
 
 const ContactBar = () => {

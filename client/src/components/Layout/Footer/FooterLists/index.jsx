@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import classes from "./index.module.scss";
-import { FooterList } from "../index";
+import { FooterList } from "../../../UI";
 
 const FooterLists = () => {
 	const [categoriesList, setCategoriesList] = useState([

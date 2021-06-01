@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./index.module.scss";
-import { ContactUs, Logo, SocialLinks } from "../index";
+import { ContactUs, Logo, SocialLinks } from "../../../UI";
 
 const Brand = () => {
 	return (

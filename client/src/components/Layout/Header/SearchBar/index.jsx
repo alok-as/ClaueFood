@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
-import { Row } from "../../../hoc";
-import { CategoryDropdown } from "../index";
+import { Row } from "../../../../hoc";
+import { CategoryDropdown } from "../../../UI";
 
 const SearchBar = () => {
 	const [categories, setCategories] = useState([
