@@ -15,21 +15,4 @@
 		margin: 3.5rem 0;
 		text-align: center;
 	}
-
-	&__list {
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		max-width: 60%;
-		color: var(--color-grey-1);
-		margin: 0 auto;
-
-		margin-bottom: 5rem;
-	}
-
-	&__products {
-		display: flex;
-		overflow: hidden;
-		margin-bottom: 5rem;
-	}
 }

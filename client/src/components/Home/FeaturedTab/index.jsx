@@ -2,13 +2,13 @@ import React from "react";
 import classes from "./index.module.scss";
 import { combineClasses } from "../../../utils";
 
-const FeaturedItem = ({ isActive, children, onClick }) => {
+const FeaturedTab = ({ isActive, children, onClick }) => {
 	let finalClasses;
 
 	if (isActive) {
-		finalClasses = [classes.item, classes.item__active];
+		finalClasses = [classes.tab, classes.tab__active];
 	} else {
-		finalClasses = [classes.item];
+		finalClasses = [classes.tab];
 	}
 
 	return (
@@ -18,4 +18,4 @@ const FeaturedItem = ({ isActive, children, onClick }) => {
 	);
 };
 
-export default FeaturedItem;
+export default FeaturedTab;

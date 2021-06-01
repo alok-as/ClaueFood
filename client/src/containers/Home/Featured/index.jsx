@@ -3,13 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
-import {
-	Card,
-	ProductCard,
-	Section,
-	SectionTitle,
-} from "../../../components/UI";
-import { FeaturedItem, Slider } from "../../../components/Home";
+import { Card, Section, SectionTitle } from "../../../components/UI";
+import { FeaturedTabs, Slider } from "../../../components/Home";
 
 import featureImage1 from "../../../assets/images/home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/home/featured-2.jpg";
@@ -92,16 +87,7 @@ const Featured = () => {
 			<div className={classes.featured__title}>
 				<SectionTitle>Fresh Food</SectionTitle>
 			</div>
-			<div className={classes.featured__menu}>
-				<ul className={classes.featured__list}>
-					{categories.map((category, index) => (
-						<FeaturedItem
-							{...category}
-							onClick={() => selectCategoryHandler(index)}
-						/>
-					))}
-				</ul>
-			</div>
+			<FeaturedTabs tabs={categories} onClick={selectCategoryHandler} />
 			<Slider data={sampleData} addProductToCart={addProductToCartHandler} />
 		</Section>
 	);
