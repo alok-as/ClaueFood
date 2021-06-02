@@ -1,0 +1,10 @@
+.quick {
+	&__link {
+		font-size: 1.4rem;
+		transition: 0.3s color ease;
+
+		&:hover {
+			color: var(--color-green-1);
+		}
+	}
+}

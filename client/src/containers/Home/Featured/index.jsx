@@ -88,7 +88,11 @@ const Featured = () => {
 				<SectionTitle>Fresh Food</SectionTitle>
 			</div>
 			<FeaturedTabs tabs={categories} onClick={selectCategoryHandler} />
-			<Slider data={sampleData} addProductToCart={addProductToCartHandler} />
+			<Slider
+				data={sampleData}
+				addProductToCart={addProductToCartHandler}
+				numSlides={5}
+			/>
 		</Section>
 	);
 };

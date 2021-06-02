@@ -1,29 +1,46 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import classes from "./index.module.scss";
 import { ProductCard } from "../../UI";
 
-const Slider = ({ data, addProductToCart }) => {
+const Slider = ({ data, addProductToCart, numSlides }) => {
 	const slideRef = useRef();
 	const containerRef = useRef();
+
+	const [isLoading, setIsLoading] = useState(true);
 	const [slideWidth, setSlideWidth] = useState(0);
+	const [gutterWidth, setGutterWidth] = useState(30);
 	const [slideFactor, setSlideFactor] = useState(0);
+	const [currentSlideFactor, setCurrentSlideFactor] = useState(0);
 	const [maxSlideFactor, setMaxSlideFactor] = useState(0);
+
 	const [isNextDisabled, setIsNextDisabled] = useState(false);
+	const [isPreviousDisabled, setIsPreviousDisabled] = useState(true);
 
 	const onNextSlideHandler = () => {
-		setSlideFactor((slideFactor) => {
-			const newFactor = slideFactor + slideWidth;
+		setCurrentSlideFactor((currentSlideFactor) => {
+			const newFactor = currentSlideFactor + slideFactor;
+
 			if (newFactor === maxSlideFactor) {
 				setIsNextDisabled(true);
 			}
+
+			if (currentSlideFactor === 0) {
+				setIsPreviousDisabled(false);
+			}
+
 			return newFactor;
 		});
 	};
 
 	const onPrevSlideHandler = () => {
-		setSlideFactor((slideFactor) => {
-			const newFactor = slideFactor - slideWidth;
-			if (newFactor === maxSlideFactor - slideWidth) {
+		setCurrentSlideFactor((currentSlideFactor) => {
+			const newFactor = currentSlideFactor - slideFactor;
+
+			if (newFactor === 0) {
+				setIsPreviousDisabled(true);
+			}
+
+			if (newFactor === maxSlideFactor - slideFactor) {
 				setIsNextDisabled(false);
 			}
 
@@ -31,44 +48,44 @@ const Slider = ({ data, addProductToCart }) => {
 		});
 	};
 
-	const calculateSlideFactorHandler = useCallback(() => {
-		const slideWidth = slideRef.current.offsetWidth + 30;
-		setSlideWidth(slideWidth);
-	}, []);
-
 	useEffect(() => {
-		if (slideWidth) {
-			const containerWidth = containerRef.current.offsetWidth;
-			const totalSlides = data.length;
-			const oneTimeSlides = Math.ceil(containerWidth / slideWidth);
-			const remainingSlides = totalSlides - oneTimeSlides;
-			setMaxSlideFactor(slideWidth * remainingSlides);
-		}
-	}, [data, slideWidth]);
+		const containerWidth = containerRef.current.offsetWidth;
+		const availableWidth = containerWidth - (numSlides - 1) * gutterWidth;
+		const slideWidth = availableWidth / numSlides;
+		setSlideWidth(slideWidth);
+		setSlideFactor(slideWidth + gutterWidth);
+
+		setIsLoading(false);
+
+		const totalSlides = data.length;
+		const remainingSlides = totalSlides - numSlides;
+		setMaxSlideFactor((slideWidth + gutterWidth) * remainingSlides);
+	}, [numSlides, data, setSlideWidth, setMaxSlideFactor, gutterWidth]);
 
 	const style = {
-		transform: `translateX(-${slideFactor}px)`,
+		transform: `translateX(-${currentSlideFactor}px)`,
 	};
 
 	return (
 		<div className={classes.slider}>
 			<div className={classes.slider__cards} style={style} ref={containerRef}>
-				{data.map((product, index) => (
-					<ProductCard
-						key={product._id}
-						{...product}
-						ref={slideRef}
-						index={index}
-						style={style}
-						addProductToCart={addProductToCart}
-						calculateSlideFactor={calculateSlideFactorHandler}
-					/>
-				))}
+				{!isLoading &&
+					data.map((product, index) => (
+						<ProductCard
+							key={product._id}
+							{...product}
+							ref={slideRef}
+							index={index}
+							productWidth={`${slideWidth / 10}rem`}
+							addProductToCart={addProductToCart}
+						/>
+					))}
 			</div>
 			<div>
 				<button
 					className={classes.slider__previous}
 					onClick={onPrevSlideHandler}
+					disabled={isPreviousDisabled}
 				>
 					Prev
 				</button>
