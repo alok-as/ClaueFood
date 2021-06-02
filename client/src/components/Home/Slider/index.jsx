@@ -3,7 +3,6 @@ import classes from "./index.module.scss";
 import { ProductCard } from "../../UI";
 
 const Slider = ({ data, addProductToCart, numSlides }) => {
-	const slideRef = useRef();
 	const containerRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -74,7 +73,6 @@ const Slider = ({ data, addProductToCart, numSlides }) => {
 						<ProductCard
 							key={product._id}
 							{...product}
-							ref={slideRef}
 							index={index}
 							productWidth={`${slideWidth / 10}rem`}
 							addProductToCart={addProductToCart}

@@ -5,30 +5,30 @@ import { FooterList } from "../../../UI";
 
 const FooterLists = () => {
 	const [categoriesList, setCategoriesList] = useState([
-		{ key: nanoid(), children: "Men" },
-		{ key: nanoid(), children: "Women" },
-		{ key: nanoid(), children: "Accessories" },
-		{ key: nanoid(), children: "Shoes" },
-		{ key: nanoid(), children: "Denim" },
-		{ key: nanoid(), children: "Dress" },
+		{ key: nanoid(), children: "Men", to: "/" },
+		{ key: nanoid(), children: "Women", to: "/" },
+		{ key: nanoid(), children: "Accessories", to: "/" },
+		{ key: nanoid(), children: "Shoes", to: "/" },
+		{ key: nanoid(), children: "Denim", to: "/" },
+		{ key: nanoid(), children: "Dress", to: "/" },
 	]);
 
 	const [informationList, setInformationList] = useState([
-		{ key: nanoid(), children: "About Us" },
-		{ key: nanoid(), children: "Contact Us" },
-		{ key: nanoid(), children: "Terms & Conditions" },
-		{ key: nanoid(), children: "Returns and Exchanges" },
-		{ key: nanoid(), children: "Shipping & Delicery" },
-		{ key: nanoid(), children: "Privacy Policy" },
+		{ key: nanoid(), children: "About Us", to: "/" },
+		{ key: nanoid(), children: "Contact Us", to: "/" },
+		{ key: nanoid(), children: "Terms & Conditions", to: "/" },
+		{ key: nanoid(), children: "Returns and Exchanges", to: "/" },
+		{ key: nanoid(), children: "Shipping & Delicery", to: "/" },
+		{ key: nanoid(), children: "Privacy Policy", to: "/" },
 	]);
 
 	const [quickLinksList, setQuickLinksList] = useState([
-		{ key: nanoid(), children: "Store Location" },
-		{ key: nanoid(), children: "My Account" },
-		{ key: nanoid(), children: "Accessories" },
-		{ key: nanoid(), children: "Order Tracking" },
-		{ key: nanoid(), children: "Size Guide" },
-		{ key: nanoid(), children: "FAQs" },
+		{ key: nanoid(), children: "Store Location", to: "/" },
+		{ key: nanoid(), children: "My Account", to: "/" },
+		{ key: nanoid(), children: "Accessories", to: "/" },
+		{ key: nanoid(), children: "Order Tracking", to: "/" },
+		{ key: nanoid(), children: "Size Guide", to: "/" },
+		{ key: nanoid(), children: "FAQs", to: "/" },
 	]);
 
 	return (

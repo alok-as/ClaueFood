@@ -21,8 +21,10 @@ const FooterBottom = () => {
 				</p>
 				<ul className={classes.bottom__list}>
 					{links.map((link) => (
-						<li className={classes.bottom__item}>
-							<Link {...link} className={classes.bottom__link} />
+						<li key={link.key} className={classes.bottom__item}>
+							<Link to={link.to} className={classes.bottom__link}>
+								{link.children}
+							</Link>
 						</li>
 					))}
 				</ul>

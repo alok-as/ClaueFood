@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./index.module.scss";
-import { Heading, Link } from "../../UI";
+import { Heading, QuickLink } from "../../UI";
 
 const DisplayPanel = ({ title, links }) => {
 	return (
@@ -10,16 +10,16 @@ const DisplayPanel = ({ title, links }) => {
 			</Heading>
 			<ul className={classes.panel__list}>
 				{links.map((link) => (
-					<Link
+					<QuickLink
 						{...link}
 						itemClass={classes.panel__item}
 						linkClass={classes.panel__link}
 					/>
 				))}
 			</ul>
-			<Link to="/" linkClass={classes.panel__button}>
+			<QuickLink to="/" linkClass={classes.panel__button}>
 				All Category
-			</Link>
+			</QuickLink>
 		</div>
 	);
 };

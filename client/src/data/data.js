@@ -35,7 +35,7 @@ const sampleData = [
 		],
 	},
 	{
-		_id: "6097b45918993099f4368733",
+		_id: "6097b45918993099f4368734",
 		characterstics: [
 			"Purely Orange",
 			"Extracted from Indian Farms",
@@ -70,7 +70,7 @@ const sampleData = [
 		],
 	},
 	{
-		_id: "6097b45918993099f4368733",
+		_id: "6097b45918993099f4368735",
 		characterstics: [
 			"Purely Orange",
 			"Extracted from Indian Farms",
@@ -105,7 +105,7 @@ const sampleData = [
 		],
 	},
 	{
-		_id: "6097b45918993099f4368733",
+		_id: "6097b45918993099f4368736",
 		characterstics: [
 			"Purely Orange",
 			"Extracted from Indian Farms",
@@ -140,7 +140,7 @@ const sampleData = [
 		],
 	},
 	{
-		_id: "6097b45918993099f4368733",
+		_id: "6097b45918993099f4368737",
 		characterstics: [
 			"Purely Orange",
 			"Extracted from Indian Farms",
@@ -175,7 +175,7 @@ const sampleData = [
 		],
 	},
 	{
-		_id: "6097b45918993099f4368733",
+		_id: "6097b45918993099f4368738",
 		characterstics: [
 			"Purely Orange",
 			"Extracted from Indian Farms",
@@ -210,147 +210,7 @@ const sampleData = [
 		],
 	},
 	{
-		_id: "6097b45918993099f4368733",
-		characterstics: [
-			"Purely Orange",
-			"Extracted from Indian Farms",
-			"No presevatives added",
-		],
-		title: "Country Delight Apple",
-		price: 200,
-		discount: 5,
-		description: "Best mango available in the Indian Market",
-		stock: 24,
-		seller: "6093c3f33d2f7d52104ae7b1",
-		createdAt: "2021-05-09T10:07:21.200Z",
-		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
-		slug: "country-delight-apple",
-		__v: 0,
-		images: [
-			{
-				_id: "6097b51da5b0f39a64504d82",
-				isPrimary: false,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555037560.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-			{
-				_id: "6097b531a5b0f39a64504d83",
-				isPrimary: true,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555057926.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-		],
-	},
-	{
-		_id: "6097b45918993099f4368733",
-		characterstics: [
-			"Purely Orange",
-			"Extracted from Indian Farms",
-			"No presevatives added",
-		],
-		title: "Country Delight Apple",
-		price: 200,
-		discount: 5,
-		description: "Best mango available in the Indian Market",
-		stock: 24,
-		seller: "6093c3f33d2f7d52104ae7b1",
-		createdAt: "2021-05-09T10:07:21.200Z",
-		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
-		slug: "country-delight-apple",
-		__v: 0,
-		images: [
-			{
-				_id: "6097b51da5b0f39a64504d82",
-				isPrimary: false,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555037560.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-			{
-				_id: "6097b531a5b0f39a64504d83",
-				isPrimary: true,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555057926.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-		],
-	},
-	{
-		_id: "6097b45918993099f4368733",
-		characterstics: [
-			"Purely Orange",
-			"Extracted from Indian Farms",
-			"No presevatives added",
-		],
-		title: "Country Delight Apple",
-		price: 200,
-		discount: 5,
-		description: "Best mango available in the Indian Market",
-		stock: 24,
-		seller: "6093c3f33d2f7d52104ae7b1",
-		createdAt: "2021-05-09T10:07:21.200Z",
-		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
-		slug: "country-delight-apple",
-		__v: 0,
-		images: [
-			{
-				_id: "6097b51da5b0f39a64504d82",
-				isPrimary: false,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555037560.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-			{
-				_id: "6097b531a5b0f39a64504d83",
-				isPrimary: true,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555057926.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-		],
-	},
-	{
-		_id: "6097b45918993099f4368733",
-		characterstics: [
-			"Purely Orange",
-			"Extracted from Indian Farms",
-			"No presevatives added",
-		],
-		title: "Country Delight Apple",
-		price: 200,
-		discount: 5,
-		description: "Best mango available in the Indian Market",
-		stock: 24,
-		seller: "6093c3f33d2f7d52104ae7b1",
-		createdAt: "2021-05-09T10:07:21.200Z",
-		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
-		slug: "country-delight-apple",
-		__v: 0,
-		images: [
-			{
-				_id: "6097b51da5b0f39a64504d82",
-				isPrimary: false,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555037560.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-			{
-				_id: "6097b531a5b0f39a64504d83",
-				isPrimary: true,
-				url: "C:\\Users\\dell\\Desktop\\Production Apps\\clauefood\\server\\src\\uploads\\image-1620555057926.jpg",
-				productId: "6097b45918993099f4368733",
-				__v: 0,
-			},
-		],
-	},
-	{
-		_id: "6097b45918993099f4368733",
+		_id: "6097b45918993099f4368739",
 		characterstics: [
 			"Purely Orange",
 			"Extracted from Indian Farms",
