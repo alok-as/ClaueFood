@@ -24,6 +24,7 @@ export { default as Section } from "./Section";
 export { default as SectionTitle } from "./SectionTitle";
 export { default as Slide } from "./Slide";
 export { default as SocialLinks } from "./SocialLinks";
+export { default as Sponsers } from "./Sponsers";
 export { default as Step } from "./Step";
 export { default as Stepper } from "./Stepper";
 export { default as Tab } from "./Tab";
