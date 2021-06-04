@@ -5,6 +5,7 @@ import { Portal } from "../../../hoc";
 import { ProceedModal } from "../../../containers/Layout";
 import { Button } from "../index";
 
+//Testing
 import imagePrimary from "../../../assets/images/home/product-1.jpg";
 import imageSecondary from "../../../assets/images/home/product-2.jpg";
 

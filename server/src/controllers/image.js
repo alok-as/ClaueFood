@@ -15,6 +15,8 @@ const uploadImageForProduct = asyncHandler(async (req, res) => {
 		});
 	}
 
+	console.log("Checking Req FIle object", req.file);
+
 	const image = new Image({
 		url: req.file.path,
 		isPrimary,

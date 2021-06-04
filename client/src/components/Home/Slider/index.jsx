@@ -58,7 +58,14 @@ const Slider = ({ data, addProductToCart, numSlides }) => {
 
 		const totalSlides = data.length;
 		const remainingSlides = totalSlides - numSlides;
-		setMaxSlideFactor((slideWidth + gutterWidth) * remainingSlides);
+
+		if (remainingSlides < 0) {
+			setMaxSlideFactor(0);
+			setIsNextDisabled(true);
+			setIsPreviousDisabled(true);
+		} else {
+			setMaxSlideFactor((slideWidth + gutterWidth) * remainingSlides);
+		}
 	}, [numSlides, data, setSlideWidth, setMaxSlideFactor, gutterWidth]);
 
 	const style = {
