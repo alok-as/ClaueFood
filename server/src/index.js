@@ -1,8 +1,6 @@
 const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
-const passport = require("passport");
-const setPassportConfiguration = require("../config/auth");
 
 const connectToDatabase = require("./database");
 const { errorHandler, notFound } = require("./middlewares/error");
@@ -22,9 +20,6 @@ app.use(
 );
 
 connectToDatabase();
-
-setPassportConfiguration(passport);
-app.use(passport.initialize());
 
 app.use("/api", router);
 app.use(notFound);

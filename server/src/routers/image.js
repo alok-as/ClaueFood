@@ -1,6 +1,6 @@
 const express = require("express");
 const { uploadImageForProduct } = require("../controllers/image");
-const uploader = require("../../config/multer");
+const uploader = require("../../config/multer/cloud");
 
 const router = express.Router();
 

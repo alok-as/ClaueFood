@@ -1,0 +1,36 @@
+.slider {
+	position: relative;
+	margin-right: 2rem;
+	overflow-x: hidden;
+
+	&__container {
+		height: 100%;
+		display: flex;
+		transition: 0.3s transform ease;
+		background-color: orangered;
+	}
+
+	&__slide {
+		height: 100%;
+		background-color: palegreen;
+
+		&:nth-child(odd) {
+			background-color: orchid;
+		}
+	}
+
+	&__previous,
+	&__next {
+		position: absolute;
+		top: 40%;
+		transform: translateY(-50%);
+	}
+
+	&__previous {
+		left: 0;
+	}
+
+	&__next {
+		right: 0;
+	}
+}

@@ -9,7 +9,9 @@ const sampleData = [
 		title: "Country Delight Apple",
 		price: 200,
 		discount: 5,
-		description: "Best mango available in the Indian Market",
+		description:
+			"Go sporty this summer with this vintage navy and white striped v-neck t-shirt from the Abercrombie & Fitch. Perfect for pairing with denim and white kicks for a stylish sporty vibe. Will fit a UK 8-10, model shown is a UK 8 and 5’5. !!",
+		bio: "Typography is the work of typesetters, compositors, typographers, graphic designers, art directors, manga artists, comic book artists, graffiti artists, and now—anyone who arranges words, letters, numbers, and symbols for publication, display, or distribution—from clerical workers and newsletter writers to anyone self-publishing materials.",
 		stock: 24,
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",

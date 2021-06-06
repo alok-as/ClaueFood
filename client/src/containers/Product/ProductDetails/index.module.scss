@@ -1,2 +1,11 @@
 .details {
+	margin: 4rem 0;
+
+	&__content {
+		display: flex;
+
+		& > * {
+			flex-basis: 50%;
+		}
+	}
 }

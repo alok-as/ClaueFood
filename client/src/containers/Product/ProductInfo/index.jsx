@@ -4,13 +4,12 @@ import { Row } from "../../../hoc";
 import { Tab } from "../../../components/UI";
 import { useSelector } from "react-redux";
 import classes from "./index.module.scss";
+import sampleData from "../../../data/data";
+import { Fragment } from "react";
 
 const ProdcutInfo = () => {
-	const { details } = useSelector((state) => state.products.productDetails);
-
-	// {details.title}
-
-	console.log("Checking details", details);
+	// const { details } = useSelector((state) => state.products.productDetails);
+	const details = sampleData[0];
 
 	const [tabs, setTabs] = useState([
 		{
@@ -50,7 +49,12 @@ const ProdcutInfo = () => {
 
 	switch (activeTab) {
 		case 0:
-			content = details?.description;
+			content = (
+				<Fragment>
+					<p className={classes.info__text}>{details?.description}</p>
+					<p className={classes.info__text}>{details?.bio}</p>
+				</Fragment>
+			);
 			break;
 		case 1:
 			content = "Product Custom Tab";

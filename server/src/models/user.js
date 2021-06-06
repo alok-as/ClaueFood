@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const { isEmail, isMobilePhone } = require("validator");
-const { privateKey } = require("../../config/keys");
+const privateKey = require("../../config/keys");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -84,9 +84,7 @@ userSchema.methods.verifyPassword = async function (password) {
 
 userSchema.methods.generateAuthToken = async function () {
 	const user = this;
-	const authToken = jwt.sign({ _id: user._id, email: user.email }, privateKey, {
-		algorithm: "RS256",
-	});
+	const authToken = jwt.sign({ _id: user._id, email: user.email }, privateKey);
 
 	user.authToken = authToken;
 	await user.save();

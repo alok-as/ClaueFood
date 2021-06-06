@@ -23,13 +23,13 @@
 	background-color: var(--color-grey-2);
 
 	&__content {
-		padding-top: 1rem;
-		padding-bottom: 1rem;
+		padding-top: 1.4rem;
+		padding-bottom: 1.4rem;
 	}
 
 	&__link {
 		color: var(--color-grey-1);
-		font-size: 1.2rem;
+		font-size: 1.3rem;
 		text-transform: capitalize;
 
 		&:not(:last-child) {
