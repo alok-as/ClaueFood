@@ -1,7 +1,6 @@
 .button {
 	padding: 1rem 4.4rem;
 	border: none;
-	border-radius: 10rem;
 	color: var(--color-white-1);
 	font-weight: 700;
 	font-size: 1.5rem;
@@ -39,5 +38,9 @@
 		&:focus {
 			background-color: var(--color-green-4);
 		}
+	}
+
+	&__rounded {
+		border-radius: 10rem;
 	}
 }

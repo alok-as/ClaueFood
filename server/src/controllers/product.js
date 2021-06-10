@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const { redisClient } = require("../database");
 const Product = require("../models/product");
 
 const createProduct = asyncHandler(async (req, res) => {
@@ -51,6 +52,7 @@ const fetchProductBySlug = asyncHandler(async (req, res) => {
 		});
 	}
 
+	redisClient.set(slug, JSON.stringify(product));
 	return res.send({
 		success: true,
 		data: product,

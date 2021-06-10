@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const { computeTime } = require("../utils");
 
 const registerUser = asyncHandler(async (req, res) => {
 	const { email } = req.body;
@@ -31,16 +32,59 @@ const loginUser = asyncHandler(async (req, res) => {
 
 	const isVerified = await user.verifyPassword(password);
 	if (!isVerified) {
-		res.status(401);
+		res.status(400);
 		throw new Error(`Invalid email or password!`);
 	}
 
-	const authToken = await user.generateAuthToken();
-	res.cookie("authToken", authToken, { httpOnly: true, maxAge: 60 * 1000 });
+	const accessTokenExpiry = computeTime(30, "seconds");
+	const refreshTokenExpiry = computeTime(15, "days");
+
+	const [accessToken, refreshToken] = await user.generateAuthTokens(
+		accessTokenExpiry,
+		refreshTokenExpiry
+	);
+
+	res.cookie("accessToken", accessToken, {
+		httpOnly: true,
+		maxAge: accessTokenExpiry * 1000,
+	});
+
+	res.cookie("refreshToken", refreshToken, {
+		httpOnly: true,
+		maxAge: refreshTokenExpiry,
+	});
 
 	res.status(200).send({
 		success: true,
 		message: "User successfully logged in",
+		data: { accessToken, refreshToken },
+	});
+});
+
+const issueAuthenticationTokens = asyncHandler(async (req, res) => {
+	const { userId } = req.params;
+	const user = await User.findById(userId);
+
+	const accessTokenExpiry = computeTime(15, "seconds");
+	const refreshTokenExpiry = computeTime(15, "days");
+	const [accessToken, refreshToken] = await user.generateAuthTokens(
+		accessTokenExpiry,
+		refreshTokenExpiry
+	);
+
+	res.cookie("accessToken", accessToken, {
+		httpOnly: true,
+		maxAge: accessTokenExpiry * 1000,
+	});
+
+	res.cookie("refreshToken", refreshToken, {
+		httpOnly: true,
+		maxAge: refreshTokenExpiry,
+	});
+
+	res.status(200).send({
+		success: true,
+		message: "Tokens successfully resissued",
 		data: null,
 	});
 });
@@ -139,11 +183,14 @@ const fetchUserCart = asyncHandler(async (req, res) => {
 
 const fetchUserDetails = asyncHandler(async (req, res) => {
 	console.log("Successfully authenticated", req.user);
-	res.send({});
+	res.send({
+		data: "data successfully fetched",
+	});
 });
 
 module.exports = {
 	registerUser,
+	issueAuthenticationTokens,
 	loginUser,
 	fetchUserDetails,
 	addProductToUserWishlist,

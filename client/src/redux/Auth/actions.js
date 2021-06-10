@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import User from "../../services/API/User/";
-import { setCartItems } from "../Cart/actions";
+import User from "../../services/API/User";
 
 export const registerUser = (reqData) => async (dispatch) => {
 	try {
@@ -43,6 +42,24 @@ export const loginUser = (reqData) => async (dispatch) => {
 		console.error("Error loggin in user:", error);
 		dispatch({
 			type: actionTypes.LOGIN_USER_FAILED,
+		});
+	}
+};
+
+export const fetchUserData = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: actionTypes.FETCH_USER_DATA_REQUEST,
+		});
+
+		const { data } = await User.fetchData();
+		dispatch({
+			type: actionTypes.FETCH_USER_DATA_SUCCESS,
+		});
+	} catch (error) {
+		console.error("Error fetching user data:", error);
+		dispatch({
+			type: actionTypes.FETCH_USER_DATA_FAILED,
 		});
 	}
 };

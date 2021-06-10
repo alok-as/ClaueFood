@@ -1,5 +1,14 @@
+const redis = require("redis");
 const mongoose = require("mongoose");
+
+const redisPort = process.env.REDIS_PORT || 6379;
 const connectionURI = process.env.CONNECTION_URI;
+
+const redisClient = redis.createClient(redisPort);
+redisClient.on("error", (error) => {
+	console.log("Error connecting to redis server:", error.message);
+	process.exit(1);
+});
 
 const connectToDatabase = async () => {
 	try {
@@ -15,4 +24,4 @@ const connectToDatabase = async () => {
 	}
 };
 
-module.exports = connectToDatabase;
+module.exports = { connectToDatabase, redisClient };

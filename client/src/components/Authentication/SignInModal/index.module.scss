@@ -1,0 +1,43 @@
+.signin {
+	display: flex;
+
+	&__form {
+		flex-basis: 55%;
+		margin-right: 6rem;
+	}
+
+	&__oauth {
+		flex: 1;
+	}
+
+	&__title {
+		font-size: 1.6rem;
+		font-weight: 600;
+		color: var(--color-black-4);
+		text-transform: uppercase;
+		padding-bottom: 0.5rem;
+		margin-bottom: 1.5rem;
+		border-bottom: 1px solid #ccc;
+	}
+
+	&__options {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 2rem;
+	}
+
+	&__button {
+		padding: 1rem 5rem;
+		text-transform: capitalize;
+		font-weight: 600;
+		font-size: 1.4rem;
+	}
+
+	&__forgot {
+		font-size: 1.2rem;
+		border: none;
+		background: none;
+		outline: none;
+		color: var(--color-grey-5);
+	}
+}

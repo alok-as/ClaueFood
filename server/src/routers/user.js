@@ -1,26 +1,19 @@
 const express = require("express");
-
-const {
-	registerUser,
-	loginUser,
-	fetchUserDetails,
-	addProductToUserWishlist,
-	fetchUserWishlist,
-	addProductToUserCart,
-	fetchUserCart,
-} = require("../controllers/user");
+const userController = require("../controllers/user");
+const { isAuthenticated, isAuthorized } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+router.post("/register", userController.registerUser);
+router.post("/login", userController.loginUser);
 
-router.post("/wishlist/:productId", addProductToUserWishlist);
-router.get("/wishlist", fetchUserWishlist);
+router.post("/wishlist/:productId", userController.addProductToUserWishlist);
+router.get("/wishlist", userController.fetchUserWishlist);
 
-router.post("/cart/:productId", addProductToUserCart);
-router.get("/cart", fetchUserCart);
+router.post("/cart/:productId", userController.addProductToUserCart);
+router.get("/cart", userController.fetchUserCart);
 
-router.get("/", fetchUserDetails);
+router.get("/tokens/:userId", userController.issueAuthenticationTokens);
+router.get("/", isAuthenticated, userController.fetchUserDetails);
 
 module.exports = router;

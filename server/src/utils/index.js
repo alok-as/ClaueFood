@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const privateKey = require("../../config/keys");
+
 const cookieExtractor = (req) => {
 	let token = null;
 
@@ -16,7 +19,30 @@ const checkIfValidUpdate = (reqBody, allowedUpdates) => {
 	return isValidUpdate;
 };
 
+const generateToken = (_id, email, expiresIn) => {
+	return jwt.sign({ _id, email }, privateKey, {
+		expiresIn,
+	});
+};
+
+const computeTime = (value, unit) => {
+	switch (unit) {
+		case "seconds":
+			return value;
+		case "minutes":
+			return value * 60;
+		case "hours":
+			return value * 60 * 60;
+		case "days":
+			return value * 60 * 60 * 24;
+		default:
+			return value;
+	}
+};
+
 module.exports = {
-	cookieExtractor,
 	checkIfValidUpdate,
+	computeTime,
+	cookieExtractor,
+	generateToken,
 };

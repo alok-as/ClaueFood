@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-
 const { isEmail, isMobilePhone } = require("validator");
-const privateKey = require("../../config/keys");
+const { generateToken, computeTime } = require("../utils");
+const { redisClient } = require("../database");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -40,7 +40,11 @@ const userSchema = new mongoose.Schema(
 			required: false,
 			trim: true,
 		},
-		authToken: {
+		accessToken: {
+			type: String,
+			required: false,
+		},
+		refreshToken: {
 			type: String,
 			required: false,
 		},
@@ -82,14 +86,23 @@ userSchema.methods.verifyPassword = async function (password) {
 	return await bcrypt.compare(password, user.password);
 };
 
-userSchema.methods.generateAuthToken = async function () {
+userSchema.methods.generateAuthTokens = async function (
+	accessTokenExpiry,
+	refreshTokenExpiry
+) {
 	const user = this;
-	const authToken = jwt.sign({ _id: user._id, email: user.email }, privateKey);
 
-	user.authToken = authToken;
+	const accessToken = generateToken(user._id, user.email, accessTokenExpiry);
+	const refreshToken = generateToken(user._id, user.email, refreshTokenExpiry);
+
+	user.accessToken = accessToken;
+	user.refreshToken = refreshToken;
+
+	redisClient.set(accessToken, user._id.toString(), "EX", accessTokenExpiry);
+	redisClient.set(refreshToken, user._id.toString(), "EX", refreshTokenExpiry);
+
 	await user.save();
-
-	return authToken;
+	return [accessToken, refreshToken];
 };
 
 userSchema.pre("save", async function (next) {

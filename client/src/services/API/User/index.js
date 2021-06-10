@@ -15,6 +15,18 @@ const Auth = {
 			data,
 		});
 	},
+	fetchAuthTokens({ userId }) {
+		return axios.request({
+			method: "GET",
+			url: `/user/tokens/${userId}`,
+		});
+	},
+	fetchData() {
+		return axios.request({
+			method: "GET",
+			url: "/user",
+		});
+	},
 	addProductToWishlist({ productId }) {
 		return axios.request({
 			method: "POST",

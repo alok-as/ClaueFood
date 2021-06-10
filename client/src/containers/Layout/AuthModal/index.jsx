@@ -6,6 +6,7 @@ import { SignInModal, SignUpModal } from "../../../components/Authentication";
 import {
 	registerUser,
 	loginUser,
+	fetchUserData,
 	clearRegisterMetaData,
 } from "../../../redux/Auth/actions";
 
@@ -23,6 +24,10 @@ const AuthModal = ({ isOpen, type, onClose }) => {
 
 	const clearRegisterMetaDataHandler = () => {
 		dispatch(clearRegisterMetaData());
+	};
+
+	const fetchUserDataHandler = () => {
+		dispatch(fetchUserData());
 	};
 
 	const modalAnimationConfig = {
@@ -59,6 +64,7 @@ const AuthModal = ({ isOpen, type, onClose }) => {
 							<SignInModal
 								loginDetails={loginDetails}
 								loginUser={loginUserHandler}
+								fetchUserData={fetchUserDataHandler}
 								closeModal={onClose}
 							/>
 						)}
