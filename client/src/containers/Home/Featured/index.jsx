@@ -10,7 +10,7 @@ import featureImage1 from "../../../assets/images/home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/home/featured-2.jpg";
 
 import { addProductToCart } from "../../../redux/Cart/actions";
-import sampleData from "../../../data/data";
+import { setFeaturedProducts } from "../../../redux/Products/actions";
 
 const Featured = () => {
 	const dispatch = useDispatch();
@@ -34,40 +34,51 @@ const Featured = () => {
 		{
 			key: nanoid(),
 			children: "Featured",
+			category: "featured",
 			isActive: true,
 		},
 		{
 			key: nanoid(),
 			children: "Best seller",
+			category: "bestseller",
 			isActive: false,
 		},
 		{
 			key: nanoid(),
 			children: "Special",
+			category: "special",
 			isActive: false,
 		},
 		{
 			key: nanoid(),
 			children: "Latest",
+			category: "latest",
 			isActive: false,
 		},
 	]);
 
-	const { products } = useSelector((state) => state.products.productsDetails);
+	const { isLoading, products } = useSelector(
+		(state) => state.products.featuredDetails
+	);
+	const [selectedCategory, setSelectedCategory] = useState("featured");
 
-	const [selectedCategory, setSelectedCategory] = useState(0);
-
-	const selectCategoryHandler = (selectedIndex) => {
+	const selectCategoryHandler = (selectedCategory) => {
 		const newCategories = [...categories];
-		newCategories.forEach((category, index) => {
-			if (index === selectedIndex) {
+		newCategories.forEach((category) => {
+			if (category.category.includes(selectedCategory)) {
 				category.isActive = true;
 			} else {
 				category.isActive = false;
 			}
 		});
-		setSelectedCategory(selectedIndex);
+
+		setSelectedCategory(selectedCategory);
+		fetchFeaturedProductsHandler(selectedCategory);
 		setCategories(newCategories);
+	};
+
+	const fetchFeaturedProductsHandler = (category) => {
+		dispatch(setFeaturedProducts({ category }));
 	};
 
 	const addProductToCartHandler = useCallback(
@@ -88,11 +99,15 @@ const Featured = () => {
 				<SectionTitle>Fresh Food</SectionTitle>
 			</div>
 			<FeaturedTabs tabs={categories} onClick={selectCategoryHandler} />
-			<Slider
-				data={sampleData}
-				addProductToCart={addProductToCartHandler}
-				numSlides={5}
-			/>
+			{isLoading ? (
+				<p>Loading...</p>
+			) : (
+				<Slider
+					data={products[selectedCategory]}
+					addProductToCart={addProductToCartHandler}
+					numSlides={5}
+				/>
+			)}
 		</Section>
 	);
 };

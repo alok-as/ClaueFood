@@ -6,8 +6,8 @@ const FeaturedTabs = ({ tabs, onClick }) => {
 	return (
 		<div className={classes.tabs}>
 			<ul className={classes.tabs__list}>
-				{tabs.map((tab, index) => (
-					<FeaturedTab {...tab} onClick={() => onClick(index)} />
+				{tabs.map((tab) => (
+					<FeaturedTab {...tab} onClick={() => onClick(tab.category)} />
 				))}
 			</ul>
 		</div>
