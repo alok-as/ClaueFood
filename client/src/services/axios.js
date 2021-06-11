@@ -1,4 +1,7 @@
 import axios from "axios";
+import store from "../redux/store";
+import { setIsUserAuthenticated } from "../redux/Auth/actions";
+
 import config from "./config";
 import User from "./API/User";
 
@@ -20,9 +23,11 @@ instance.interceptors.response.use(
 				return instance(originalRequest);
 			}
 
+			store.dispatch(setIsUserAuthenticated(false));
 			return Promise.reject(error);
 		}
 
+		store.dispatch(setIsUserAuthenticated(false));
 		return Promise.reject(error);
 	}
 );

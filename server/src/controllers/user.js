@@ -46,11 +46,13 @@ const loginUser = asyncHandler(async (req, res) => {
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
+		secure: process.env.ENV === "production",
 		maxAge: accessTokenExpiry * 1000,
 	});
 
 	res.cookie("refreshToken", refreshToken, {
 		httpOnly: true,
+		secure: process.env.ENV === "production",
 		maxAge: refreshTokenExpiry,
 	});
 
@@ -74,11 +76,13 @@ const issueAuthenticationTokens = asyncHandler(async (req, res) => {
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
+		secure: process.env.ENV === "production",
 		maxAge: accessTokenExpiry * 1000,
 	});
 
 	res.cookie("refreshToken", refreshToken, {
 		httpOnly: true,
+		secure: process.env.ENV === "production",
 		maxAge: refreshTokenExpiry,
 	});
 

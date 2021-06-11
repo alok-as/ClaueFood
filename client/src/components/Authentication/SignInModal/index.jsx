@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
 import { Alert, Button, Input, Loader } from "../../UI";
 import { checkInputValidation } from "../../../utils/validation";
+import { Fragment } from "react";
 
-const SignIn = ({ loginUser, fetchUserData }) => {
+const SignIn = ({
+	loginUser,
+	loginDetails,
+	fetchUserData,
+	closeModal,
+	clearLoginMetaData,
+}) => {
+	const { isLoading, isSuccess, message } = loginDetails;
+
 	const onInputChangeHandler = (e) => {
 		setFields((fields) => {
 			const newFields = { ...fields };
@@ -88,35 +97,62 @@ const SignIn = ({ loginUser, fetchUserData }) => {
 		setFields(newFields);
 	};
 
+	useEffect(() => {
+		if (isLoading === false) {
+			resetFormDataHandler();
+		}
+	}, [isLoading]);
+
+	useEffect(() => {
+		if (isSuccess) {
+			setTimeout(() => {
+				closeModal();
+				clearLoginMetaData();
+			}, 1200);
+		}
+	}, [isSuccess, closeModal, clearLoginMetaData]);
+
+	let alertMessage = null;
+
+	if (isSuccess !== undefined) {
+		alertMessage = (
+			<Alert type={isSuccess ? "success" : "failure"}>{message}</Alert>
+		);
+	}
+
 	const fieldsArr = Object.values(fields);
 
 	return (
-		<div className={classes.signin}>
-			<form className={classes.signin__form} onSubmit={loginUserHandler}>
-				<p className={classes.signin__title}>Registered Customers</p>
-				{fieldsArr.map((field) => (
-					<Input {...field} className={classes.signup__field} />
-				))}
-				<div className={classes.signin__options}>
-					<Button rounded={false} className={classes.signin__button}>
-						Login
+		<Fragment>
+			{alertMessage}
+			<div className={classes.signin}>
+				{isLoading && <Loader />}
+				<form className={classes.signin__form} onSubmit={loginUserHandler}>
+					<p className={classes.signin__title}>Registered Customers</p>
+					{fieldsArr.map((field) => (
+						<Input {...field} className={classes.signup__field} />
+					))}
+					<div className={classes.signin__options}>
+						<Button rounded={false} className={classes.signin__button}>
+							Login
+						</Button>
+						<button className={classes.signin__forgot}>
+							Forgot your password?
+						</button>
+					</div>
+				</form>
+				<div className={classes.signin__oauth}>
+					<p className={classes.signin__title}>Or Sign in with</p>
+					<Button
+						rounded={false}
+						className={classes.signin__button}
+						onClick={fetchUserData}
+					>
+						FetchUserData
 					</Button>
-					<button className={classes.signin__forgot}>
-						Forgot your password?
-					</button>
 				</div>
-			</form>
-			<div className={classes.signin__oauth}>
-				<p className={classes.signin__title}>Or Sign in with</p>
-				<Button
-					rounded={false}
-					className={classes.signin__button}
-					onClick={fetchUserData}
-				>
-					FetchUserData
-				</Button>
 			</div>
-		</div>
+		</Fragment>
 	);
 };
 

@@ -1,5 +1,8 @@
 import { combineReducers } from "redux";
 import * as actionTypes from "./actionTypes";
+import Cookie from "js-cookie";
+
+const isAuthenticatedFlag = Cookie.get("isAuthenticated");
 
 const registerDetails = (state = {}, action) => {
 	switch (action.type) {
@@ -46,19 +49,41 @@ const loginDetails = (state = {}, action) => {
 				...state,
 				isSuccess: true,
 				isLoading: false,
+				message: action.payload,
 			};
 		case actionTypes.LOGIN_USER_FAILED:
 			return {
 				...state,
 				isSuccess: false,
 				isLoading: false,
+				message: action.payload,
+			};
+		case actionTypes.CLEAR_LOGIN_METADATA:
+			return {
+				...state,
+				isLoading: undefined,
+				isSuccess: undefined,
+				message: undefined,
 			};
 		default:
 			return state;
 	}
 };
 
+const authDetails = (
+	state = { isAuthenticated: isAuthenticatedFlag },
+	action
+) => {
+	switch (action.type) {
+		case actionTypes.SET_IS_AUTHENTICATED:
+			return { ...state, isAuthenticated: action.payload };
+		default:
+			return state;
+	}
+};
+
 const authReducer = combineReducers({
+	authDetails,
 	registerDetails,
 	loginDetails,
 });

@@ -8,6 +8,7 @@ import {
 	loginUser,
 	fetchUserData,
 	clearRegisterMetaData,
+	clearLoginMetaData,
 } from "../../../redux/Auth/actions";
 
 const AuthModal = ({ isOpen, type, onClose }) => {
@@ -18,14 +19,17 @@ const AuthModal = ({ isOpen, type, onClose }) => {
 		dispatch(registerUser(userData));
 	};
 
-	const loginUserHandler = (userData) => {
-		dispatch(loginUser(userData));
-	};
-
 	const clearRegisterMetaDataHandler = () => {
 		dispatch(clearRegisterMetaData());
 	};
 
+	const loginUserHandler = (userData) => {
+		dispatch(loginUser(userData));
+	};
+
+	const clearLoginMetaDataHandler = () => {
+		dispatch(clearLoginMetaData());
+	};
 	const fetchUserDataHandler = () => {
 		dispatch(fetchUserData());
 	};
@@ -65,6 +69,7 @@ const AuthModal = ({ isOpen, type, onClose }) => {
 								loginDetails={loginDetails}
 								loginUser={loginUserHandler}
 								fetchUserData={fetchUserDataHandler}
+								clearLoginMetaData={clearLoginMetaDataHandler}
 								closeModal={onClose}
 							/>
 						)}

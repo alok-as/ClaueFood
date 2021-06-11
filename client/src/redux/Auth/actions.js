@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import User from "../../services/API/User";
+import Cookie from "js-cookie";
 
 export const registerUser = (reqData) => async (dispatch) => {
 	try {
@@ -14,7 +15,7 @@ export const registerUser = (reqData) => async (dispatch) => {
 			payload: data.message,
 		});
 	} catch (error) {
-		console.log("Error");
+		console.log("Error registering user:", error.message);
 		const { data } = error.response;
 
 		dispatch({
@@ -35,13 +36,19 @@ export const loginUser = (reqData) => async (dispatch) => {
 		});
 
 		const { data } = await User.login(reqData);
+
 		dispatch({
 			type: actionTypes.LOGIN_USER_SUCCESS,
 		});
+
+		dispatch(setIsUserAuthenticated(true));
 	} catch (error) {
-		console.error("Error loggin in user:", error);
+		console.error("Error logging in user:", error);
+		const { data } = error.response;
+
 		dispatch({
 			type: actionTypes.LOGIN_USER_FAILED,
+			payload: data.message,
 		});
 	}
 };
@@ -62,4 +69,21 @@ export const fetchUserData = () => async (dispatch) => {
 			type: actionTypes.FETCH_USER_DATA_FAILED,
 		});
 	}
+};
+
+export const clearLoginMetaData = () => {
+	return { type: actionTypes.CLEAR_LOGIN_METADATA };
+};
+
+export const setIsUserAuthenticated = (isAuthenticated) => {
+	if (isAuthenticated) {
+		Cookie.set("isAuthenticated", true);
+	} else {
+		Cookie.remove("isAuthenticated");
+	}
+
+	return {
+		type: actionTypes.SET_IS_AUTHENTICATED,
+		payload: isAuthenticated,
+	};
 };
