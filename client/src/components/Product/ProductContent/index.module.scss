@@ -48,6 +48,15 @@
 		color: var(--color-grey-1);
 	}
 
+	&__options {
+		display: flex;
+		margin: 2rem 0;
+	}
+
+	&__button {
+		margin-left: 1.2rem;
+	}
+
 	&__meta {
 		font-size: 1.4rem;
 

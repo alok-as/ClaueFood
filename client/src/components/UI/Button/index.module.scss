@@ -6,37 +6,41 @@
 	font-size: 1.5rem;
 	cursor: pointer;
 	transition: 0.3s all ease;
+	text-transform: capitalize;
 
 	&__white {
 		color: var(--color-black-1);
 		background-color: var(--color-white-1);
-		border: 1px solid var(--color-grey-1);
+		border: 2px solid #ddd;
 
 		&:hover,
 		&:focus {
 			background-color: var(--color-green-1);
 			color: var(--color-white-1);
+			border: 2px solid var(--color-green-1);
 		}
 	}
 
 	&__black {
 		background-color: var(--color-black-1);
-		text-transform: uppercase;
+		border: 2px solid var(--color-black-4);
 		letter-spacing: 1px;
-		padding: 1.6rem 4.4rem;
 
 		&:hover,
 		&:focus {
 			background-color: var(--color-blue-1);
+			border: 2px solid var(--color-blue-1);
 		}
 	}
 
 	&__green {
 		background-color: var(--color-green-1);
+		border: 2px solid var(--color-green-1);
 
 		&:hover,
 		&:focus {
 			background-color: var(--color-green-4);
+			border: 2px solid var(--color-green-4);
 		}
 	}
 

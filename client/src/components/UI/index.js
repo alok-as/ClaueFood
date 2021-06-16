@@ -12,6 +12,7 @@ export { default as FooterList } from "./FooterList";
 export { default as Heading } from "./Heading";
 export { default as Icon } from "./Icon";
 export { default as Input } from "./Input";
+export { default as Quantity } from "./Quantity";
 export { default as QuickLink } from "./QuickLink";
 export { default as Loader } from "./Loader";
 export { default as Logo } from "./Logo";

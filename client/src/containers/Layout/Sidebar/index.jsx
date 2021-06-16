@@ -53,7 +53,7 @@ const Sidebar = ({ isVisible, onClose }) => {
 						</p>
 						<Button
 							className={classes.sidebar__cart}
-							onClick={() => onRouteChangeHandler("/cart")}
+							onClick={() => onRouteChangeHandler("/shopping-cart")}
 						>
 							Go to Cart
 						</Button>

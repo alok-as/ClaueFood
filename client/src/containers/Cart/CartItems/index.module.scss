@@ -1,0 +1,27 @@
+.cart {
+	&__table {
+	}
+	&__items {
+	}
+
+	&__options {
+		margin: 2rem 0;
+		display: flex;
+		justify-content: flex-end;
+
+		& > * {
+			&:first-child {
+				margin-right: auto;
+			}
+		}
+	}
+
+	&__update {
+		border-color: var(--color-black-4);
+		margin-right: 2rem;
+
+		&:hover {
+			border-color: var(--color-green-1);
+		}
+	}
+}

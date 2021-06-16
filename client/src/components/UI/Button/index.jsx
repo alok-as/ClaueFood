@@ -3,7 +3,14 @@ import classes from "./index.module.scss";
 import PropTypes from "prop-types";
 import { combineClasses } from "../../../utils";
 
-const Button = ({ onClick, color, children, rounded, className }) => {
+const Button = ({
+	onClick,
+	color,
+	borderColor,
+	children,
+	rounded,
+	className,
+}) => {
 	const finalClasses = [classes.button];
 
 	if (color === "green") {
@@ -32,11 +39,13 @@ const Button = ({ onClick, color, children, rounded, className }) => {
 Button.defaultProps = {
 	children: "Button",
 	color: "black",
+	borderColor: "black",
 	rounded: true,
 };
 
 Button.propTypes = {
 	color: PropTypes.string,
+	borderColor: PropTypes.string,
 	onClick: PropTypes.func,
 	children: PropTypes.string,
 	className: PropTypes.string,

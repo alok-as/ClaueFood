@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
-import { Heading } from "../../UI";
+import { Button, Heading, Quantity } from "../../UI";
 
-const ProductContent = () => {
+const ProductContent = ({ addProductToCart }) => {
 	const [characterstics, setCharacterstics] = useState([
 		{ _id: nanoid(), text: "Side pockets" },
 		{ _id: nanoid(), text: "Wide-cut legs" },
@@ -41,6 +41,16 @@ const ProductContent = () => {
 				t-shirt from the Nike. Perfect for pairing with denim and white kicks
 				for a stylish sporty vibe.
 			</p>
+			<div className={classes.content__options}>
+				<Quantity stock={24} />
+				<Button
+					className={classes.content__button}
+					color="green"
+					onClick={() => addProductToCart("productId")}
+				>
+					Add to Cart
+				</Button>
+			</div>
 			<p className={classes.content__meta}>
 				<span className={classes.content__key}>Availabilty:</span>
 				<span className={classes.content__value}>In stock</span>
