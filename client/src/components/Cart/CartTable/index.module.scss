@@ -1,0 +1,29 @@
+.table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+
+	&__items {
+	}
+
+	&__heading,
+	&__data {
+		text-align: center;
+		border: 1px solid #eaeaea;
+	}
+
+	&__heading {
+		padding: 1.2rem;
+		font-size: 1.6rem;
+		font-weight: 400;
+		color: var(--color-black-5);
+	}
+
+	&__data {
+		padding: 4rem;
+	}
+
+	&__price {
+		color: var(--color-grey-10);
+	}
+}

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
 import classes from "./index.module.scss";
 
-const Quantity = ({ stock }) => {
-	const [quantity, setQuantity] = useState(0);
+const Quantity = ({ qty, stock }) => {
+	const [quantity, setQuantity] = useState(qty);
 
 	const changeQuantityHandler = (type) => {
 		if (type.includes("increment")) {
@@ -24,11 +26,30 @@ const Quantity = ({ stock }) => {
 
 	return (
 		<div className={classes.quantity}>
-			<p onClick={() => changeQuantityHandler("decrement")}>-</p>
+			<p
+				className={classes.quantity__dec}
+				onClick={() => changeQuantityHandler("decrement")}
+			>
+				-
+			</p>
 			<p className={classes.quantity__count}>{quantity}</p>
-			<p onClick={() => changeQuantityHandler("increment")}>+</p>
+			<p
+				className={classes.quantity__inc}
+				onClick={() => changeQuantityHandler("increment")}
+			>
+				+
+			</p>
 		</div>
 	);
+};
+
+Quantity.defaultProps = {
+	qty: 0,
+};
+
+Quantity.propTypes = {
+	qty: PropTypes.number,
+	stock: PropTypes.number.isRequired,
 };
 
 export default Quantity;

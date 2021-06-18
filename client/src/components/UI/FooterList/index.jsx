@@ -8,11 +8,7 @@ const FooterList = ({ listTitle, listData }) => {
 			<p className={classes.list__title}>{listTitle}</p>
 			<ul className={classes.list__items}>
 				{listData.map((item) => (
-					<QuickLink
-						{...item}
-						itemClass={classes.list__item}
-						linkClass={classes.list__link}
-					/>
+					<QuickLink {...item} itemClass={classes.list__item} />
 				))}
 			</ul>
 		</div>

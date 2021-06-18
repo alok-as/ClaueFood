@@ -1,6 +1,6 @@
 .cart {
 	&__options {
-		margin: 2rem 0;
+		margin: 5rem 0;
 		display: flex;
 		justify-content: flex-end;
 
@@ -9,6 +9,12 @@
 				margin-right: auto;
 			}
 		}
+	}
+
+	&__button {
+		font-size: 1.4rem;
+		font-weight: 600;
+		padding: 0.7rem 3.2rem;
 	}
 
 	&__update {
