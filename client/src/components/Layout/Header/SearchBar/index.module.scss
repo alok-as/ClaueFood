@@ -2,12 +2,8 @@
 	background-color: var(--color-green-2);
 
 	&__content {
-		padding-top: 1.2rem;
-		padding-bottom: 1.2rem;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		color: var(--color-white-1);
 	}
 
 	&__dropdown {
@@ -15,13 +11,20 @@
 	}
 
 	&__field {
-		flex-basis: 60%;
-		text-align: center;
+		flex-basis: 56%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 1rem 0;
+	}
+
+	&__form {
+		width: 80%;
 	}
 
 	&__input {
-		width: 80%;
-		padding: 1.2rem 3rem;
+		width: 100%;
+		padding: 1.1rem 3rem;
 		border-radius: 4px;
 		border: none;
 
@@ -37,5 +40,20 @@
 	&__offer {
 		flex: 1;
 		font-size: 1.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: var(--color-white-1);
+	}
+
+	&__occation {
+		font-weight: 600;
+		margin: 0 0.5rem;
+	}
+
+	&__discount {
+		font-weight: 600;
+		margin: 0 0.5rem;
+		background-color: var(--color-orange-2);
 	}
 }

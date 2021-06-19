@@ -1,0 +1,35 @@
+.calculator {
+	flex-basis: 66%;
+	display: flex;
+	border: 1px solid #efefef;
+	margin-bottom: 2rem;
+
+	&__sidebar {
+		padding-top: 3rem;
+		flex-basis: 30%;
+		border-right: 1px solid #efefef;
+		background-color: #fdfdfd;
+	}
+
+	&__tabs {
+	}
+
+	&__tab {
+		font-size: 1.4rem;
+		padding: 1rem 2rem;
+		color: var(--color-grey-11);
+		border-bottom: 1px solid #efefef;
+		border-top: 1px solid #efefef;
+		cursor: pointer;
+	}
+
+	&__active {
+		background-color: var(--color-black-1);
+		color: var(--color-white-1);
+	}
+
+	&__mainbar {
+		flex: 1;
+		padding: 3rem;
+	}
+}

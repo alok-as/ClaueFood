@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Banner } from "../../components/UI";
-import { CartItems } from "../../containers/Cart";
+import { CartItems, CartSummary } from "../../containers/Cart";
 
 const CheckoutPage = () => {
 	const { pathname } = useLocation();
@@ -11,6 +11,7 @@ const CheckoutPage = () => {
 		<Fragment>
 			<Banner path={pathname} />
 			<CartItems />
+			<CartSummary />
 		</Fragment>
 	);
 };

@@ -1,9 +1,15 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState, useCallback } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { ScrollToTop } from "../../components/UI";
-import { Header, Footer } from "../../containers/Layout";
+import { Header, Footer, NewsletterModal } from "../../containers/Layout";
+import { Portal } from "../index";
+
 import { ProtectedRoute } from "../index";
+import {
+	extractValueFromSessionStorage,
+	setValueInSessionStorage,
+} from "../../utils";
 
 import HomePage from "../../pages/HomePage";
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
@@ -14,6 +20,9 @@ const TestingPage = lazy(() => import("../../pages/TestingPage"));
 const Layout = () => {
 	const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
 
+	const [isNewsletterModalVisible, setIsNewsletterModalVisible] =
+		useState(false);
+
 	const checkForScrollPositionHandler = () => {
 		if (window.scrollY > 10) {
 			setIsScrollToTopVisible(true);
@@ -21,6 +30,27 @@ const Layout = () => {
 			setIsScrollToTopVisible(false);
 		}
 	};
+
+	const openNewsletterModalHandler = () => {
+		setIsNewsletterModalVisible(true);
+	};
+
+	const closeNewsletterModalHandler = useCallback(() => {
+		setIsNewsletterModalVisible(false);
+		setValueInSessionStorage("shouldOpenNewsletter", false);
+	}, []);
+
+	useEffect(() => {
+		const shouldOpenNewsletterCache = extractValueFromSessionStorage(
+			"shouldOpenNewsletter"
+		);
+
+		if (shouldOpenNewsletterCache !== false) {
+			setTimeout(() => {
+				openNewsletterModalHandler();
+			}, 1000);
+		}
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener("scroll", checkForScrollPositionHandler);
@@ -33,6 +63,12 @@ const Layout = () => {
 		<Suspense fallback={<h1>Loading...</h1>}>
 			<Header />
 			<ScrollToTop isVisible={isScrollToTopVisible} />
+			<Portal>
+				<NewsletterModal
+					isVisible={isNewsletterModalVisible}
+					onClose={closeNewsletterModalHandler}
+				/>
+			</Portal>
 			<main>
 				<Switch>
 					<Route path="/" exact component={HomePage} />
@@ -44,7 +80,6 @@ const Layout = () => {
 						redirect="/testing"
 					/> */}
 					<Route path="/checkout" component={CheckoutPage} />
-
 					<Route path="/testing" component={TestingPage} />
 				</Switch>
 			</main>

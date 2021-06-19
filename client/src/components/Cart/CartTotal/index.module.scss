@@ -1,0 +1,40 @@
+.total {
+	flex: 1;
+
+	&__content {
+		border: 1px solid var(--color-grey-12);
+		margin-bottom: 4rem;
+	}
+
+	%postioning {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__head {
+		@extend %postioning;
+		padding: 1rem 6rem 1rem 2rem;
+		border-bottom: 1px solid var(--color-grey-12);
+	}
+
+	&__text1 {
+		font-size: 1.4rem;
+		font-weight: 500;
+	}
+
+	&__foot {
+		@extend %postioning;
+		padding: 2rem 6rem 2rem 2rem;
+	}
+
+	&__text2 {
+		font-size: 1.8rem;
+		font-weight: 500;
+	}
+
+	&__checkout {
+		width: 100%;
+		text-transform: uppercase;
+	}
+}

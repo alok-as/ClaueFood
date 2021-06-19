@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Animate } from "../index";
 import classes from "./index.module.scss";
 import PropTypes from "prop-types";
+import { combineClasses } from "../../../utils";
 
-const Backdrop = ({ isVisible, onClose }) => {
+const Backdrop = ({ isVisible, className, onClose }) => {
 	const modalAnimationConfig = {
 		isVisible,
 		mountOnEnter: true,
@@ -24,9 +25,18 @@ const Backdrop = ({ isVisible, onClose }) => {
 		};
 	}, [isVisible]);
 
+	const finalBackdropClasses = [classes.backdrop];
+
+	if (className) {
+		finalBackdropClasses.push(className);
+	}
+
 	return (
 		<Animate {...modalAnimationConfig}>
-			<div className={classes.backdrop} onClick={onClose}></div>
+			<div
+				className={combineClasses(finalBackdropClasses)}
+				onClick={onClose}
+			></div>
 		</Animate>
 	);
 };

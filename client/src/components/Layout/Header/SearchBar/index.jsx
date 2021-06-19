@@ -10,6 +10,7 @@ const SearchBar = () => {
 		{
 			key: nanoid(),
 			title: "Value of the day",
+			tag: "new",
 		},
 		{
 			key: nanoid(),
@@ -34,6 +35,7 @@ const SearchBar = () => {
 		{
 			key: nanoid(),
 			title: "Juice",
+			tag: "sale",
 		},
 		{
 			key: nanoid(),
@@ -50,13 +52,14 @@ const SearchBar = () => {
 		{
 			key: nanoid(),
 			title: "Fresh ChestNut",
+			tag: "hot",
 		},
 	]);
 
 	return (
 		<div className={classes.search}>
 			<Row className={classes.search__content}>
-				<CategoryDropdown title="Shop by Category" categories={categories} />
+				<CategoryDropdown title="Departments" categories={categories} />
 				<div className={classes.search__field}>
 					<form className={classes.search__form}>
 						<input
@@ -67,7 +70,9 @@ const SearchBar = () => {
 					</form>
 				</div>
 				<div className={classes.search__offer}>
-					Use code "covid19" for 15% off!
+					Use code <span className={classes.search__occation}>"covid19"</span>{" "}
+					for
+					<span className={classes.search__discount}>15%</span>off!
 				</div>
 			</Row>
 		</div>
