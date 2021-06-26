@@ -16,10 +16,6 @@
 		}
 	}
 
-	&:not(:last-child) {
-		margin-right: 3rem;
-	}
-
 	&__sale {
 		position: absolute;
 		top: 0;

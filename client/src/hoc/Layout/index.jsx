@@ -13,6 +13,7 @@ import {
 
 import HomePage from "../../pages/HomePage";
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
+const ProductListingPage = lazy(() => import("../../pages/ProductListingPage"));
 const CheckoutPage = lazy(() => import("../../pages/CheckoutPage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
 const CustomerLoginPage = lazy(() => import("../../pages/CustomerLoginPage"));
@@ -73,6 +74,7 @@ const Layout = () => {
 			<main>
 				<Switch>
 					<Route path="/" exact component={HomePage} />
+					<Route path="/products" component={ProductListingPage} />
 					<Route path="/product/:slug" component={ProductPage} />
 					<Route path="/shopping-cart" component={CartPage} />
 					{/* <ProtectedRoute

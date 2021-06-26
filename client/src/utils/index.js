@@ -95,6 +95,17 @@ export const combineClasses = (classes) => {
 	return classes.join(" ");
 };
 
+export const parseQueryParams = (searchString) => {
+	const queryParams = {};
+	const searchParams = new URLSearchParams(searchString);
+
+	for (let [key, value] of searchParams.entries()) {
+		queryParams[key] = value;
+	}
+
+	return queryParams;
+};
+
 export const injectAndLoadScript = (src) => {
 	return new Promise((resolve, reject) => {
 		const script = document.createElement("script");

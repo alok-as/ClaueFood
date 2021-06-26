@@ -12,6 +12,12 @@
 	&__cards {
 		display: flex;
 		transition: 0.3s transform ease;
+
+		& > * {
+			&:not(:last-child) {
+				margin-right: 3rem;
+			}
+		}
 	}
 
 	&__previous,
