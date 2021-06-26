@@ -1,0 +1,23 @@
+.customer {
+	&__new {
+		flex: 1;
+	}
+
+	&__heading {
+		text-transform: uppercase;
+	}
+
+	&__text {
+		font-size: 1.4rem;
+		line-height: 1.7;
+		margin: 2rem 0;
+		color: var(--color-grey-1);
+	}
+
+	&__button {
+		font-size: 1.4rem;
+		font-weight: 500;
+		text-transform: initial;
+		padding: 0.8rem 3.6rem;
+	}
+}

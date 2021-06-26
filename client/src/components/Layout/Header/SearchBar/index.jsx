@@ -70,9 +70,9 @@ const SearchBar = () => {
 					</form>
 				</div>
 				<div className={classes.search__offer}>
-					Use code <span className={classes.search__occation}>"covid19"</span>{" "}
+					Use code <mark className={classes.search__occation}>"covid19"</mark>
 					for
-					<span className={classes.search__discount}>15%</span>off!
+					<mark className={classes.search__discount}>15%</mark>off!
 				</div>
 			</Row>
 		</div>

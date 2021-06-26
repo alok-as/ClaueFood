@@ -15,6 +15,7 @@ import HomePage from "../../pages/HomePage";
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
 const CheckoutPage = lazy(() => import("../../pages/CheckoutPage"));
 const CartPage = lazy(() => import("../../pages/CartPage"));
+const CustomerLoginPage = lazy(() => import("../../pages/CustomerLoginPage"));
 const TestingPage = lazy(() => import("../../pages/TestingPage"));
 
 const Layout = () => {
@@ -80,6 +81,7 @@ const Layout = () => {
 						redirect="/testing"
 					/> */}
 					<Route path="/checkout" component={CheckoutPage} />
+					<Route path="/customer-login" component={CustomerLoginPage} />
 					<Route path="/testing" component={TestingPage} />
 				</Switch>
 			</main>

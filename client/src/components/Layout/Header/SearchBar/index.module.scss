@@ -49,11 +49,14 @@
 	&__occation {
 		font-weight: 600;
 		margin: 0 0.5rem;
+		color: var(--color-white-1);
+		background-color: transparent;
 	}
 
 	&__discount {
 		font-weight: 600;
 		margin: 0 0.5rem;
 		background-color: var(--color-orange-2);
+		color: var(--color-white-1);
 	}
 }

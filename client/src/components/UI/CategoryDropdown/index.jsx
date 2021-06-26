@@ -3,7 +3,7 @@ import { combineClasses } from "../../../utils";
 import classes from "./index.module.scss";
 
 const CategoryDropdown = ({ title, categories }) => {
-	const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 	const toggleDropDownHandler = () => {
 		setIsDropdownOpen((isDropdownOpen) => !isDropdownOpen);
