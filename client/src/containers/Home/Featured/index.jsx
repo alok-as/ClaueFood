@@ -1,5 +1,5 @@
-import React, { useState, useCallback, memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
@@ -14,6 +14,11 @@ import { setFeaturedProducts } from "../../../redux/Products/actions";
 
 const Featured = () => {
 	const dispatch = useDispatch();
+
+	const { isLoading, products } = useSelector(
+		(state) => state.products.featuredDetails
+	);
+	const [selectedCategory, setSelectedCategory] = useState("featured");
 
 	const [cards, setCards] = useState([
 		{
@@ -57,10 +62,9 @@ const Featured = () => {
 		},
 	]);
 
-	const { isLoading, products } = useSelector(
-		(state) => state.products.featuredDetails
-	);
-	const [selectedCategory, setSelectedCategory] = useState("featured");
+	useEffect(() => {
+		fetchFeaturedProductsHandler(selectedCategory);
+	}, [selectedCategory]);
 
 	const selectCategoryHandler = (selectedCategory) => {
 		const newCategories = [...categories];
@@ -73,7 +77,6 @@ const Featured = () => {
 		});
 
 		setSelectedCategory(selectedCategory);
-		fetchFeaturedProductsHandler(selectedCategory);
 		setCategories(newCategories);
 	};
 
@@ -100,7 +103,7 @@ const Featured = () => {
 			</div>
 			<FeaturedTabs tabs={categories} onClick={selectCategoryHandler} />
 			{isLoading ? (
-				<p>Loading...</p>
+				<p>Loading.....</p>
 			) : (
 				<Slider
 					data={products[selectedCategory]}

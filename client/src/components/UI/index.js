@@ -23,6 +23,7 @@ export { default as RadioButton } from "./RadioButton";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as Section } from "./Section";
 export { default as SectionTitle } from "./SectionTitle";
+export { default as Select } from "./Select";
 export { default as Slide } from "./Slide";
 export { default as SocialLinks } from "./SocialLinks";
 export { default as Sponsers } from "./Sponsers";

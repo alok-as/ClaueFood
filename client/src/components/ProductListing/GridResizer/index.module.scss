@@ -10,13 +10,13 @@
 
 	&__item {
 		border: 1px solid var(--color-grey-1);
-		padding: 0.3rem;
+		padding: 0.2rem;
 		display: flex;
 		cursor: pointer;
 		transition: all 0.3s ease;
 
 		&:not(:last-child) {
-			margin-right: 1rem;
+			margin-right: 2rem;
 		}
 	}
 
@@ -35,7 +35,7 @@
 		transition: all 0.3s ease;
 
 		&:not(:last-child) {
-			margin-right: 0.4rem;
+			margin-right: 0.2rem;
 		}
 	}
 }

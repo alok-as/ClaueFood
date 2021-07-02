@@ -17,7 +17,7 @@ const DisplayPanel = ({ title, links }) => {
 					/>
 				))}
 			</ul>
-			<QuickLink to="/" linkClass={classes.panel__button}>
+			<QuickLink to="/products" linkClass={classes.panel__button}>
 				All Category
 			</QuickLink>
 		</div>

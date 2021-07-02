@@ -1,0 +1,54 @@
+.filter {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 21%;
+	height: 100vh;
+	background-color: var(--color-white-1);
+	z-index: 200;
+	padding: 2rem;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__heading {
+		position: relative;
+		text-transform: initial;
+		font-weight: 600;
+
+		&::after {
+			content: "";
+			width: 6rem;
+			height: 3px;
+			background-color: var(--color-black-1);
+			position: absolute;
+			bottom: -0.5rem;
+			left: 0;
+		}
+	}
+
+	&__close {
+		cursor: pointer;
+	}
+
+	&__enter {
+		transform: translateX(-200%);
+	}
+
+	&__enterActive {
+		transform: translateX(0);
+		transition: 0.3s transform ease;
+	}
+
+	&__exit {
+		transform: translateX(0);
+	}
+
+	&__exitActive {
+		transform: translateX(-200%);
+		transition: 0.3s transform ease;
+	}
+}

@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { redisClient } = require("../database");
 const Product = require("../models/product");
+const { parseQueryParams } = require("../utils");
 
 const createProduct = asyncHandler(async (req, res) => {
 	const { title, userId } = req.body;
@@ -22,7 +23,13 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 const fetchAllProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find({}).populate("images").lean();
+	const { filter, sort, limit } = parseQueryParams(req.query);
+
+	const products = await Product.find(filter)
+		.sort(sort)
+		.limit(parseInt(limit))
+		.populate("images")
+		.lean();
 
 	res.send({
 		success: true,

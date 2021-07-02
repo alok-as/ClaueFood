@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 import * as actionTypes from "./actionTypes";
-import featuredData from "../../data/featured";
+// import featuredData from "../../data/featured";
 
 const featuredDetails = (
 	state = {
 		products: {
-			featured: featuredData,
+			featured: [],
 			bestseller: [],
 			special: [],
 			latest: [],
@@ -14,9 +14,9 @@ const featuredDetails = (
 	action
 ) => {
 	switch (action.type) {
-		case actionTypes.FETCH_FEATURED_PRODUCTS_REQUEST:
+		case actionTypes.FETCH_PRODUCTS_BY_FILTER_REQUEST:
 			return { ...state, isLoading: true };
-		case actionTypes.FETCH_FEATURED_PRODUCTS_SUCCESS:
+		case actionTypes.FETCH_PRODUCTS_BY_FILTER_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
@@ -25,7 +25,7 @@ const featuredDetails = (
 					[action.category]: action.payload,
 				},
 			};
-		case actionTypes.FETCH_FEATURED_PRODUCTS_FAILED:
+		case actionTypes.FETCH_PRODUCTS_BY_FILTER_FAILED:
 			return {
 				...state,
 				isLoading: false,

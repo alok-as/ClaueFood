@@ -75,20 +75,20 @@
 	}
 
 	&__enter {
-		right: -100%;
+		transform: translateX(200%);
 	}
 
 	&__enterActive {
-		right: 0%;
-		transition: 0.3s right ease;
+		transform: translateX(0);
+		transition: 0.3s transform ease;
 	}
 
 	&__exit {
-		right: 0%;
+		transform: translateX(0);
 	}
 
 	&__exitActive {
-		right: -100%;
-		transition: 0.3s right ease;
+		transform: translateX(200%);
+		transition: 0.3s transform ease;
 	}
 }

@@ -31,6 +31,14 @@ const productSchema = mongoose.Schema(
 			type: Array,
 			required: true,
 		},
+		isFeatured: {
+			type: Boolean,
+			default: false,
+		},
+		isBestseller: {
+			type: Boolean,
+			default: false,
+		},
 		stock: {
 			type: Number,
 			required: true,

@@ -25,6 +25,17 @@ const generateToken = (_id, email, expiresIn) => {
 	});
 };
 
+const parseQueryParams = (params) => {
+	const { sortBy, order, limit, skip, ...filter } = params;
+	const sort = {};
+
+	if (sortBy) {
+		sort[sortBy] = order === "desc" ? -1 : 1;
+	}
+
+	return { filter, order, sort, limit, skip };
+};
+
 const computeTime = (value, unit) => {
 	switch (unit) {
 		case "seconds":
@@ -45,4 +56,5 @@ module.exports = {
 	computeTime,
 	cookieExtractor,
 	generateToken,
+	parseQueryParams,
 };

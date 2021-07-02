@@ -4,7 +4,7 @@ import classes from "./index.module.scss";
 import PropTypes from "prop-types";
 import { combineClasses } from "../../../utils";
 
-const Backdrop = ({ isVisible, className, onClose }) => {
+const Backdrop = ({ isVisible, removeScrollbar, className, onClose }) => {
 	const modalAnimationConfig = {
 		isVisible,
 		mountOnEnter: true,
@@ -17,13 +17,15 @@ const Backdrop = ({ isVisible, className, onClose }) => {
 	};
 
 	useEffect(() => {
-		if (isVisible) {
-			document.body.style.overflow = "hidden";
+		if (removeScrollbar) {
+			if (isVisible) {
+				document.body.style.overflow = "hidden";
+			}
+			return () => {
+				document.body.style.overflow = "visible";
+			};
 		}
-		return () => {
-			document.body.style.overflow = "visible";
-		};
-	}, [isVisible]);
+	}, [removeScrollbar, isVisible]);
 
 	const finalBackdropClasses = [classes.backdrop];
 
@@ -43,10 +45,12 @@ const Backdrop = ({ isVisible, className, onClose }) => {
 
 Backdrop.defaultProps = {
 	onClose: () => console.log("onClose handler not provided for Backdrop"),
+	removeScrollbar: true,
 };
 
 Backdrop.propTypes = {
 	isVisible: PropTypes.bool.isRequired,
+	removeScrollbar: PropTypes.bool,
 	onClose: PropTypes.func,
 };
 

@@ -95,6 +95,32 @@ export const combineClasses = (classes) => {
 	return classes.join(" ");
 };
 
+export const generateQueryStringForCategory = (category) => {
+	switch (category) {
+		default:
+			break;
+	}
+};
+
+export const generateQueryString = (params = {}) => {
+	let queryString = "";
+	const queryParams = [];
+
+	for (let key in params) {
+		if (params.hasOwnProperty(key)) {
+			queryParams.push(
+				`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+			);
+		}
+	}
+
+	if (queryParams.length) {
+		queryString = `?${queryParams.join("&")}`;
+	}
+
+	return queryString;
+};
+
 export const parseQueryParams = (searchString) => {
 	const queryParams = {};
 	const searchParams = new URLSearchParams(searchString);
