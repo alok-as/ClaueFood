@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler");
-const { redisClient } = require("../database");
 const Product = require("../models/product");
 const { parseQueryParams } = require("../utils");
 
@@ -59,7 +58,6 @@ const fetchProductBySlug = asyncHandler(async (req, res) => {
 		});
 	}
 
-	redisClient.set(slug, JSON.stringify(product));
 	return res.send({
 		success: true,
 		data: product,

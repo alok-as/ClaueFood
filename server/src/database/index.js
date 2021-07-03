@@ -1,14 +1,11 @@
+const util = require("util");
 const redis = require("redis");
 const mongoose = require("mongoose");
 
-const redisPort = process.env.REDIS_PORT || 6379;
-const connectionURI = process.env.CONNECTION_URI;
+const { generateRedisKey } = require("../utils");
 
-const redisClient = redis.createClient(redisPort);
-redisClient.on("error", (error) => {
-	console.log("Error connecting to redis server:", error.message);
-	process.exit(1);
-});
+const connectionURI = process.env.CONNECTION_URI;
+const redisPort = process.env.REDIS_PORT || 6379;
 
 const connectToDatabase = async () => {
 	try {
@@ -19,9 +16,69 @@ const connectToDatabase = async () => {
 		});
 		console.log("Database is connected to host", conn.connection.host);
 	} catch {
-		console.log("Error connection to database", error.message);
+		console.log("Error connecting to database", error.message);
 		process.exit(1);
 	}
 };
 
-module.exports = { connectToDatabase, redisClient };
+const redisClient = redis.createClient(redisPort);
+redisClient.get = util.promisify(redisClient.get);
+redisClient.hget = util.promisify(redisClient.hget);
+redisClient.on("error", (error) => {
+	console.log("Error connecting to redis server:", error.message);
+	process.exit(1);
+});
+
+const modifyMongooseExec = () => {
+	const exec = mongoose.Query.prototype.exec;
+
+	mongoose.Query.prototype.exec = async function () {
+		if (!this.useCache) {
+			return exec.apply(this, arguments);
+		}
+
+		const key = generateRedisKey(this.mongooseCollection.name, this.getQuery());
+		const cachedResult = await redisClient.hget(this.redisHashKey, key);
+
+		if (cachedResult) {
+			const doc = JSON.parse(cachedResult);
+			const result = Array.isArray(doc)
+				? doc.map((d) => new this.model(d))
+				: new this.model(doc);
+			return result;
+		}
+
+		const result = await exec.apply(this, arguments);
+		if (result) {
+			redisClient.hset(
+				this.redisHashKey,
+				key,
+				JSON.stringify(result),
+				"EX",
+				this.cacheExpiresIn
+			);
+		}
+		return result;
+	};
+};
+
+const addCacheToMongooseQuery = () => {
+	mongoose.Query.prototype.cache = function (options = {}) {
+		this.useCache = true;
+		this.redisHashKey = JSON.stringify(options.key || "");
+		this.cacheExpiresIn = options.expiresIn;
+		return this;
+	};
+};
+
+const clearRedisCache = (redisHashKey) => {
+	redisClient.del(JSON.stringify(redisHashKey));
+};
+
+module.exports = {
+	connectToDatabase,
+	clearRedisCache,
+	modifyMongooseExec,
+	addCacheToMongooseQuery,
+	redisClient,
+};

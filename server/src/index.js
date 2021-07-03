@@ -4,7 +4,11 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 
-const { connectToDatabase } = require("./database");
+const {
+	addCacheToMongooseQuery,
+	connectToDatabase,
+	modifyMongooseExec,
+} = require("./database");
 const { errorHandler, notFound } = require("./middlewares/error");
 const router = require("./routers");
 
@@ -25,6 +29,8 @@ app.use(
 );
 
 connectToDatabase();
+modifyMongooseExec();
+addCacheToMongooseQuery();
 
 app.use("/api", router);
 app.use(notFound);

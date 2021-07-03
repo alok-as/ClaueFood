@@ -19,6 +19,12 @@ const checkIfValidUpdate = (reqBody, allowedUpdates) => {
 	return isValidUpdate;
 };
 
+const generateRedisKey = (collection, options) => {
+	const keyObject = Object.assign({}, options, { collection });
+	const key = JSON.stringify(keyObject);
+	return key;
+};
+
 const generateToken = (_id, email, expiresIn) => {
 	return jwt.sign({ _id, email }, privateKey, {
 		expiresIn,
@@ -55,6 +61,7 @@ module.exports = {
 	checkIfValidUpdate,
 	computeTime,
 	cookieExtractor,
+	generateRedisKey,
 	generateToken,
 	parseQueryParams,
 };

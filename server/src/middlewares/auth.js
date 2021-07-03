@@ -1,39 +1,34 @@
 const User = require("../models/user");
 const { redisClient } = require("../database");
 
-const isAuthenticated = (req, res, next) => {
-	const { accessToken, refreshToken } = req.cookies;
-
-	redisClient.get(accessToken, async (error, userId) => {
-		if (error) {
-			console.log("Error finding accessToken in redis:", error.message);
-		}
+const isAuthenticated = async (req, res, next) => {
+	try {
+		const { accessToken, refreshToken } = req.cookies;
+		const userId = await redisClient.get(accessToken);
 
 		if (!userId) {
-			redisClient.get(refreshToken, async (error, id) => {
-				if (error) {
-					console.log("Error finding refreshToken in redis:", error.message);
-					return res.status(401).send();
-				}
+			const id = await redisClient.get(refreshToken);
 
-				if (!id) {
-					return res.status(401).send();
-				}
+			if (!id) {
+				return res.status(401).send();
+			}
 
-				return res.status(401).send({
-					success: false,
-					data: {
-						userId: id,
-					},
-					code: 490,
-				});
+			return res.status(401).send({
+				success: false,
+				data: {
+					userId: id,
+				},
+				code: 490,
 			});
 		}
 
 		const user = await User.findById(userId);
 		req.user = user;
 		next();
-	});
+	} catch (error) {
+		console.log("Error checking is Authenticated", error.messaage);
+		res.status(401).send();
+	}
 };
 
 const isAuthorized = (role) => (req, res, next) => {
