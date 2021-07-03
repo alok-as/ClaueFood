@@ -19,7 +19,7 @@ const productSchema = mongoose.Schema(
 			type: Number,
 			required: false,
 		},
-		dicountedPrice: {
+		discountedPrice: {
 			type: Number,
 			required: false,
 		},
@@ -86,7 +86,7 @@ productSchema.pre("save", function (next) {
 	if (product.discount) {
 		const discountedPrice =
 			product.price - (product.price * product.discount) / 100;
-		product.dicountedPrice = discountedPrice;
+		product.discountedPrice = discountedPrice;
 	}
 
 	product.slug = slug;

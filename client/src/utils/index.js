@@ -6,8 +6,8 @@ export const calculateCartItemsCount = (items) => {
 export const calculateTotalCartPrice = (items) => {
 	const count = items.reduce((acc, item) => {
 		console.log("Checking item", item);
-		if (item.dicountedPrice) {
-			return acc + item.quantity * item.dicountedPrice;
+		if (item.discountedPrice) {
+			return acc + item.quantity * item.discountedPrice;
 		} else {
 			return acc + item.quantity * item.price;
 		}

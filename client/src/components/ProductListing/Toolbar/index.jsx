@@ -15,7 +15,7 @@ const Toolbar = () => {
 	]);
 	const [sortByOptions, setsortByOptions] = useState([
 		{ key: nanoid(), value: "Sort By Position" },
-		{ key: nanoid(), value: "Sort By ProductName" },
+		{ key: nanoid(), value: "Sort By Product Name" },
 		{ key: nanoid(), value: "Sort By Price" },
 		{ key: nanoid(), value: "Sort By Bestseller" },
 		{ key: nanoid(), value: "Sort By Featured" },
@@ -47,7 +47,10 @@ const Toolbar = () => {
 			</div>
 			<div className={classes.toolbar__views}>Views</div>
 			<div className={classes.toolbar__limiter}>{PerPageDropdown}</div>
-			<div className={classes.toolbar__order}>{sortByDropdown}</div>
+			<div className={classes.toolbar__order}>
+				{sortByDropdown}
+				<div className={classes.toolbar__arrow}>Arrow</div>
+			</div>
 		</div>
 	);
 };

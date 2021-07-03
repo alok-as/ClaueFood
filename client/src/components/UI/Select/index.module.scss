@@ -9,6 +9,7 @@
 	&__field {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		padding: 0.6rem 2rem;
 		user-select: none;
 
@@ -20,7 +21,6 @@
 
 	&__value {
 		font-size: 1.4rem;
-		margin-right: 0.8rem;
 	}
 
 	&__arrow {
@@ -29,7 +29,7 @@
 
 	&__options {
 		position: absolute;
-		bottom: -8.5rem;
+		top: 100%;
 		left: 50%;
 		transform: translateX(-50%);
 

@@ -16,7 +16,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [
@@ -51,7 +51,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [
@@ -86,7 +86,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [
@@ -121,7 +121,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [
@@ -156,7 +156,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [
@@ -191,7 +191,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [
@@ -226,7 +226,7 @@ const sampleData = [
 		seller: "6093c3f33d2f7d52104ae7b1",
 		createdAt: "2021-05-09T10:07:21.200Z",
 		updatedAt: "2021-05-09T10:07:21.200Z",
-		dicountedPrice: 190,
+		discountedPrice: 190,
 		slug: "Bestseller-delight-apple",
 		__v: 0,
 		images: [

@@ -9,6 +9,7 @@ export { default as ContactUs } from "./ContactUs";
 export { default as EditableItem } from "./EditableItem";
 export { default as Feature } from "./Feature";
 export { default as FooterList } from "./FooterList";
+export { default as FullScreenLoader } from "./FullScreenLoader";
 export { default as Heading } from "./Heading";
 export { default as Icon } from "./Icon";
 export { default as Input } from "./Input";
