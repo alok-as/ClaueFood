@@ -3,12 +3,15 @@ const cors = require("cors");
 
 const express = require("express");
 const morgan = require("morgan");
+const passport = require("passport");
 
 const {
 	addCacheToMongooseQuery,
 	connectToDatabase,
 	modifyMongooseExec,
 } = require("./database");
+
+const setPassportConfiguration = require("../config/auth");
 const { errorHandler, notFound } = require("./middlewares/error");
 const router = require("./routers");
 
@@ -31,6 +34,8 @@ app.use(
 connectToDatabase();
 modifyMongooseExec();
 addCacheToMongooseQuery();
+setPassportConfiguration(passport);
+app.use(passport.initialize());
 
 app.use("/api", router);
 app.use(notFound);

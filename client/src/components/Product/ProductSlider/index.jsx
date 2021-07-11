@@ -11,6 +11,7 @@ const Slider = ({ images }) => {
 	const onPreviousSlideHandler = () => {
 		setSlideFactor((slideFactor) => {
 			const newFactor = slideFactor - 100;
+
 			if (newFactor === 0) {
 				setIsPreviousDisabled(true);
 			}
@@ -31,9 +32,8 @@ const Slider = ({ images }) => {
 				setIsPreviousDisabled(false);
 			}
 
-			if (slideFactor === maxSlideFactor) {
+			if (newFactor === maxSlideFactor) {
 				setIsNextDisabled(true);
-				return slideFactor;
 			}
 
 			return newFactor;
@@ -42,7 +42,7 @@ const Slider = ({ images }) => {
 
 	useEffect(() => {
 		if (images.length) {
-			setMaxSlideFactor(images.length - 1 * 100);
+			setMaxSlideFactor((images.length - 1) * 100);
 		}
 	}, [images, maxSlideFactor]);
 
@@ -53,8 +53,9 @@ const Slider = ({ images }) => {
 	return (
 		<div className={classes.slider}>
 			<div className={classes.slider__container} style={style}>
-				<div className={classes.slider__slide}>Hello</div>
-				<div className={classes.slider__slide}>Hii</div>
+				{images.map((image) => (
+					<ProductSlide {...image} />
+				))}
 			</div>
 			<button
 				className={classes.slider__previous}

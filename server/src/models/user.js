@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const { isEmail, isMobilePhone } = require("validator");
-const { generateToken, computeTime } = require("../utils");
+const { generateToken } = require("../utils");
 const { redisClient } = require("../database");
 
 const userSchema = new mongoose.Schema(

@@ -2,21 +2,13 @@
 	position: relative;
 	margin-right: 2rem;
 	overflow-x: hidden;
+	overflow: hidden;
 
 	&__container {
 		height: 100%;
 		display: flex;
+		flex-wrap: nowrap;
 		transition: 0.3s transform ease;
-		background-color: orangered;
-	}
-
-	&__slide {
-		height: 100%;
-		background-color: palegreen;
-
-		&:nth-child(odd) {
-			background-color: orchid;
-		}
 	}
 
 	&__previous,

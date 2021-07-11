@@ -24,17 +24,17 @@ const Header = () => {
 		{
 			key: nanoid(),
 			children: "Vegetable",
-			to: "/0",
+			to: "/products?category=vegetables",
 		},
 		{
 			key: nanoid(),
 			children: "Dried Fruits",
-			to: "/0",
+			to: "/products?category=dried fruits",
 		},
 		{
 			key: nanoid(),
 			children: "Sale",
-			to: "/0",
+			to: "/products?category=sale",
 		},
 	]);
 

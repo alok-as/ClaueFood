@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import classes from "./index.module.scss";
 import { ProductCard } from "../../UI";
 
-const Slider = ({ data, addProductToCart, numSlides }) => {
+const Slider = ({ data, addProductToCart, numSlides, withOptions }) => {
 	const containerRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -14,22 +14,6 @@ const Slider = ({ data, addProductToCart, numSlides }) => {
 
 	const [isNextDisabled, setIsNextDisabled] = useState(false);
 	const [isPreviousDisabled, setIsPreviousDisabled] = useState(true);
-
-	const onNextSlideHandler = () => {
-		setCurrentSlideFactor((currentSlideFactor) => {
-			const newFactor = currentSlideFactor + slideFactor;
-
-			if (newFactor === maxSlideFactor) {
-				setIsNextDisabled(true);
-			}
-
-			if (currentSlideFactor === 0) {
-				setIsPreviousDisabled(false);
-			}
-
-			return newFactor;
-		});
-	};
 
 	const onPrevSlideHandler = () => {
 		setCurrentSlideFactor((currentSlideFactor) => {
@@ -47,7 +31,23 @@ const Slider = ({ data, addProductToCart, numSlides }) => {
 		});
 	};
 
-	useEffect(() => {
+	const onNextSlideHandler = () => {
+		setCurrentSlideFactor((currentSlideFactor) => {
+			const newFactor = currentSlideFactor + slideFactor;
+
+			if (newFactor === maxSlideFactor) {
+				setIsNextDisabled(true);
+			}
+
+			if (currentSlideFactor === 0) {
+				setIsPreviousDisabled(false);
+			}
+
+			return newFactor;
+		});
+	};
+
+	const setIntialConfigHandler = useCallback(() => {
 		const containerWidth = containerRef.current.offsetWidth;
 		const availableWidth = containerWidth - (numSlides - 1) * gutterWidth;
 		const slideWidth = availableWidth / numSlides;
@@ -66,7 +66,25 @@ const Slider = ({ data, addProductToCart, numSlides }) => {
 		} else {
 			setMaxSlideFactor((slideWidth + gutterWidth) * remainingSlides);
 		}
-	}, [numSlides, data, setSlideWidth, setMaxSlideFactor, gutterWidth]);
+	}, []);
+
+	useEffect(() => {
+		setIntialConfigHandler();
+	}, [
+		numSlides,
+		data,
+		setSlideWidth,
+		setMaxSlideFactor,
+		gutterWidth,
+		setIntialConfigHandler,
+	]);
+
+	useEffect(() => {
+		window.addEventListener("resize", setIntialConfigHandler);
+		return () => {
+			window.removeEventListener("resize", setIntialConfigHandler);
+		};
+	}, [setIntialConfigHandler]);
 
 	const style = {
 		transform: `translateX(-${currentSlideFactor}px)`,
@@ -83,6 +101,7 @@ const Slider = ({ data, addProductToCart, numSlides }) => {
 							index={index}
 							productWidth={`${slideWidth / 10}rem`}
 							addProductToCart={addProductToCart}
+							withOptions={withOptions}
 						/>
 					))}
 			</div>

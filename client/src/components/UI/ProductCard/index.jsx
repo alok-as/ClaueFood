@@ -19,6 +19,7 @@ const ProductCard = ({
 	addProductToCart,
 	index,
 	productWidth,
+	withOptions,
 }) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
 	// const imageSecondary = images.find((image) => !Boolean(image.isPrimary)).url;
@@ -55,7 +56,15 @@ const ProductCard = ({
 			>
 				<img src={imageSrc} alt={title} style={style} />
 				<p className={classes.product__sale}>Sale</p>
+				{withOptions && (
+					<ul className={classes.product__options}>
+						<li className={classes.product__option}>1</li>
+						<li className={classes.product__option}>2</li>
+						<li className={classes.product__option}>3</li>
+					</ul>
+				)}
 			</div>
+
 			<div className={classes.product__content}>
 				<p className={classes.product__title}>{title}</p>
 				<del className={classes.product__price}>${price.toFixed(2)}</del>

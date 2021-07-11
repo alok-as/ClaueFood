@@ -24,9 +24,13 @@ const connectToDatabase = async () => {
 const redisClient = redis.createClient(redisPort);
 redisClient.get = util.promisify(redisClient.get);
 redisClient.hget = util.promisify(redisClient.hget);
+
+redisClient.on("connect", () => {
+	console.log(`Server is connected to redis on port : ${redisPort}`);
+});
+
 redisClient.on("error", (error) => {
 	console.log("Error connecting to redis server:", error.message);
-	process.exit(1);
 });
 
 const modifyMongooseExec = () => {

@@ -11,11 +11,11 @@ import Image2 from "../../../assets/images/home/product-2.jpg";
 
 const images = [
 	{
-		id: 1,
+		key: 1,
 		url: Image1,
 	},
 	{
-		id: 2,
+		key: 2,
 		url: Image2,
 	},
 ];

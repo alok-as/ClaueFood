@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
-const { computeTime } = require("../utils");
+const { calculateAuthTokenExpiration } = require("../utils");
 
 const registerUser = asyncHandler(async (req, res) => {
 	const { email } = req.body;
@@ -36,9 +36,8 @@ const loginUser = asyncHandler(async (req, res) => {
 		throw new Error(`Invalid email or password!`);
 	}
 
-	const accessTokenExpiry = computeTime(30, "seconds");
-	const refreshTokenExpiry = computeTime(15, "days");
-
+	const [accessTokenExpiry, refreshTokenExpiry] =
+		calculateAuthTokenExpiration();
 	const [accessToken, refreshToken] = await user.generateAuthTokens(
 		accessTokenExpiry,
 		refreshTokenExpiry
@@ -54,6 +53,12 @@ const loginUser = asyncHandler(async (req, res) => {
 		httpOnly: true,
 		secure: process.env.ENV === "production",
 		maxAge: refreshTokenExpiry,
+	});
+
+	res.cookie("isAuthenticated", true, {
+		httpOnly: false,
+		secure: process.env.ENV === "production",
+		maxAge: accessTokenExpiry,
 	});
 
 	res.status(200).send({
@@ -63,12 +68,39 @@ const loginUser = asyncHandler(async (req, res) => {
 	});
 });
 
+const loginUserWithGoogle = asyncHandler((req, res) => {
+	console.log("Entering Function");
+
+	const [accessTokenExpiry, refreshTokenExpiry] =
+		calculateAuthTokenExpiration();
+
+	res.cookie("accessToken", accessToken, {
+		httpOnly: true,
+		secure: process.env.ENV === "production",
+		maxAge: accessTokenExpiry * 1000,
+	});
+
+	res.cookie("refreshToken", refreshToken, {
+		httpOnly: true,
+		secure: process.env.ENV === "production",
+		maxAge: refreshTokenExpiry,
+	});
+
+	res.cookie("isAuthenticated", true, {
+		httpOnly: false,
+		secure: process.env.ENV === "production",
+		maxAge: accessTokenExpiry,
+	});
+
+	res.redirect(process.env.ORIGIN);
+});
+
 const issueAuthenticationTokens = asyncHandler(async (req, res) => {
 	const { userId } = req.params;
 	const user = await User.findById(userId);
 
-	const accessTokenExpiry = computeTime(15, "seconds");
-	const refreshTokenExpiry = computeTime(15, "days");
+	const [accessTokenExpiry, refreshTokenExpiry] =
+		calculateAuthTokenExpiration();
 	const [accessToken, refreshToken] = await user.generateAuthTokens(
 		accessTokenExpiry,
 		refreshTokenExpiry
@@ -84,6 +116,12 @@ const issueAuthenticationTokens = asyncHandler(async (req, res) => {
 		httpOnly: true,
 		secure: process.env.ENV === "production",
 		maxAge: refreshTokenExpiry,
+	});
+
+	res.cookie("isAuthenticated", true, {
+		httpOnly: false,
+		secure: process.env.ENV === "production",
+		maxAge: accessTokenExpiry,
 	});
 
 	res.status(200).send({
@@ -196,6 +234,7 @@ module.exports = {
 	registerUser,
 	issueAuthenticationTokens,
 	loginUser,
+	loginUserWithGoogle,
 	fetchUserDetails,
 	addProductToUserWishlist,
 	fetchUserWishlist,

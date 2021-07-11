@@ -1,4 +1,6 @@
 .product {
+	$this: &;
+
 	&__image {
 		width: 100%;
 		overflow: hidden;
@@ -14,6 +16,10 @@
 				transform: scale(1.1);
 			}
 		}
+
+		&:hover #{$this}__options {
+			opacity: 1;
+		}
 	}
 
 	&__sale {
@@ -24,6 +30,20 @@
 		background-color: var(--color-orange-1);
 		color: var(--color-white-1);
 		font-size: 1.2rem;
+	}
+
+	&__options {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 10;
+		background-color: var(--color-grey-13);
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	&__option {
+		padding: 0.8rem 1.6rem;
 	}
 
 	&__title {

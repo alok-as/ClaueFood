@@ -42,6 +42,21 @@ const parseQueryParams = (params) => {
 	return { filter, order, sort, limit, skip };
 };
 
+const calculateAuthTokenExpiration = () => {
+	const [accessValue, accessUnit] =
+		process.env.ACCESS_TOKEN_EXPIRATION.split(" ");
+
+	const [refreshValue, refreshUnit] =
+		process.env.REFRESH_TOKEN_EXPIRATION.split(" ");
+
+	const accessTokenExpiry = computeTime(accessValue, accessUnit);
+	const refreshTokenExpiry = computeTime(refreshValue, refreshUnit);
+
+	return [accessTokenExpiry, refreshTokenExpiry];
+};
+
+const setCookiesForAuthentication = (res) => {};
+
 const computeTime = (value, unit) => {
 	switch (unit) {
 		case "seconds":
@@ -58,6 +73,7 @@ const computeTime = (value, unit) => {
 };
 
 module.exports = {
+	calculateAuthTokenExpiration,
 	checkIfValidUpdate,
 	computeTime,
 	cookieExtractor,

@@ -23,6 +23,10 @@ const SignIn = ({
 		});
 	};
 
+	const onGoogleLoginHandler = () => {
+		window.location.href = "http://localhost:3001/api/user/google-login";
+	};
+
 	const [fields, setFields] = useState({
 		email: {
 			key: nanoid(),
@@ -146,7 +150,7 @@ const SignIn = ({
 					<Button
 						rounded={false}
 						className={classes.signin__button}
-						onClick={fetchUserData}
+						onClick={onGoogleLoginHandler}
 					>
 						FetchUserData
 					</Button>

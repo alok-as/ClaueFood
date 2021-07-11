@@ -109,6 +109,7 @@ const Featured = () => {
 					data={products[selectedCategory]}
 					addProductToCart={addProductToCartHandler}
 					numSlides={5}
+					withOptions={true}
 				/>
 			)}
 		</Section>
