@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import classes from "./index.module.scss";
-import { Heading, SectionTitle } from "../index";
+import { Heading } from "../index";
 import { Row } from "../../../hoc";
 import { combineClasses } from "../../../utils";
 

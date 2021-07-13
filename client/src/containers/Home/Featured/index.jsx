@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 
@@ -116,4 +116,4 @@ const Featured = () => {
 	);
 };
 
-export default memo(Featured);
+export default Featured;

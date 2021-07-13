@@ -25,18 +25,8 @@ const CustomerLoginPage = lazy(() => import("../../pages/CustomerLoginPage"));
 const TestingPage = lazy(() => import("../../pages/TestingPage"));
 
 const Layout = () => {
-	const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
-
 	const [isNewsletterModalVisible, setIsNewsletterModalVisible] =
 		useState(false);
-
-	const checkForScrollPositionHandler = () => {
-		if (window.scrollY > 10) {
-			setIsScrollToTopVisible(true);
-		} else {
-			setIsScrollToTopVisible(false);
-		}
-	};
 
 	const openNewsletterModalHandler = () => {
 		setIsNewsletterModalVisible(true);
@@ -59,17 +49,10 @@ const Layout = () => {
 		}
 	}, []);
 
-	useEffect(() => {
-		window.addEventListener("scroll", checkForScrollPositionHandler);
-		return () => {
-			window.removeEventListener("scroll", checkForScrollPositionHandler);
-		};
-	}, []);
-
 	return (
 		<Suspense fallback={<h1>Loading...</h1>}>
 			<Header />
-			<ScrollToTop isVisible={isScrollToTopVisible} />
+			<ScrollToTop />
 			<Portal>
 				<NewsletterModal
 					isVisible={isNewsletterModalVisible}
@@ -85,11 +68,6 @@ const Layout = () => {
 					<Route path="/products" component={ProductListingPage} />
 					<Route path="/product/:slug" component={ProductPage} />
 					<Route path="/shopping-cart" component={CartPage} />
-					{/* <ProtectedRoute
-						path="/checkout"
-						component={CheckoutPage}
-						redirect="/testing"
-					/> */}
 					<Route path="/checkout" component={CheckoutPage} />
 					<Route path="/customer-login" component={CustomerLoginPage} />
 					<Route path="/testing" component={TestingPage} />

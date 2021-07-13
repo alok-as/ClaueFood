@@ -3,6 +3,8 @@ import { Hero, Featured, PopularDisplay } from "../../containers/Home";
 import { Offerings, Sponsers } from "../../components/UI";
 
 const HomePage = () => {
+	console.log("Page is Rendered");
+
 	return (
 		<Fragment>
 			<Hero />

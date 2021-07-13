@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./index.module.scss";
 import { combineClasses } from "../../../utils";
 
-const ScrollToTop = ({ isVisible }) => {
+const ScrollToTop = () => {
+	const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
+
+	const checkForScrollPositionHandler = () => {
+		if (window.scrollY > 10) {
+			setIsScrollToTopVisible(true);
+		} else {
+			setIsScrollToTopVisible(false);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener("scroll", checkForScrollPositionHandler);
+		return () => {
+			window.removeEventListener("scroll", checkForScrollPositionHandler);
+		};
+	}, []);
+
 	let finalClasses = [classes.scroll];
 
-	if (isVisible) {
+	if (isScrollToTopVisible) {
 		finalClasses.push(classes.scroll__visible);
 	}
 

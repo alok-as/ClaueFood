@@ -1,4 +1,4 @@
-import React, { Fragment, useState, memo } from "react";
+import React, { Fragment, useState } from "react";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
@@ -77,6 +77,8 @@ const PopularDisplay = () => {
 		},
 	]);
 
+	console.log("Popular Display is Rendered");
+
 	return (
 		<Fragment>
 			<Display
@@ -95,4 +97,4 @@ const PopularDisplay = () => {
 	);
 };
 
-export default memo(PopularDisplay);
+export default PopularDisplay;

@@ -17,6 +17,8 @@ const Banner = ({ path }) => {
 		parseRoutePathHandler(path);
 	}, [path]);
 
+	console.log("Banner is Rendered");
+
 	return (
 		<Fragment>
 			<div className={classes.banner}>
