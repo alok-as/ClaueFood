@@ -27,6 +27,12 @@ const Auth = {
 			url: "/user",
 		});
 	},
+	fetchCartItems() {
+		return axios.request({
+			method: "GET",
+			url: "/user/cart",
+		});
+	},
 	addProductToWishlist({ productId }) {
 		return axios.request({
 			method: "POST",
@@ -44,14 +50,17 @@ const Auth = {
 			method: "POST",
 			url: `/user/cart/${productId}`,
 			data: {
-				userId: "6097ad5818c7083facd87443",
+				userId: "60a0ea5d30c2205808ecb2fc",
 			},
 		});
 	},
-	removeProductFromCart({ productId }) {
+	removeProductFromCart(productId) {
 		return axios.request({
 			method: "DELETE",
 			url: `/user/cart/${productId}`,
+			data: {
+				userId: "60a0ea5d30c2205808ecb2fc",
+			},
 		});
 	},
 };

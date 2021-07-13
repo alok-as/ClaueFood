@@ -2,7 +2,12 @@ import React, { lazy, Suspense, useEffect, useState, useCallback } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { ScrollToTop } from "../../components/UI";
-import { Header, Footer, NewsletterModal } from "../../containers/Layout";
+import {
+	Header,
+	Footer,
+	NewsletterModal,
+	ProceedModal,
+} from "../../containers/Layout";
 import { Portal } from "../index";
 
 import { ProtectedRoute } from "../index";
@@ -70,6 +75,9 @@ const Layout = () => {
 					isVisible={isNewsletterModalVisible}
 					onClose={closeNewsletterModalHandler}
 				/>
+			</Portal>
+			<Portal>
+				<ProceedModal />
 			</Portal>
 			<main>
 				<Switch>

@@ -3,7 +3,6 @@ const passport = require("passport");
 
 const userController = require("../controllers/user");
 const { isAuthenticated, isAuthorized } = require("../middlewares/auth");
-const { calculateAuthTokenExpiration } = require("../utils");
 
 const router = express.Router();
 
@@ -14,6 +13,7 @@ router.post("/wishlist/:productId", userController.addProductToUserWishlist);
 router.get("/wishlist", userController.fetchUserWishlist);
 
 router.post("/cart/:productId", userController.addProductToUserCart);
+router.delete("/cart/:productId", userController.removeProductFromUserCart);
 router.get("/cart", userController.fetchUserCart);
 
 //OAUTH

@@ -2,10 +2,11 @@
 	position: fixed;
 	top: 0;
 	right: 0;
-	width: 21%;
+	width: 22%;
 	height: 100vh;
 	background-color: var(--color-white-1);
 	z-index: 200;
+	overflow-y: auto;
 
 	&__header {
 		position: relative;

@@ -1,67 +1,98 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
 import { Button, Heading, Quantity } from "../../UI";
+import { Fragment } from "react";
 
-const ProductContent = ({ addProductToCart }) => {
-	const [characterstics, setCharacterstics] = useState([
-		{ _id: nanoid(), text: "Side pockets" },
-		{ _id: nanoid(), text: "Wide-cut legs" },
-		{ _id: nanoid(), text: "Zip-back fastening" },
-		{ _id: nanoid(), text: "Regular fit - true to size" },
-		{ _id: nanoid(), text: "Machine wash" },
-		{ _id: nanoid(), text: "100% Cotton" },
-		{
-			_id: nanoid(),
-			text: "Our model wears a UK 8/EU 36/US 4 and is 176cm/5'9.5",
-		},
-	]);
+const ProductContent = ({ details, addProductToCart }) => {
+	const [characterstics, setCharacterstics] = useState([]);
+
+	const addProductToCartHandler = () => {
+		const { _id, imageSrc, title, price } = details;
+		addProductToCart(_id, { imageSrc, title, price });
+	};
+
+	useEffect(() => {
+		if (details?.characterstics && details.characterstics.length) {
+			const characterstics = details.characterstics.map((characterstic) => ({
+				key: nanoid(),
+				text: characterstic,
+			}));
+			setCharacterstics(characterstics);
+		}
+	}, [details]);
+
+	let pricingUI;
+
+	if (details) {
+		if (details.discountedPrice) {
+			pricingUI = (
+				<Fragment>
+					<del className={classes.content__discount}>
+						${details.price.toFixed(2)}
+					</del>
+					<span className={classes.content__price}>
+						{details.discountedPrice &&
+							`$${details.discountedPrice.toFixed(2)}`}
+					</span>
+				</Fragment>
+			);
+		} else {
+			pricingUI = (
+				<span className={classes.content__price}>
+					{details.price && `$${details.price.toFixed(2)}`}
+				</span>
+			);
+		}
+	}
 
 	return (
-		<div className={classes.content__info}>
-			<Heading type="pentanary">Quae Ab Illo Dolourm</Heading>
-			<small className={classes.content__reviews}>
-				Be the first to review this product
-			</small>
-			<p className={classes.content__pricing}>
-				<del className={classes.content__discount}>$150.00</del>
-				<span className={classes.content__price}>$120.00</span>
-			</p>
+		details && (
+			<div className={classes.content__info}>
+				<Heading type="pentanary">{details.title}</Heading>
+				{!details.reviews.length && (
+					<small className={classes.content__reviews}>
+						Be the first to review this product
+					</small>
+				)}
 
-			<ul className={classes.content__list}>
-				{characterstics.map((characterstic) => (
-					<li key={characterstic._id} className={classes.content__item}>
-						{characterstic.text}
-					</li>
-				))}
-			</ul>
-			<p className={classes.content__text}>
-				Go sporty this summer with this vintage navy and white striped v-neck
-				t-shirt from the Nike. Perfect for pairing with denim and white kicks
-				for a stylish sporty vibe.
-			</p>
-			<div className={classes.content__options}>
-				<Quantity stock={24} />
-				<Button
-					className={classes.content__button}
-					color="green"
-					onClick={() => addProductToCart("productId")}
-				>
-					Add to Cart
-				</Button>
+				<p className={classes.content__pricing}>{pricingUI}</p>
+
+				<ul className={classes.content__list}>
+					{characterstics.map((characterstic) => (
+						<li key={characterstic.key} className={classes.content__item}>
+							{characterstic.text}
+						</li>
+					))}
+				</ul>
+				<p className={classes.content__text}>{details.description}</p>
+				<div className={classes.content__options}>
+					<Quantity stock={details.stock} />
+					<Button
+						className={classes.content__button}
+						color="green"
+						onClick={addProductToCartHandler}
+					>
+						Add to Cart
+					</Button>
+				</div>
+				<p className={classes.content__meta}>
+					<span className={classes.content__key}>Availabilty:</span>
+					{details.stock > 0 ? (
+						<span className={classes.content__value}>In Stock</span>
+					) : (
+						<span className={classes.content__outstock}>Out of Stock</span>
+					)}
+				</p>
+				<p className={classes.content__meta}>
+					<span className={classes.content__key}>SKU:</span>
+					<span className={classes.content__value}>
+						Quae Ab Illo Inventore Veritatis Dolourm-1
+					</span>
+				</p>
 			</div>
-			<p className={classes.content__meta}>
-				<span className={classes.content__key}>Availabilty:</span>
-				<span className={classes.content__value}>In stock</span>
-			</p>
-			<p className={classes.content__meta}>
-				<span className={classes.content__key}>SKU:</span>
-				<span className={classes.content__value}>
-					Quae Ab Illo Inventore Veritatis Dolourm-1
-				</span>
-			</p>
-		</div>
+		)
 	);
 };
 

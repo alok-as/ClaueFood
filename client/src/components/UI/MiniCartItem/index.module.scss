@@ -2,6 +2,10 @@
 	display: flex;
 	gap: 1rem;
 
+	&:not(:last-child) {
+		margin-bottom: 2rem;
+	}
+
 	&__image {
 		position: relative;
 		width: 10rem;
@@ -28,6 +32,11 @@
 		background-color: rgba(0, 0, 0, 0.3);
 		z-index: 10;
 		transition: 0.3s opacity ease;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
 	}
 
 	&__content {
@@ -40,5 +49,6 @@
 
 	&__price {
 		font-size: 1.4rem;
+		margin-bottom: 1rem;
 	}
 }

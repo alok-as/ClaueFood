@@ -3,16 +3,18 @@ export const calculateCartItemsCount = (items) => {
 	return count;
 };
 
-export const calculateTotalCartPrice = (items) => {
-	const count = items.reduce((acc, item) => {
-		console.log("Checking item", item);
-		if (item.discountedPrice) {
-			return acc + item.quantity * item.discountedPrice;
+export const calculateTotalCartPrice = (items, toFixed = 2) => {
+	const totalPrice = items.reduce((acc, item) => {
+		if (item?.product?.discountedPrice) {
+			return acc + item.quantity * item.product.discountedPrice;
 		} else {
-			return acc + item.quantity * item.price;
+			return acc + item.quantity * item.product.price;
 		}
 	}, 0);
-	return count;
+
+	console.log("Checking Total Price", totalPrice);
+
+	return totalPrice.toFixed(toFixed);
 };
 
 export const setValueInSessionStorage = (key, value) => {

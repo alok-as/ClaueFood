@@ -1,3 +1,4 @@
+import { batch } from "react-redux";
 import * as actionTypes from "./actionTypes";
 import User from "../../services/API/User";
 import Cookie from "js-cookie";
@@ -37,11 +38,13 @@ export const loginUser = (reqData) => async (dispatch) => {
 
 		const { data } = await User.login(reqData);
 
-		dispatch({
-			type: actionTypes.LOGIN_USER_SUCCESS,
-		});
+		batch(() => {
+			dispatch({
+				type: actionTypes.LOGIN_USER_SUCCESS,
+			});
 
-		dispatch(setIsUserAuthenticated(true));
+			dispatch(setIsUserAuthenticated(true));
+		});
 	} catch (error) {
 		console.error("Error logging in user:", error);
 		const { data } = error.response;

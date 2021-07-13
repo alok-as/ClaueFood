@@ -85,8 +85,8 @@ const Featured = () => {
 	};
 
 	const addProductToCartHandler = useCallback(
-		(productId) => {
-			dispatch(addProductToCart(productId));
+		(productId, modalData) => {
+			dispatch(addProductToCart(productId, modalData));
 		},
 		[dispatch]
 	);

@@ -4,9 +4,14 @@ import { Animate, Backdrop, Button } from "../../../components/UI";
 import classes from "./index.module.scss";
 import { closeCheckoutModal } from "../../../redux/Cart/actions";
 
-const ProceedModal = ({ title, imageSrc, price }) => {
-	const { showCheckoutModal } = useSelector((state) => state.cart);
+const ProceedModal = () => {
 	const dispatch = useDispatch();
+
+	const { showCheckoutModal, checkoutModalData } = useSelector(
+		(state) => state.cart
+	);
+
+	const { title, price, imageSrc } = checkoutModalData;
 
 	const animationConfig = {
 		isVisible: showCheckoutModal,
@@ -47,7 +52,7 @@ const ProceedModal = ({ title, imageSrc, price }) => {
 							</div>
 							<div className={classes.proceed__info}>
 								<p className={classes.proceed__text}>Cart subtotal</p>
-								<p className={classes.proceed__text}>${price.toFixed(2)}</p>
+								<p className={classes.proceed__text}>${price}</p>
 								<Button className={classes.proceed__cart}>View Cart</Button>
 							</div>
 						</div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import classes from "./index.module.scss";
 import { ProductContent, ProductSlider } from "../../../components/Product";
@@ -23,6 +23,8 @@ const images = [
 const ProductDetails = () => {
 	const dispatch = useDispatch();
 
+	const { details } = useSelector((state) => state.products.productDetails);
+
 	const addProductToCartHandler = (productId) => {
 		dispatch(addProductToCart(productId));
 	};
@@ -31,7 +33,10 @@ const ProductDetails = () => {
 		<section className={classes.details}>
 			<Row className={classes.details__content}>
 				<ProductSlider images={images} />
-				<ProductContent addProductToCart={addProductToCartHandler} />
+				<ProductContent
+					details={details}
+					addProductToCart={addProductToCartHandler}
+				/>
 			</Row>
 		</section>
 	);

@@ -195,26 +195,55 @@ const addProductToUserCart = asyncHandler(async (req, res) => {
 		})
 		.execPopulate();
 
-	const transformedCart = [];
 	const cartObj = await user.cart.toObject();
+	console.log("Checking Cart Object", cartObj);
 
-	for (let item of cartObj) {
-		transformedCart.push({
-			...item.product,
-			quantity: item.quantity,
-		});
-	}
+	const addedProduct = cartObj.find((item) => item.product._id == productId);
+	console.log("Checking Added Product", addedProduct);
 
 	res.send({
 		success: true,
-		data: transformedCart,
+		data: addedProduct,
 		message: "Product successfully added to your cart",
 	});
 });
 
-const fetchUserCart = asyncHandler(async (req, res) => {
+const removeProductFromUserCart = asyncHandler(async (req, res) => {
 	const { userId } = req.body;
-	const user = await User.findById(userId).populate("cart");
+	const { productId } = req.params;
+
+	const user = await User.findById(userId);
+	const productIndex = user.cart.findIndex((item) => item.product == productId);
+
+	if (productIndex === -1) {
+		return res.status(404).send({
+			success: false,
+			data: null,
+			message: "Product doesn't exists in cart",
+		});
+	}
+	user.cart.splice(productIndex, 1);
+	await user.save();
+
+	res.send({
+		success: true,
+		data: null,
+		message: "Product successfully removed from your cart",
+	});
+});
+
+const fetchUserCart = asyncHandler(async (req, res) => {
+	// const { userId } = req.body;
+	const userId = "60a0ea5d30c2205808ecb2fc";
+	const user = await User.findById(userId).populate({
+		path: "cart",
+		populate: {
+			path: "product",
+			select: "title price stock discountedPrice",
+		},
+	});
+
+	console.log("Checking User Cart", user.cart);
 
 	res.send({
 		success: true,
@@ -239,5 +268,6 @@ module.exports = {
 	addProductToUserWishlist,
 	fetchUserWishlist,
 	addProductToUserCart,
+	removeProductFromUserCart,
 	fetchUserCart,
 };

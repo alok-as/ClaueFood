@@ -1,5 +1,5 @@
-import React, { Fragment, memo } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import classes from "./index.module.scss";
@@ -9,11 +9,34 @@ import {
 	Button,
 	MiniCartItem,
 } from "../../../components/UI";
+import {
+	fetchUserCartItems,
+	removeProductFromCart,
+} from "../../../redux/Cart/actions";
 import { calculateTotalCartPrice } from "../../../utils";
 
 const Sidebar = ({ isVisible, onClose }) => {
-	const { cartItems } = useSelector((state) => state.cart);
 	const history = useHistory();
+	const dispatch = useDispatch();
+	const { cartItems } = useSelector((state) => state.cart);
+
+	const fetchUserCartItemsHandler = () => {
+		dispatch(fetchUserCartItems());
+	};
+
+	const removeProductFromCartHandler = (productId) => {
+		dispatch(removeProductFromCart(productId));
+	};
+
+	const onRouteChangeHandler = (route) => {
+		history.push(route);
+		onClose();
+	};
+
+	useEffect(() => {
+		//Add Authenticated Check in Future
+		fetchUserCartItemsHandler();
+	}, []);
 
 	const sidebarAnimationConfig = {
 		isVisible: isVisible,
@@ -24,11 +47,6 @@ const Sidebar = ({ isVisible, onClose }) => {
 		exit: classes.sidebar__exit,
 		exitActive: classes.sidebar__exitActive,
 		timeout: 300,
-	};
-
-	const onRouteChangeHandler = (route) => {
-		history.push(route);
-		onClose();
 	};
 
 	return (
@@ -45,11 +63,16 @@ const Sidebar = ({ isVisible, onClose }) => {
 					<div className={classes.sidebar__content}>
 						<ul className={classes.sidebar__list}>
 							{cartItems.map((item) => (
-								<MiniCartItem key={item._id} {...item} />
+								<MiniCartItem
+									key={item._id}
+									quantity={item.quantity}
+									{...item.product}
+									removeProductFromCart={removeProductFromCartHandler}
+								/>
 							))}
 						</ul>
 						<p className={classes.sidebar__total}>
-							Total: ${calculateTotalCartPrice(cartItems).toFixed(2)}
+							Total: ${calculateTotalCartPrice(cartItems)}
 						</p>
 						<Button
 							className={classes.sidebar__cart}

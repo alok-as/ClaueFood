@@ -1,8 +1,6 @@
 import React, { useState, memo } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./index.module.scss";
-import { Portal } from "../../../hoc";
-import { ProceedModal } from "../../../containers/Layout";
 import { Button } from "../index";
 
 //Testing
@@ -19,7 +17,6 @@ const ProductCard = ({
 	addProductToCart,
 	index,
 	productWidth,
-	withOptions,
 }) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
 	// const imageSecondary = images.find((image) => !Boolean(image.isPrimary)).url;
@@ -39,15 +36,16 @@ const ProductCard = ({
 		history.push(`/product/${slug}`);
 	};
 
+	const addProductToCartHandler = () => {
+		addProductToCart(_id, { imageSrc, title, price });
+	};
+
 	const style = {
 		width: productWidth,
 	};
 
 	return (
 		<div className={classes.product}>
-			<Portal>
-				<ProceedModal imageSrc={imagePrimary} price={price} title={title} />
-			</Portal>
 			<div
 				className={classes.product__image}
 				onMouseEnter={onMouseEnterHandler}
@@ -56,15 +54,7 @@ const ProductCard = ({
 			>
 				<img src={imageSrc} alt={title} style={style} />
 				<p className={classes.product__sale}>Sale</p>
-				{withOptions && (
-					<ul className={classes.product__options}>
-						<li className={classes.product__option}>1</li>
-						<li className={classes.product__option}>2</li>
-						<li className={classes.product__option}>3</li>
-					</ul>
-				)}
 			</div>
-
 			<div className={classes.product__content}>
 				<p className={classes.product__title}>{title}</p>
 				<del className={classes.product__price}>${price.toFixed(2)}</del>
@@ -75,7 +65,7 @@ const ProductCard = ({
 				<Button
 					className={classes.product__button}
 					color="white"
-					onClick={() => addProductToCart(_id)}
+					onClick={addProductToCartHandler}
 				>
 					Add to Cart
 				</Button>
