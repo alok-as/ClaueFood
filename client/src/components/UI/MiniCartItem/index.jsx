@@ -28,12 +28,16 @@ const MiniCartItem = ({
 		calculatedFinalPriceHandler();
 	}, []);
 
+	const removeProductFromCartHandler = () => {
+		removeProductFromCart(_id, price, discountedPrice);
+	};
+
 	return (
 		<li className={classes.item}>
 			<div className={classes.item__image}>
 				<img src={productImage} alt={title} />
 				<div className={classes.item__overlay}>
-					<p onClick={() => removeProductFromCart(_id)}>Delete</p>
+					<p onClick={removeProductFromCartHandler}>Delete</p>
 				</div>
 			</div>
 			<div className={classes.item__info}>

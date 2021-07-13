@@ -6,6 +6,7 @@ const cartReducer = (
 		checkoutModalData: {},
 		cartItems: [],
 		cartItemsCount: 0,
+		cartTotalPrice: 0,
 	},
 	action
 ) => {
@@ -39,6 +40,9 @@ const cartReducer = (
 
 		case actionTypes.SET_CART_ITEMS_COUNT:
 			return { ...state, cartItemsCount: action.payload };
+
+		case actionTypes.SET_CART_ITEMS_PRICE:
+			return { ...state, cartTotalPrice: action.payload };
 
 		case actionTypes.CLOSE_PROCEED_TO_CHECKOUT_MODAL:
 			return { ...state, showCheckoutModal: false };

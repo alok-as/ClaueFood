@@ -22,15 +22,15 @@ const CartTable = ({ tableHeadings, tableData }) => {
 			</thead>
 			<tbody>
 				{tableData.map((data) => (
-					<tr key={data.key}>
-						<td className={classes.table__data}>{data.title}</td>
+					<tr key={data._id}>
+						<td className={classes.table__data}>{data.product.description}</td>
 						<td
 							className={combineClasses([
 								classes.table__data,
 								classes.table__price,
 							])}
 						>
-							${formatPrice(data.price)}
+							${formatPrice(data.product.price)}
 						</td>
 						<td className={classes.table__data}>
 							<Quantity stock={24} qty={data.quantity} />
@@ -41,7 +41,7 @@ const CartTable = ({ tableHeadings, tableData }) => {
 								classes.table__price,
 							])}
 						>
-							${formatPrice(data.quantity * data.price)}
+							${formatPrice(data.quantity * data.product.price)}
 						</td>
 					</tr>
 				))}

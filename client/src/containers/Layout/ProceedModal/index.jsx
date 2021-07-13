@@ -7,11 +7,11 @@ import { closeCheckoutModal } from "../../../redux/Cart/actions";
 const ProceedModal = () => {
 	const dispatch = useDispatch();
 
-	const { showCheckoutModal, checkoutModalData } = useSelector(
+	const { showCheckoutModal, checkoutModalData, cartTotalPrice } = useSelector(
 		(state) => state.cart
 	);
 
-	const { title, price, imageSrc } = checkoutModalData;
+	const { title, imageSrc } = checkoutModalData;
 
 	const animationConfig = {
 		isVisible: showCheckoutModal,
@@ -52,7 +52,7 @@ const ProceedModal = () => {
 							</div>
 							<div className={classes.proceed__info}>
 								<p className={classes.proceed__text}>Cart subtotal</p>
-								<p className={classes.proceed__text}>${price}</p>
+								<p className={classes.proceed__text}>${cartTotalPrice}</p>
 								<Button className={classes.proceed__cart}>View Cart</Button>
 							</div>
 						</div>

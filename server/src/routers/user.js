@@ -9,12 +9,12 @@ const router = express.Router();
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 
-router.post("/wishlist/:productId", userController.addProductToUserWishlist);
 router.get("/wishlist", userController.fetchUserWishlist);
+router.post("/wishlist/:productId", userController.addProductToUserWishlist);
 
+router.get("/cart", userController.fetchUserCart);
 router.post("/cart/:productId", userController.addProductToUserCart);
 router.delete("/cart/:productId", userController.removeProductFromUserCart);
-router.get("/cart", userController.fetchUserCart);
 
 //OAUTH
 router.get(

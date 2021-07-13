@@ -38,6 +38,13 @@
 		padding: 2rem;
 	}
 
+	&__noitems {
+		font-size: 1.4rem;
+		max-width: 90%;
+		text-align: center;
+		margin: 0 auto;
+	}
+
 	&__total {
 		font-weight: 600;
 		font-size: 1.8rem;

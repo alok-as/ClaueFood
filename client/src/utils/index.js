@@ -12,9 +12,7 @@ export const calculateTotalCartPrice = (items, toFixed = 2) => {
 		}
 	}, 0);
 
-	console.log("Checking Total Price", totalPrice);
-
-	return totalPrice.toFixed(toFixed);
+	return totalPrice;
 };
 
 export const setValueInSessionStorage = (key, value) => {

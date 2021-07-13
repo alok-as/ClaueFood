@@ -1,8 +1,8 @@
 .customer {
 	&__header {
 		display: flex;
-		justify-content: center;
+		gap: 1rem;
 		align-items: center;
-		background-color: orangered;
+		justify-content: center;
 	}
 }

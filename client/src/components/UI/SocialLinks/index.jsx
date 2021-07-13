@@ -4,7 +4,7 @@ import classes from "./index.module.scss";
 const SocialLinks = () => {
 	return (
 		<div className={classes.social}>
-			<li>Social links</li>
+			<p>Social links</p>
 		</div>
 	);
 };

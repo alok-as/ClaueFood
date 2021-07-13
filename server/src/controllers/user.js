@@ -239,7 +239,7 @@ const fetchUserCart = asyncHandler(async (req, res) => {
 		path: "cart",
 		populate: {
 			path: "product",
-			select: "title price stock discountedPrice",
+			select: "title price stock discountedPrice description",
 		},
 	});
 

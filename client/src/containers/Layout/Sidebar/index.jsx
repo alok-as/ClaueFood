@@ -13,19 +13,18 @@ import {
 	fetchUserCartItems,
 	removeProductFromCart,
 } from "../../../redux/Cart/actions";
-import { calculateTotalCartPrice } from "../../../utils";
 
 const Sidebar = ({ isVisible, onClose }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const { cartItems } = useSelector((state) => state.cart);
+	const { cartItems, cartTotalPrice } = useSelector((state) => state.cart);
 
 	const fetchUserCartItemsHandler = () => {
 		dispatch(fetchUserCartItems());
 	};
 
-	const removeProductFromCartHandler = (productId) => {
-		dispatch(removeProductFromCart(productId));
+	const removeProductFromCartHandler = (productId, price, discountedPrice) => {
+		dispatch(removeProductFromCart(productId, price, discountedPrice));
 	};
 
 	const onRouteChangeHandler = (route) => {
@@ -61,31 +60,39 @@ const Sidebar = ({ isVisible, onClose }) => {
 						<p className={classes.sidebar__title}>Mini Cart</p>
 					</div>
 					<div className={classes.sidebar__content}>
-						<ul className={classes.sidebar__list}>
-							{cartItems.map((item) => (
-								<MiniCartItem
-									key={item._id}
-									quantity={item.quantity}
-									{...item.product}
-									removeProductFromCart={removeProductFromCartHandler}
-								/>
-							))}
-						</ul>
-						<p className={classes.sidebar__total}>
-							Total: ${calculateTotalCartPrice(cartItems)}
-						</p>
-						<Button
-							className={classes.sidebar__cart}
-							onClick={() => onRouteChangeHandler("/shopping-cart")}
-						>
-							Go to Cart
-						</Button>
-						<Button
-							className={classes.sidebar__checkout}
-							onClick={() => onRouteChangeHandler("/checkout")}
-						>
-							Check out
-						</Button>
+						{!cartItems.length ? (
+							<p className={classes.sidebar__noitems}>
+								You have no items in your shopping cart.
+							</p>
+						) : (
+							<Fragment>
+								<ul className={classes.sidebar__list}>
+									{cartItems.map((item) => (
+										<MiniCartItem
+											key={item._id}
+											quantity={item.quantity}
+											{...item.product}
+											removeProductFromCart={removeProductFromCartHandler}
+										/>
+									))}
+								</ul>
+								<p className={classes.sidebar__total}>
+									Total: ${cartTotalPrice.toFixed(2)}
+								</p>
+								<Button
+									className={classes.sidebar__cart}
+									onClick={() => onRouteChangeHandler("/shopping-cart")}
+								>
+									Go to Cart
+								</Button>
+								<Button
+									className={classes.sidebar__checkout}
+									onClick={() => onRouteChangeHandler("/checkout")}
+								>
+									Check out
+								</Button>
+							</Fragment>
+						)}
 					</div>
 				</aside>
 			</Animate>

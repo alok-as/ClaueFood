@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
@@ -6,6 +7,8 @@ import { Row } from "../../../hoc";
 import { CartOptions, CartTable } from "../../../components/Cart";
 
 const CartItems = () => {
+	const { cartItems } = useSelector((state) => state.cart);
+
 	const [tableHeadings, setTableHeadings] = useState([
 		{ key: nanoid(), title: "Product" },
 		{ key: nanoid(), title: "Price" },
@@ -26,7 +29,7 @@ const CartItems = () => {
 	return (
 		<section className={classes.cart}>
 			<Row>
-				<CartTable tableHeadings={tableHeadings} tableData={tableData} />
+				<CartTable tableHeadings={tableHeadings} tableData={cartItems} />
 				<CartOptions />
 			</Row>
 		</section>

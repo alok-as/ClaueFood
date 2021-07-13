@@ -1,12 +1,13 @@
 import React from "react";
 import classes from "./index.module.scss";
+import { OauthButton } from "../../UI";
 
 const LoginHeader = () => {
 	return (
 		<div className={classes.customer__header}>
-			<button>Facebook</button>
-			<button>Google</button>
-			<button>Twitter</button>
+			<OauthButton type="facebook" />
+			<OauthButton type="google" />
+			<OauthButton type="twitter" />
 		</div>
 	);
 };

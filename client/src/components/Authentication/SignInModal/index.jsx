@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
-import { Alert, Button, Input, Loader } from "../../UI";
+import { Alert, Button, Input, Loader, OauthButton } from "../../UI";
 import { checkInputValidation } from "../../../utils/validation";
 import { Fragment } from "react";
 
 const SignIn = ({
 	loginUser,
 	loginDetails,
-	fetchUserData,
 	closeModal,
 	clearLoginMetaData,
 }) => {
@@ -21,10 +20,6 @@ const SignIn = ({
 			newFields[e.target.name].value = e.target.value;
 			return newFields;
 		});
-	};
-
-	const onGoogleLoginHandler = () => {
-		window.location.href = "http://localhost:3001/api/user/google-login";
 	};
 
 	const [fields, setFields] = useState({
@@ -147,13 +142,11 @@ const SignIn = ({
 				</form>
 				<div className={classes.signin__oauth}>
 					<p className={classes.signin__title}>Or Sign in with</p>
-					<Button
-						rounded={false}
-						className={classes.signin__button}
-						onClick={onGoogleLoginHandler}
-					>
-						FetchUserData
-					</Button>
+					<div className={classes.signin__buttons}>
+						<OauthButton type="facebook" />
+						<OauthButton type="google" />
+						<OauthButton type="twitter" />
+					</div>
 				</div>
 			</div>
 		</Fragment>

@@ -6,6 +6,7 @@ import { Button } from "../index";
 //Testing
 import imagePrimary from "../../../assets/images/home/product-1.jpg";
 import imageSecondary from "../../../assets/images/home/product-2.jpg";
+import { Fragment } from "react";
 
 const ProductCard = ({
 	_id,
@@ -15,7 +16,6 @@ const ProductCard = ({
 	price,
 	discountedPrice,
 	addProductToCart,
-	index,
 	productWidth,
 }) => {
 	// const imagePrimary = images.find((image) => Boolean(image.isPrimary)).url;
@@ -44,6 +44,25 @@ const ProductCard = ({
 		width: productWidth,
 	};
 
+	let pricingUI;
+
+	if (discountedPrice) {
+		pricingUI = (
+			<Fragment>
+				<del className={classes.product__price}>${price.toFixed(2)}</del>
+				<span className={classes.product__discount}>
+					{discountedPrice && `$${discountedPrice.toFixed(2)}`}
+				</span>
+			</Fragment>
+		);
+	} else {
+		pricingUI = (
+			<span className={classes.product__price}>
+				{price && `$${price.toFixed(2)}`}
+			</span>
+		);
+	}
+
 	return (
 		<div className={classes.product}>
 			<div
@@ -53,14 +72,11 @@ const ProductCard = ({
 				onClick={switchToProductDetailsHandler}
 			>
 				<img src={imageSrc} alt={title} style={style} />
-				<p className={classes.product__sale}>Sale</p>
+				{discountedPrice && <p className={classes.product__sale}>Sale</p>}
 			</div>
 			<div className={classes.product__content}>
 				<p className={classes.product__title}>{title}</p>
-				<del className={classes.product__price}>${price.toFixed(2)}</del>
-				<span className={classes.product__discount}>
-					{discountedPrice && `$${discountedPrice.toFixed(2)}`}
-				</span>
+				{pricingUI}
 				<br />
 				<Button
 					className={classes.product__button}

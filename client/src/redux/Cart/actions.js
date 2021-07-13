@@ -14,6 +14,7 @@ export const fetchUserCartItems = () => async (dispatch) => {
 
 		const cartItems = data.data;
 		const cartItemsCount = calculateCartItemsCount(cartItems);
+		const cartTotalPrice = calculateTotalCartPrice(cartItems);
 
 		batch(() => {
 			dispatch({
@@ -23,6 +24,10 @@ export const fetchUserCartItems = () => async (dispatch) => {
 			dispatch({
 				type: actionTypes.SET_CART_ITEMS_COUNT,
 				payload: cartItemsCount,
+			});
+			dispatch({
+				type: actionTypes.SET_CART_ITEMS_PRICE,
+				payload: cartTotalPrice,
 			});
 		});
 	} catch (error) {
@@ -36,7 +41,7 @@ export const fetchUserCartItems = () => async (dispatch) => {
 export const setCartItems =
 	(item, type = "add") =>
 	(dispatch, getState) => {
-		let { cartItemsCount, cartItems } = getState().cart;
+		let { cartItemsCount, cartItems, cartTotalPrice } = getState().cart;
 		const index = cartItems.findIndex((i) => i._id === item._id);
 
 		if (type.includes("add")) {
@@ -46,11 +51,27 @@ export const setCartItems =
 				cartItems = [...cartItems, item];
 			}
 
+			if (item.product.discountedPrice) {
+				cartTotalPrice = cartTotalPrice + item.product.discountedPrice;
+			} else {
+				cartTotalPrice = cartTotalPrice + item.product.price;
+			}
+
 			cartItemsCount++;
 		} else {
 			cartItems.splice(index, 1);
+			console.log("On Deletion", item);
+
+			if (item.discountedPrice) {
+				cartTotalPrice = cartTotalPrice - item.discountedPrice;
+			} else {
+				cartTotalPrice = cartTotalPrice - item.price;
+			}
+
 			cartItemsCount--;
 		}
+
+		console.log("New Cart Price", cartTotalPrice);
 
 		batch(() => {
 			dispatch({
@@ -60,6 +81,10 @@ export const setCartItems =
 			dispatch({
 				type: actionTypes.SET_CART_ITEMS_COUNT,
 				payload: cartItemsCount,
+			});
+			dispatch({
+				type: actionTypes.SET_CART_ITEMS_PRICE,
+				payload: cartTotalPrice,
 			});
 		});
 	};
@@ -79,15 +104,11 @@ export const addProductToCart = (productId, modalData) => async (dispatch) => {
 
 		const { data } = await User.addProductToCart(productId);
 		console.log("Checking response on adding product to cart:", data);
-
-		const addedProduct = data.data;
 		const price = 1200;
-
-		// const price = calculateTotalCartPrice(cartItems);
 
 		batch(() => {
 			dispatch(setCheckoutModalData({ ...modalData, price }));
-			dispatch(setCartItems(addedProduct, "added"));
+			dispatch(setCartItems(data.data, "added"));
 			dispatch({
 				type: actionTypes.ADD_PRODUCT_TO_CART_SUCCESS,
 			});
@@ -99,27 +120,30 @@ export const addProductToCart = (productId, modalData) => async (dispatch) => {
 	}
 };
 
-export const removeProductFromCart = (productId) => async (dispatch) => {
-	try {
-		dispatch({
-			type: actionTypes.REMOVE_PRODUCT_FROM_CART_REQUEST,
-		});
-
-		const { data } = await User.removeProductFromCart(productId);
-		console.log("Checking response on removing product from cart:", data);
-
-		batch(() => {
-			dispatch(setCartItems({ _id: productId }, "remove"));
+export const removeProductFromCart =
+	(productId, price, discountedPrice) => async (dispatch) => {
+		try {
 			dispatch({
-				type: actionTypes.REMOVE_PRODUCT_FROM_CART_SUCCESS,
+				type: actionTypes.REMOVE_PRODUCT_FROM_CART_REQUEST,
 			});
-		});
-	} catch (error) {
-		dispatch({
-			type: actionTypes.REMOVE_PRODUCT_FROM_CART_FAILED,
-		});
-	}
-};
+
+			const { data } = await User.removeProductFromCart(productId);
+			console.log("Checking response on removing product from cart:", data);
+
+			batch(() => {
+				dispatch(
+					setCartItems({ _id: productId, price, discountedPrice }, "remove")
+				);
+				dispatch({
+					type: actionTypes.REMOVE_PRODUCT_FROM_CART_SUCCESS,
+				});
+			});
+		} catch (error) {
+			dispatch({
+				type: actionTypes.REMOVE_PRODUCT_FROM_CART_FAILED,
+			});
+		}
+	};
 
 export const closeCheckoutModal = () => (dispatch) => {
 	dispatch({
