@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
-const { calculateAuthTokenExpiration } = require("../utils");
+const { setCookiesForAuthentication } = require("../utils");
 
 const registerUser = asyncHandler(async (req, res) => {
 	const { email } = req.body;
@@ -14,6 +14,7 @@ const registerUser = asyncHandler(async (req, res) => {
 	const user = new User({ ...req.body });
 	await user.save();
 
+	await setCookiesForAuthentication(res, user);
 	res.status(201).send({
 		success: true,
 		data: user,
@@ -36,62 +37,16 @@ const loginUser = asyncHandler(async (req, res) => {
 		throw new Error(`Invalid email or password!`);
 	}
 
-	const [accessTokenExpiry, refreshTokenExpiry] =
-		calculateAuthTokenExpiration();
-	const [accessToken, refreshToken] = await user.generateAuthTokens(
-		accessTokenExpiry,
-		refreshTokenExpiry
-	);
-
-	res.cookie("accessToken", accessToken, {
-		httpOnly: true,
-		secure: process.env.ENV === "production",
-		maxAge: accessTokenExpiry * 1000,
-	});
-
-	res.cookie("refreshToken", refreshToken, {
-		httpOnly: true,
-		secure: process.env.ENV === "production",
-		maxAge: refreshTokenExpiry,
-	});
-
-	res.cookie("isAuthenticated", true, {
-		httpOnly: false,
-		secure: process.env.ENV === "production",
-		maxAge: accessTokenExpiry,
-	});
-
+	await setCookiesForAuthentication(res, user);
 	res.status(200).send({
 		success: true,
 		message: "User successfully logged in",
-		data: { accessToken, refreshToken },
+		data: null,
 	});
 });
 
-const loginUserWithGoogle = asyncHandler((req, res) => {
-	console.log("Entering Function");
-
-	const [accessTokenExpiry, refreshTokenExpiry] =
-		calculateAuthTokenExpiration();
-
-	res.cookie("accessToken", accessToken, {
-		httpOnly: true,
-		secure: process.env.ENV === "production",
-		maxAge: accessTokenExpiry * 1000,
-	});
-
-	res.cookie("refreshToken", refreshToken, {
-		httpOnly: true,
-		secure: process.env.ENV === "production",
-		maxAge: refreshTokenExpiry,
-	});
-
-	res.cookie("isAuthenticated", true, {
-		httpOnly: false,
-		secure: process.env.ENV === "production",
-		maxAge: accessTokenExpiry,
-	});
-
+const loginUserWithGoogle = asyncHandler(async (req, res) => {
+	await setCookiesForAuthentication(res, user);
 	res.redirect(process.env.ORIGIN);
 });
 
@@ -99,31 +54,7 @@ const issueAuthenticationTokens = asyncHandler(async (req, res) => {
 	const { userId } = req.params;
 	const user = await User.findById(userId);
 
-	const [accessTokenExpiry, refreshTokenExpiry] =
-		calculateAuthTokenExpiration();
-	const [accessToken, refreshToken] = await user.generateAuthTokens(
-		accessTokenExpiry,
-		refreshTokenExpiry
-	);
-
-	res.cookie("accessToken", accessToken, {
-		httpOnly: true,
-		secure: process.env.ENV === "production",
-		maxAge: accessTokenExpiry * 1000,
-	});
-
-	res.cookie("refreshToken", refreshToken, {
-		httpOnly: true,
-		secure: process.env.ENV === "production",
-		maxAge: refreshTokenExpiry,
-	});
-
-	res.cookie("isAuthenticated", true, {
-		httpOnly: false,
-		secure: process.env.ENV === "production",
-		maxAge: accessTokenExpiry,
-	});
-
+	await setCookiesForAuthentication(res, user);
 	res.status(200).send({
 		success: true,
 		message: "Tokens successfully resissued",
@@ -166,7 +97,7 @@ const fetchUserWishlist = asyncHandler(async (req, res) => {
 });
 
 const addProductToUserCart = asyncHandler(async (req, res) => {
-	const { userId } = req.body;
+	const userId = req.user._id;
 	const { productId } = req.params;
 
 	const user = await User.findById(userId);
@@ -209,7 +140,7 @@ const addProductToUserCart = asyncHandler(async (req, res) => {
 });
 
 const removeProductFromUserCart = asyncHandler(async (req, res) => {
-	const { userId } = req.body;
+	const userId = req.user._id;
 	const { productId } = req.params;
 
 	const user = await User.findById(userId);
@@ -233,8 +164,8 @@ const removeProductFromUserCart = asyncHandler(async (req, res) => {
 });
 
 const fetchUserCart = asyncHandler(async (req, res) => {
-	// const { userId } = req.body;
-	const userId = "60a0ea5d30c2205808ecb2fc";
+	console.log("Checking Req User", req.user);
+	const userId = req.user._id;
 	const user = await User.findById(userId).populate({
 		path: "cart",
 		populate: {

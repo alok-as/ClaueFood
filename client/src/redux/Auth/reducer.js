@@ -71,7 +71,7 @@ const loginDetails = (state = {}, action) => {
 };
 
 const authDetails = (
-	state = { isAuthenticated: isAuthenticatedFlag },
+	state = { isAuthenticated: isAuthenticatedFlag || false },
 	action
 ) => {
 	switch (action.type) {

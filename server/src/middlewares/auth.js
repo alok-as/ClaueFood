@@ -4,27 +4,35 @@ const { redisClient } = require("../database");
 const isAuthenticated = async (req, res, next) => {
 	try {
 		const { accessToken, refreshToken } = req.cookies;
-		const userId = await redisClient.get(accessToken);
 
-		if (!userId) {
-			const id = await redisClient.get(refreshToken);
+		if (accessToken) {
+			const userId = await redisClient.get(accessToken);
+			if (!userId) {
+				return res.status(401).send();
+			}
 
-			if (!id) {
+			const user = await User.findById(userId);
+			req.user = user;
+			return next();
+		}
+
+		if (refreshToken) {
+			const userId = await redisClient.get(refreshToken);
+
+			if (!userId) {
 				return res.status(401).send();
 			}
 
 			return res.status(401).send({
 				success: false,
 				data: {
-					userId: id,
+					userId,
 				},
 				code: 490,
 			});
 		}
 
-		const user = await User.findById(userId);
-		req.user = user;
-		next();
+		return res.status(401).send();
 	} catch (error) {
 		console.log("Error checking is Authenticated", error.messaage);
 		res.status(401).send();

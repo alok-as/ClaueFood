@@ -55,7 +55,33 @@ const calculateAuthTokenExpiration = () => {
 	return [accessTokenExpiry, refreshTokenExpiry];
 };
 
-const setCookiesForAuthentication = (res) => {};
+const setCookiesForAuthentication = async (res, user) => {
+	const [accessTokenExpiry, refreshTokenExpiry] =
+		calculateAuthTokenExpiration();
+
+	const [accessToken, refreshToken] = await user.generateAuthTokens(
+		accessTokenExpiry,
+		refreshTokenExpiry
+	);
+
+	res.cookie("accessToken", accessToken, {
+		httpOnly: true,
+		secure: process.env.ENV === "production",
+		maxAge: accessTokenExpiry * 1000,
+	});
+
+	res.cookie("refreshToken", refreshToken, {
+		httpOnly: true,
+		secure: process.env.ENV === "production",
+		maxAge: refreshTokenExpiry,
+	});
+
+	res.cookie("isAuthenticated", true, {
+		httpOnly: false,
+		secure: process.env.ENV === "production",
+		maxAge: refreshTokenExpiry,
+	});
+};
 
 const computeTime = (value, unit) => {
 	switch (unit) {
@@ -80,4 +106,5 @@ module.exports = {
 	generateRedisKey,
 	generateToken,
 	parseQueryParams,
+	setCookiesForAuthentication,
 };

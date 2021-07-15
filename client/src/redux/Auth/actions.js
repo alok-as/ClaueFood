@@ -10,10 +10,14 @@ export const registerUser = (reqData) => async (dispatch) => {
 		});
 
 		const { data } = await User.register(reqData);
+		console.log("Checking response on registering user:", data);
 
-		dispatch({
-			type: actionTypes.REGISTER_USER_SUCCESS,
-			payload: data.message,
+		batch(() => {
+			dispatch({
+				type: actionTypes.REGISTER_USER_SUCCESS,
+				payload: data.message,
+			});
+			dispatch(setIsUserAuthenticated(true));
 		});
 	} catch (error) {
 		console.log("Error registering user:", error.message);
@@ -37,10 +41,12 @@ export const loginUser = (reqData) => async (dispatch) => {
 		});
 
 		const { data } = await User.login(reqData);
+		console.log("Checking response on logging in user:", data);
 
 		batch(() => {
 			dispatch({
 				type: actionTypes.LOGIN_USER_SUCCESS,
+				payload: data.message,
 			});
 
 			dispatch(setIsUserAuthenticated(true));
@@ -79,9 +85,7 @@ export const clearLoginMetaData = () => {
 };
 
 export const setIsUserAuthenticated = (isAuthenticated) => {
-	if (isAuthenticated) {
-		Cookie.set("isAuthenticated", true);
-	} else {
+	if (!isAuthenticated) {
 		Cookie.remove("isAuthenticated");
 	}
 

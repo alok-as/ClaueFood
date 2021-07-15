@@ -1,4 +1,4 @@
-import React, { Fragment, memo, useEffect } from "react";
+import React, { Fragment, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -9,19 +9,12 @@ import {
 	Button,
 	MiniCartItem,
 } from "../../../components/UI";
-import {
-	fetchUserCartItems,
-	removeProductFromCart,
-} from "../../../redux/Cart/actions";
+import { removeProductFromCart } from "../../../redux/Cart/actions";
 
 const Sidebar = ({ isVisible, onClose }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const { cartItems, cartTotalPrice } = useSelector((state) => state.cart);
-
-	const fetchUserCartItemsHandler = () => {
-		dispatch(fetchUserCartItems());
-	};
 
 	const removeProductFromCartHandler = (productId, price, discountedPrice) => {
 		dispatch(removeProductFromCart(productId, price, discountedPrice));
@@ -31,11 +24,6 @@ const Sidebar = ({ isVisible, onClose }) => {
 		history.push(route);
 		onClose();
 	};
-
-	useEffect(() => {
-		//Add Authenticated Check in Future
-		fetchUserCartItemsHandler();
-	}, []);
 
 	const sidebarAnimationConfig = {
 		isVisible: isVisible,
