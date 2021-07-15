@@ -46,7 +46,8 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const loginUserWithGoogle = asyncHandler(async (req, res) => {
-	await setCookiesForAuthentication(res, user);
+	console.log("Checking Oauth User", req.user);
+	await setCookiesForAuthentication(res, req.user);
 	res.redirect(process.env.ORIGIN);
 });
 
