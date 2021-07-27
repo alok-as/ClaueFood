@@ -17,6 +17,7 @@ export const initiateRazorPayPayment = async ({
 			image: "https://example.com/your_logo",
 			order_id: orderId,
 			handler: (response) => {
+				console.log("Checking Razorpay response", response);
 				alert(response.razorpay_payment_id);
 				alert(response.razorpay_order_id);
 				alert(response.razorpay_signature);

@@ -1,0 +1,19 @@
+.wishlist {
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-gap: 2rem;
+	}
+
+	&__cta {
+		margin-top: 2rem;
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 4rem;
+	}
+
+	&__button {
+		font-size: 1.4rem;
+		padding: 0.9rem 3.6rem;
+	}
+}

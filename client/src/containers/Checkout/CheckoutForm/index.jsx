@@ -14,6 +14,7 @@ import { Stepper } from "../../../components/UI";
 import {
 	fetchZipCodeDetails,
 	saveShippingDetails,
+	initiatePayment,
 } from "../../../redux/Checkout/actions";
 
 const CheckoutForm = () => {
@@ -32,6 +33,10 @@ const CheckoutForm = () => {
 		history.push("/checkout/payment");
 	};
 
+	const initiatePaymentHandler = () => {
+		dispatch(initiatePayment());
+	};
+
 	return (
 		<div className={classes.checkout}>
 			<Row className={classes.checkout__content}>
@@ -47,7 +52,12 @@ const CheckoutForm = () => {
 								/>
 							)}
 						/>
-						<Route path="/checkout/payment" component={PaymentsForm} />
+						<Route
+							path="/checkout/payment"
+							render={() => (
+								<PaymentsForm initiatePayment={initiatePaymentHandler} />
+							)}
+						/>
 						<Route path="/checkout">
 							<Redirect to="/checkout/shipping" />
 						</Route>

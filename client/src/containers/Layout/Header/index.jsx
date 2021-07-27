@@ -1,5 +1,6 @@
 import React, { useState, useCallback, memo } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 import classes from "./index.module.scss";
@@ -13,7 +14,10 @@ import { Icon, Logo } from "../../../components/UI";
 import { AuthModal, Sidebar } from "../index";
 
 const Header = () => {
+	const history = useHistory();
+	const { isAuthenticated } = useSelector((state) => state.auth.authDetails);
 	const { cartItemsCount } = useSelector((state) => state.cart);
+	const { wishlistItemsCount } = useSelector((state) => state.wishlist);
 
 	const [links, setLinks] = useState([
 		{
@@ -38,6 +42,37 @@ const Header = () => {
 		},
 	]);
 
+	const [authenticatedDropdownList, setAuthenticatedDropdownList] = useState([
+		{
+			key: nanoid(),
+			title: "My account",
+			onClick: () => history.push("/my-account/profile"),
+		},
+		{
+			key: nanoid(),
+			title: "My Wishlist",
+			onClick: () => history.push("/my-account/my-wishlist"),
+		},
+		{
+			key: nanoid(),
+			title: "Sign out",
+		},
+	]);
+
+	const [unAuthenticatedDropdownList, setUnAuthenticatedDropdownList] =
+		useState([
+			{
+				key: nanoid(),
+				title: "Create an Account",
+				onClick: () => openAuthModalHandler("signUp"),
+			},
+			{
+				key: nanoid(),
+				title: "Sign in",
+				onClick: () => openAuthModalHandler("signIn"),
+			},
+		]);
+
 	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 	const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
@@ -59,10 +94,6 @@ const Header = () => {
 	const closeSidebarHandler = useCallback(() => {
 		setIsSidebarVisible(false);
 	}, []);
-
-	const googleLogin = () => {
-		window.location.href = "http://localhost:3001/api/user/facebook-login";
-	};
 
 	return (
 		<header className={classes.header}>
@@ -89,17 +120,17 @@ const Header = () => {
 				<div className={classes.header__options}>
 					<Icon
 						iconName="user"
-						iconClass={classes.header__icon}
-						onClick={() => openAuthModalHandler("signUp")}
+						wrapperClass={classes.header__icon}
+						dropdownList={
+							isAuthenticated
+								? authenticatedDropdownList
+								: unAuthenticatedDropdownList
+						}
 					/>
-					<Icon
-						iconName="heart"
-						iconClass={classes.header__icon}
-						onClick={() => openAuthModalHandler("signIn")}
-					/>
+					<Icon iconName="heart" wrapperClass={classes.header__icon} />
 					<Icon
 						iconName="bag"
-						iconClass={classes.header__icon}
+						wrapperClass={classes.header__icon}
 						onClick={openSidebarHandler}
 					/>
 				</div>

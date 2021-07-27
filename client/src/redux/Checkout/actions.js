@@ -1,6 +1,8 @@
 import * as actionTypes from "./actionTypes";
 import Rapid from "../../services/API/Location";
+import Payment from "../../services/API/Payment";
 import { setValueInSessionStorage } from "../../utils";
+import { initiateRazorPayPayment } from "../../utils/payments";
 
 export const fetchZipCodeDetails = (zipCode) => async (dispatch) => {
 	try {
@@ -33,4 +35,24 @@ export const saveShippingDetails = (details) => {
 		type: actionTypes.SAVE_SHIPPING_DETAILS,
 		payload: details,
 	};
+};
+
+export const initiatePayment = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: actionTypes.INITIATE_PAYMENT_REQUEST,
+		});
+
+		const { data } = await Payment.initiate();
+		await initiateRazorPayPayment(data.data);
+
+		dispatch({
+			type: actionTypes.INITIATE_PAYMENT_SUCCESS,
+		});
+	} catch (error) {
+		console.log("Error making payments:", error.message);
+		dispatch({
+			type: actionTypes.INITIATE_PAYMENT_FAILED,
+		});
+	}
 };

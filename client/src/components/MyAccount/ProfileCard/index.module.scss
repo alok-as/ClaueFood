@@ -1,0 +1,26 @@
+.profile {
+	&__title {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-weight: 600;
+	}
+
+	&__margin1 {
+		margin-bottom: 1rem;
+	}
+
+	&__margin2 {
+		margin-top: 3.8rem;
+	}
+
+	&__subtitle {
+		text-transform: capitalize;
+		font-weight: 500;
+		margin-bottom: 0.5rem;
+	}
+
+	&__detail {
+		font-size: 1.4rem;
+		color: var(--color-grey-1);
+	}
+}

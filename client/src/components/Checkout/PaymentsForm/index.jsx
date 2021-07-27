@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import classes from "./index.module.scss";
 import { Button, RadioButton } from "../../UI";
 
-const PaymentsForm = () => {
+const PaymentsForm = ({ initiatePayment }) => {
 	const [radioButtons, setRadioButtons] = useState([
 		{
 			key: nanoid(),
@@ -51,6 +51,7 @@ const PaymentsForm = () => {
 
 	const placeOrderHandler = (e) => {
 		e.preventDefault();
+		initiatePayment();
 	};
 
 	return (

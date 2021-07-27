@@ -20,7 +20,6 @@ instance.interceptors.response.use(
 		if (error.response.status === 401 && error.response.data.code === 490) {
 			const { status } = await User.fetchAuthTokens(error.response.data.data);
 			if (status === 200) {
-				store.dispatch(setIsUserAuthenticated(true));
 				return instance(originalRequest);
 			}
 
