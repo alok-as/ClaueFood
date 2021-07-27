@@ -2,7 +2,13 @@ import React, { useCallback, useRef, useState, useEffect } from "react";
 import classes from "./index.module.scss";
 import { ProductCard } from "../../UI";
 
-const Slider = ({ data, addProductToCart, numSlides, withOptions }) => {
+const Slider = ({
+	data,
+	addProductToCart,
+	addProductToWishlist,
+	numSlides,
+	withOptions,
+}) => {
 	const containerRef = useRef();
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -101,6 +107,7 @@ const Slider = ({ data, addProductToCart, numSlides, withOptions }) => {
 							index={index}
 							productWidth={`${slideWidth / 10}rem`}
 							addProductToCart={addProductToCart}
+							addProductToWishlist={addProductToWishlist}
 							withOptions={withOptions}
 						/>
 					))}

@@ -10,6 +10,7 @@ import featureImage1 from "../../../assets/images/home/featured-1.jpg";
 import featureImage2 from "../../../assets/images/home/featured-2.jpg";
 
 import { addProductToCart } from "../../../redux/Cart/actions";
+import { addProductToWishlist } from "../../../redux/WishList/actions";
 import { setFeaturedProducts } from "../../../redux/Products/actions";
 
 const Featured = () => {
@@ -91,6 +92,13 @@ const Featured = () => {
 		[dispatch]
 	);
 
+	const addProductToWishlistHandler = useCallback(
+		(productId, modalData) => {
+			dispatch(addProductToWishlist(productId));
+		},
+		[dispatch]
+	);
+
 	return (
 		<Section>
 			<div className={classes.featured__cards}>
@@ -108,6 +116,7 @@ const Featured = () => {
 				<Slider
 					data={products[selectedCategory]}
 					addProductToCart={addProductToCartHandler}
+					addProductToWishlist={addProductToWishlistHandler}
 					numSlides={5}
 					withOptions={true}
 				/>

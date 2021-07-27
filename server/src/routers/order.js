@@ -1,9 +1,9 @@
 const express = require("express");
-const { placeOrder, updateOrderById } = require("../controllers/order");
+const orderController = require("../controllers/order");
 
 const router = express.Router();
 
-router.post("/", placeOrder);
-router.patch("/:id", updateOrderById);
+router.post("/", orderController.placeOrder);
+router.patch("/:id", orderController.updateOrderById);
 
 module.exports = router;

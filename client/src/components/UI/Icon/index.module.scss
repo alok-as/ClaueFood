@@ -1,7 +1,52 @@
 .icon {
-	width: 2.8rem;
-	height: 2.8rem;
-	cursor: pointer;
-	fill: var(--color-white-1);
-	stroke: var(--color-black-1);
+	$this: &;
+
+	&__wrapper {
+		position: relative;
+		display: inline-block;
+
+		&:hover #{$this}__list {
+			top: 100%;
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
+
+	&__icon {
+		width: 2.8rem;
+		height: 2.8rem;
+		cursor: pointer;
+		fill: var(--color-white-1);
+		stroke: var(--color-black-1);
+	}
+
+	&__list {
+		width: 18rem;
+		position: absolute;
+		top: 140%;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 90;
+		box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+		background-color: var(--color-white-1);
+		transition: 0.3s all ease;
+		opacity: 0;
+		pointer-events: none;
+		border-radius: 4px;
+	}
+
+	&__item {
+		font-size: 1.4rem;
+		padding: 1rem 2rem;
+		cursor: pointer;
+		transition: all 0.3s ease;
+
+		&:not(:last-child) {
+			border-bottom: 1px solid var(--color-grey-4);
+		}
+
+		&:hover {
+			color: var(--color-green-1);
+		}
+	}
 }

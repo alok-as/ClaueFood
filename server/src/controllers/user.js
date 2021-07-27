@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const Product = require("../models/product");
 const { setCookiesForAuthentication } = require("../utils");
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -64,8 +65,23 @@ const issueAuthenticationTokens = asyncHandler(async (req, res) => {
 });
 
 const addProductToUserWishlist = asyncHandler(async (req, res) => {
-	const { userId } = req.body;
+	const userId = req.user._id;
 	const { productId } = req.params;
+
+	const product = await Product.findById(
+		productId,
+		"slug title images price discountedPrice"
+	);
+
+	console.log("Checking Product", product);
+
+	if (!product) {
+		return res.status(400).send({
+			success: false,
+			data: null,
+			message: "Product doesn't exist",
+		});
+	}
 
 	const user = await User.findById(userId);
 	if (user.wishlist.includes(productId)) {
@@ -81,14 +97,16 @@ const addProductToUserWishlist = asyncHandler(async (req, res) => {
 
 	res.send({
 		success: true,
-		data: null,
+		data: product,
 		message: "Product successfully added to your Wishlist",
 	});
 });
 
 const fetchUserWishlist = asyncHandler(async (req, res) => {
-	const { userId } = req.body;
-	const user = await User.findById(userId).populate("wishlist");
+	const userId = req.user._id;
+	const user = await User.findById(userId)
+		.populate("wishlist", "slug title images price discountedPrice")
+		.cache();
 
 	res.send({
 		success: true,
@@ -167,15 +185,15 @@ const removeProductFromUserCart = asyncHandler(async (req, res) => {
 const fetchUserCart = asyncHandler(async (req, res) => {
 	console.log("Checking Req User", req.user);
 	const userId = req.user._id;
-	const user = await User.findById(userId).populate({
-		path: "cart",
-		populate: {
-			path: "product",
-			select: "title price stock discountedPrice description",
-		},
-	});
-
-	console.log("Checking User Cart", user.cart);
+	const user = await User.findById(userId)
+		.populate({
+			path: "cart",
+			populate: {
+				path: "product",
+				select: "title price stock discountedPrice description",
+			},
+		})
+		.cache();
 
 	res.send({
 		success: true,
@@ -185,9 +203,10 @@ const fetchUserCart = asyncHandler(async (req, res) => {
 });
 
 const fetchUserDetails = asyncHandler(async (req, res) => {
-	console.log("Successfully authenticated", req.user);
-	res.send({
-		data: "data successfully fetched",
+	res.status(200).send({
+		success: true,
+		data: req.user,
+		message: "User profile fetched successfully",
 	});
 });
 

@@ -12,6 +12,7 @@ import {
 import { Portal, ProtectedRoute } from "../index";
 
 import { fetchUserCartItems } from "../../redux/Cart/actions";
+import { fetchUsersWishlist } from "../../redux/WishList/actions";
 
 import {
 	extractValueFromSessionStorage,
@@ -22,9 +23,9 @@ import HomePage from "../../pages/HomePage";
 const CartPage = lazy(() => import("../../pages/CartPage"));
 const CheckoutPage = lazy(() => import("../../pages/CheckoutPage"));
 const CustomerLoginPage = lazy(() => import("../../pages/CustomerLoginPage"));
+const MyAccountPage = lazy(() => import("../../pages/MyAccountPage"));
 const ProductListingPage = lazy(() => import("../../pages/ProductListingPage"));
 const ProductPage = lazy(() => import("../../pages/ProductPage"));
-const WishlistPage = lazy(() => import("../../pages/WishlistPage"));
 const TestingPage = lazy(() => import("../../pages/TestingPage"));
 
 const Layout = () => {
@@ -55,15 +56,12 @@ const Layout = () => {
 		}
 	}, []);
 
-	const fetchUserCartItemsHandler = useCallback(() => {
-		dispatch(fetchUserCartItems());
-	}, []);
-
 	useEffect(() => {
 		if (isAuthenticated) {
-			fetchUserCartItemsHandler();
+			dispatch(fetchUserCartItems());
+			dispatch(fetchUsersWishlist());
 		}
-	}, [isAuthenticated, fetchUserCartItemsHandler]);
+	}, [isAuthenticated, dispatch]);
 
 	return (
 		<Suspense fallback={<h1>Loading...</h1>}>
@@ -85,8 +83,8 @@ const Layout = () => {
 					<Route path="/product/:slug" component={ProductPage} />
 
 					<ProtectedRoute
-						path="/customer-wishlist"
-						component={WishlistPage}
+						path="/my-account"
+						component={MyAccountPage}
 						redirect="/customer-login"
 					/>
 

@@ -45,6 +45,7 @@ const modifyMongooseExec = () => {
 		const cachedResult = await redisClient.hget(this.redisHashKey, key);
 
 		if (cachedResult) {
+			console.log("From Cache");
 			const doc = JSON.parse(cachedResult);
 			const result = Array.isArray(doc)
 				? doc.map((d) => new this.model(d))
@@ -54,6 +55,7 @@ const modifyMongooseExec = () => {
 
 		const result = await exec.apply(this, arguments);
 		if (result) {
+			console.log("Not From Cache");
 			redisClient.hset(
 				this.redisHashKey,
 				key,

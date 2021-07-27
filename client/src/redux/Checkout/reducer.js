@@ -85,11 +85,11 @@ const shippingDetails = (
 
 const paymentDetails = (state = {}, action) => {
 	switch (action.type) {
-		case actionTypes.MAKE_PAYMENT_REQUEST:
+		case actionTypes.INITIATE_PAYMENT_REQUEST:
 			return { ...state };
-		case actionTypes.MAKE_PAYMENT_SUCCESS:
+		case actionTypes.INITIATE_PAYMENT_SUCCESS:
 			return { ...state };
-		case actionTypes.MAKE_PAYMENT_FAILED:
+		case actionTypes.INITIATE_PAYMENT_FAILED:
 			return { ...state };
 		default:
 			return state;

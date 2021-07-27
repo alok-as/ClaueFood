@@ -27,22 +27,28 @@ const Auth = {
 			url: "/user",
 		});
 	},
-	fetchCartItems() {
+	fetchWishlist() {
 		return axios.request({
 			method: "GET",
-			url: "/user/cart",
+			url: `/user/wishlist`,
 		});
 	},
-	addProductToWishlist({ productId }) {
+	addProductToWishlist(productId) {
 		return axios.request({
 			method: "POST",
 			url: `/user/wishlist/${productId}`,
 		});
 	},
-	removeProductFromWishlist({ productId }) {
+	removeProductFromWishlist(productId) {
 		return axios.request({
 			method: "DELETE",
 			url: `/user/wishlist/${productId}`,
+		});
+	},
+	fetchCartItems() {
+		return axios.request({
+			method: "GET",
+			url: "/user/cart",
 		});
 	},
 	addProductToCart(productId) {

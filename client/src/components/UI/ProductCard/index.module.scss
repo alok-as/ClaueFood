@@ -1,5 +1,6 @@
 .product {
 	$this: &;
+	position: relative;
 
 	&__image {
 		width: 100%;

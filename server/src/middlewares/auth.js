@@ -4,6 +4,8 @@ const { redisClient } = require("../database");
 const isAuthenticated = async (req, res, next) => {
 	try {
 		const { accessToken, refreshToken } = req.cookies;
+		console.log("AccessToken", accessToken);
+		console.log("refreshToken", refreshToken);
 
 		if (accessToken) {
 			const userId = await redisClient.get(accessToken);

@@ -1,0 +1,26 @@
+.account {
+	&__item {
+		&:not(:last-child) {
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	&__link {
+		font-size: 1.4rem;
+		color: var(--color-grey-5);
+		transition: color 0.3s ease;
+
+		&:hover {
+			color: var(--color-green-1);
+		}
+	}
+
+	&__active {
+		font-weight: 700;
+		color: var(--color-blue-1);
+
+		&:hover {
+			color: var(--color-blue-1);
+		}
+	}
+}
